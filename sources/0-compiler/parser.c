@@ -13,6 +13,7 @@
 #include "minishell.h"
 
 static t_parser	*allocate_parser(int count);
+
 static int		process_tokens(t_minishell *minishell, t_parser **parser);
 
 int	parser(t_minishell *minishell)
@@ -58,10 +59,10 @@ static int	handle_token(t_parser *node, t_list *token)
 		return (perror("ft_strdup"), FAILURE);
 	if (replace_arg(token_content))
 		return (FAILURE);
-	node->args = parser_split(token_content, ' ');
+	node->args = parser_split(token_content, SPACE);
 	if (!node->args)
 		return (perror("ft_split"), FAILURE);
-	node->args_quote = parser_split(token_content, ' ');
+	node->args_quote = parser_split(token_content, SPACE);
 	if (!node->args_quote)
 		return (perror("ft_split"), FAILURE);
 	gfree(token_content);

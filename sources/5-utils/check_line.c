@@ -22,7 +22,7 @@ int	check_line(void)
 
 	minishell = get_minishell();
 	line = ft_strtrim(minishell->line, " ");
-	if (ft_strcmp(line, "") == 0)
+	if (!ft_strcmp(line, ""))
 		return (gfree(line), FAILURE);
 	quote = check_quote(line, ft_strlen(line));
 	if (quote)
@@ -43,11 +43,11 @@ int	check_quote(char *line, int value)
 	char	quote;
 	int		i;
 
-	quote = 0;
 	i = 0;
+	quote = 0;
 	while (i < value)
 	{
-		if (line[i] == '\'' || line[i] == '\"')
+		if (line[i] == S_QUOTE || line[i] == D_QUOTE)
 		{
 			if (quote == 0)
 				quote = line[i];
@@ -77,7 +77,7 @@ static int	pipe_control(char *line)
 			return (minishell->value.exit_code = 2, FAILURE);
 		if (line[i] == PIPE && pipe == FALSE && !check_quote(line, i))
 			pipe = TRUE;
-		else if (ft_isprint(line[i]) && line[i] != ' ')
+		else if (ft_isprint(line[i]) && line[i] != SPACE)
 			pipe = FALSE;
 		else if (line[i] == PIPE)
 			break ;

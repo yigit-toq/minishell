@@ -34,6 +34,13 @@
 # define INPUT		'<'
 # define PIPE		'|'
 
+# define S_QUOTE	'\''
+# define D_QUOTE	'\"'
+
+# define QUESTION	'?'
+# define DOLLAR		'$'
+# define SPACE		' '
+
 # define BLACK		"\033[1;90m"
 # define RED		"\033[1;91m"
 
@@ -128,8 +135,10 @@ void		dollar(t_minishell *shell);
 
 void		handle_signals(void);
 
-char		**parser_split(char *str, char delimiter);
 char		*strjoin_char(char *str, char c);
+char		**parser_split(char *str, char delimiter);
+
+int			heredoc_syntax(char **args);
 
 int			err_msg(char *cmd, char *arg, char *msg);
 #endif

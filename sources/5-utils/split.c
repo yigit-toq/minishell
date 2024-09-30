@@ -110,7 +110,7 @@ static int	get_word_start(char *str, char delimiter, int *index, int *quote_flag
 
 static int	is_quote(char c)
 {
-	return (c == '\'' || c == '\"');
+	return (c == S_QUOTE || c == D_QUOTE);
 }
 
 // Fonksiyon: Tırnak durumunu günceller

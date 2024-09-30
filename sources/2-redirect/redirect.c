@@ -25,7 +25,7 @@ int	check_direction(t_minishell *minishell, char **args)
 				minishell->fd_hl.change = 1;
 			else if (!ft_strcmp(args[i], "<"))
 				minishell->fd_hl.change = 2;
-			else if (!ft_strcmp(args[i], ">>"))
+			else if (!ft_strcmp(args[i], ">"))
 				minishell->fd_hl.change = 3;
 			return (i);
 		}

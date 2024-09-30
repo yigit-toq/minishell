@@ -17,7 +17,6 @@ static void	count_heredoc(t_minishell *minishell);
 
 void	lexer(t_minishell *minishell)
 {
-	minishell->value.pipe_count = 0;
 	if (minishell->token)
 		ft_lstclear(&minishell->token, &del);
 	create_token(minishell);
@@ -39,7 +38,7 @@ static void	create_token(t_minishell *minishell)
 		return ;
 	while (TRUE)
 	{
-		if ((line[index] == '|' || !line[index]) && !check_quote(line, index))
+		if ((line[index] == PIPE || !line[index]) && !check_quote(line, index))
 		{
 			process_token(minishell, line, last_pipe, index);
 			if (line[index] == '\0')
@@ -78,7 +77,7 @@ static void	count_heredoc(t_minishell *minishell)
 	minishell->value.hrdc_count = 0;
 	while (line[i])
 	{
-		if (line[i] == '<' && line[i + 1] == '<' && !check_quote(line, i))
+		if (line[i] == INPUT && line[i + 1] == INPUT && !check_quote(line, i))
 		{
 			minishell->value.hrdc_count++;
 			i++;
