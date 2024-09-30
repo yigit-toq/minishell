@@ -6,11 +6,13 @@
 /*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 14:42:03 by ytop              #+#    #+#             */
-/*   Updated: 2024/09/27 14:42:03 by ytop             ###   ########.fr       */
+/*   Updated: 2024/09/30 16:52:57 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	pipe_control(char *line);
 
 int	check_line(void)
 {
@@ -29,10 +31,12 @@ int	check_line(void)
 		minishell->value.exit_code = 2;
 		return (ft_dprintf(STD_ERROR, SYNTAX_ERR " `%c\'\n", quote), FAILURE);
 	}
+	if (pipe_control(line))
+	{
+		return (gfree(line), FAILURE);
+	}
 	return (SUCCESS);
 }
-
-//pipe_control eklenecek
 
 int	check_quote(char *line, int value)
 {
@@ -55,59 +59,53 @@ int	check_quote(char *line, int value)
 	return ((int)quote);
 }
 
-static void	process_char(char *in, char *buf, int *i, int *j);
+static int	check_pipe(char *line, int i);
 
-// Yeniden düzenlenecek
+// Döngü içerisinde bulunan if koşulu hatalı olabilir
 
-int	replace_arg(char *args)
+static int	pipe_control(char *line)
 {
-	char	*input;
-	char	*buffer;
-	int		src_index;
-	int		dst_index;
-	int		in_len;
+	t_minishell	*minishell;
+	int			pipe;
+	int			i;
 
-	input = args;
-	in_len = ft_strlen(input);
-	buffer = ft_calloc((in_len * 2) + 1, sizeof(char));
-	if (!buffer)
-		return (perror("ft_calloc"), FAILURE);
-	src_index = 0;
-	dst_index = 0;
-	while (src_index < in_len)
-		process_char(input, buffer, &src_index, &dst_index);
-	buffer[dst_index] = '\0';
-	args = buffer;
+	i = 0;
+	minishell = get_minishell();
+	while (line[i])
+	{
+		if (check_pipe(line, i))
+			return (minishell->value.exit_code = 2, FAILURE);
+		if (line[i] == PIPE && pipe == FALSE && !check_quote(line, i))
+			pipe = TRUE;
+		else if (ft_isprint(line[i]) && line[i] != ' ')
+			pipe = FALSE;
+		else if (line[i] == PIPE)
+			break ;
+		i++;
+	}
+	gfree(line);
+	if (pipe)
+	{
+		minishell->value.exit_code = 2;
+		return (ft_dprintf(STD_ERROR, ERR_TITLE SYNTAX_ERR " `|\'\n"), FAILURE);
+	}
 	return (SUCCESS);
 }
 
-// gfree(args); line : 80
-
-static void	process_char(char *in, char *buf, int *i, int *j)
+static int	check_pipe(char *line, int i)
 {
-	if ((in[*i] == '>' || in[*i] == '<') && !check_quote(in, *i))
+	if (!check_quote(line, i))
 	{
-		if (*i > 0 && in[*i - 1] != ' ' && in[*i - 1] != '>' && in[*i - 1] != '<')
-			buf[(*j)++] = ' ';
-		if (in[*i] == '>' && in[*i + 1] == '>')
+		if (line[i] == PIPE && line[i + 1] == PIPE && line[i + 1])
 		{
-			buf[(*j)++] = '>';
-			buf[(*j)++] = '>';
-			(*i) += 2;
+			ft_dprintf(STD_ERROR, ERR_TITLE SYNTAX_ERR " `||\'\n");
+			return (FAILURE);
 		}
-		else if (in[*i] == '<' && in[*i + 1] == '<')
+		else if (line[0] == PIPE)
 		{
-			buf[(*j)++] = '<';
-			buf[(*j)++] = '<';
-			(*i) += 2;
+			ft_dprintf(STD_ERROR, ERR_TITLE SYNTAX_ERR " `|\'\n");
+			return (FAILURE);
 		}
-		else
-			buf[(*j)++] = in[(*i)++];
-		if (*i < (int)ft_strlen(in) && in[*i] != ' ' && in[*i] != '>' && in[*i] != '<')
-			buf[(*j)++] = ' ';
 	}
-	else
-	{
-		buf[(*j)++] = in[(*i)++];
-	}
+	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 18:16:27 by ytop              #+#    #+#             */
-/*   Updated: 2024/09/29 17:16:36 by ytop             ###   ########.fr       */
+/*   Updated: 2024/09/30 17:00:40 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,19 @@ void	env_to_list(char *env[])
 
 static char	*get_value(char *line);
 
-void	get_env(t_minishell *shell, char **result, char **str, int *i)
+void	get_env(t_minishell *minishell, char **result, char **str, int *i)
 {
-	t_list	*env_value;
-	char	*new_result;
-	char	*env_var;
-	char	*tmp;
-	int		v_st;
+	t_list		*env_value;
+	char		*new_result;
+	char		*env_var;
+	char		*tmp;
+	int			v_st;
 
 	v_st = ++(*i);
 	while ((*str)[*i] && ft_isalnum((*str)[*i]))
 		(*i)++;
 	env_var = ft_substr(*str, v_st, (*i) - v_st);
-	env_value = search_env(shell, env_var);
+	env_value = search_env(minishell, env_var);
 	gfree(env_var);
 	if (!env_value)
 		return ;

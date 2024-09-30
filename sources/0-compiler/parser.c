@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executor.c                                         :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 01:07:10 by ytop              #+#    #+#             */
-/*   Updated: 2024/09/28 01:07:10 by ytop             ###   ########.fr       */
+/*   Updated: 2024/09/30 16:58:51 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,25 +49,6 @@ static t_parser	*allocate_parser(int count)
 	return (head);
 }
 
-static int	handle_token(t_parser *node, t_list *token);
-
-static int	process_tokens(t_minishell *minishell, t_parser **parser)
-{
-	t_parser	*current_parser;
-	t_list		*token;
-
-	current_parser = *parser;
-	token = minishell->token;
-	while (current_parser && token)
-	{
-		if (handle_token(current_parser, token))
-			return (FAILURE);
-		current_parser = current_parser->next;
-		token = token->next;
-	}
-	return (SUCCESS);
-}
-
 static int	handle_token(t_parser *node, t_list *token)
 {
 	char	*token_content;
@@ -84,5 +65,22 @@ static int	handle_token(t_parser *node, t_list *token)
 	if (!node->args_quote)
 		return (perror("ft_split"), FAILURE);
 	gfree(token_content);
+	return (SUCCESS);
+}
+
+static int	process_tokens(t_minishell *minishell, t_parser **parser)
+{
+	t_parser	*current_parser;
+	t_list		*token;
+
+	current_parser = *parser;
+	token = minishell->token;
+	while (current_parser && token)
+	{
+		if (handle_token(current_parser, token))
+			return (FAILURE);
+		current_parser = current_parser->next;
+		token = token->next;
+	}
 	return (SUCCESS);
 }

@@ -6,16 +6,17 @@
 /*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 17:08:52 by ytop              #+#    #+#             */
-/*   Updated: 2024/09/30 13:21:15 by ytop             ###   ########.fr       */
+/*   Updated: 2024/09/30 17:32:56 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <readline/readline.h>
-# include <readline/history.h>
 # include "libft.h"
+# include <stdio.h>
+# include <readline/history.h>
+# include <readline/readline.h>
 
 # define TRUE		1
 # define FALSE		0
@@ -23,10 +24,10 @@
 # define FAILURE	1
 # define SUCCESS	0
 
-# define STD_ERROR	2
-
 # define STD_OUTPUT 1
 # define STD_INPUT  0
+
+# define STD_ERROR	2
 
 # define SEMICOLON	';'
 # define REDIRECT	'>'
@@ -79,6 +80,7 @@ typedef struct s_minishell
 	t_list		*token;
 	t_list		*env;
 	int			*pid;
+	int			*hrdc_fd;
 	char		*line;
 	char		*path;
 	t_fd		fd_hl;
@@ -88,6 +90,16 @@ typedef struct s_minishell
 
 t_minishell	*get_minishell(void);
 
+// Replace arg
+
+int			replace_arg(char *args);
+
+// Check line
+
+int			check_quote(char *line, int value);
+
+int			check_line(void);
+
 // Compiler
 
 int			parser(t_minishell *minishell);
@@ -96,11 +108,11 @@ void		lexer(t_minishell *minishell);
 
 // Executor
 
-int			execute_command(t_minishell *minishell);
+int			execute_command(void);
 
 // Builtins
 
-void		get_env(t_minishell *shell, char **result, char **str, int *i);
+void		get_env(t_minishell *minishell, char **result, char **str, int *i);
 
 void		env_to_list(char *env[]);
 
@@ -120,14 +132,4 @@ char		**parser_split(char *str, char delimiter);
 char		*strjoin_char(char *str, char c);
 
 int			err_msg(char *cmd, char *arg, char *msg);
-
-// Check line
-
-int			check_quote(char *line, int value);
-
-int			check_line(void);
-
-// Replace arg
-
-int			replace_arg(char *args);
 #endif

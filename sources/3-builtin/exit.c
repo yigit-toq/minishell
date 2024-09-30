@@ -6,7 +6,7 @@
 /*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 18:46:30 by ytop              #+#    #+#             */
-/*   Updated: 2024/09/29 18:46:30 by ytop             ###   ########.fr       */
+/*   Updated: 2024/09/30 16:10:39 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ void	ft_exit(t_minishell *shell, char **av)
 	arg_count = 0;
 	while (av[arg_count])
 		arg_count++;
-	ft_dprintf(STDERR_FILENO, "exit\n");
+	ft_dprintf(STD_ERROR, "exit\n");
 	if (arg_count > 2)
 	{
-		ft_dprintf(STDERR_FILENO, "too many arguments\n");
+		ft_dprintf(STD_ERROR, "too many arguments\n");
 		exit_code = 1;
 	}
 	else if (av[1] != NULL)
@@ -59,7 +59,8 @@ static void	check_numeric(char *av, int *exit_code)
 		(*exit_code) = ft_atoi(av);
 	else
 	{
-		ft_dprintf(STDERR_FILENO, "minishell: exit: %s: numeric argument required\n", av);
+		ft_dprintf(STD_ERROR, "minishell: exit: %s", av);
+		ft_dprintf(STD_ERROR, ": numeric argument required\n");
 		(*exit_code) = 255;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:18:53 by ytop              #+#    #+#             */
-/*   Updated: 2024/09/30 00:18:53 by ytop             ###   ########.fr       */
+/*   Updated: 2024/09/30 16:11:25 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 
 int	err_msg(char *cmd, char *arg, char *msg)
 {
-	ft_putstr_fd(ERR_TITLE, STDERR_FILENO);
+	ft_putstr_fd(ERR_TITLE, STD_ERROR);
 	if (cmd)
-		ft_dprintf(STDERR_FILENO, "%s", cmd);
+		ft_dprintf(STD_ERROR, "%s", cmd);
 	if (arg)
-		ft_dprintf(STDERR_FILENO, "`%s'", arg);
+		ft_dprintf(STD_ERROR, "`%s'", arg);
 	if (msg)
-		ft_dprintf(STDERR_FILENO, ": %s", msg);
-	ft_dprintf(STDERR_FILENO, "\n");
+		ft_dprintf(STD_ERROR, ": %s", msg);
+	ft_dprintf(STD_ERROR, "\n");
 	return (SUCCESS);
 }

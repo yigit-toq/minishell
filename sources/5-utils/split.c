@@ -6,7 +6,7 @@
 /*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 21:32:09 by ytop              #+#    #+#             */
-/*   Updated: 2024/09/29 21:32:09 by ytop             ###   ########.fr       */
+/*   Updated: 2024/09/30 17:21:00 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	**parser_split(char *str, char delimiter)
 	char	*substr;
 
 	init_indexes(indexes, 4);
-	result = calloc(count_words(str, delimiter) + 1, sizeof(char *));
+	result = ft_calloc(count_words(str, delimiter) + 1, sizeof(char *));
 	if (!result)
 		return (0);
 	while (str[indexes[0]])
