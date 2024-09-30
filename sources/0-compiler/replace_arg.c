@@ -14,15 +14,15 @@
 
 static void	process_char(char *in, char *buf, int *i, int *j);
 
-// Yeniden düzenlenecek
+// Yeniden düzenlenebilir
 
 int	replace_arg(char *args)
 {
-	char	*input;
 	char	*buffer;
+	char	*input;
+	int		in_len;
 	int		src_index;
 	int		dst_index;
-	int		in_len;
 
 	input = args;
 	in_len = ft_strlen(input);
@@ -34,36 +34,33 @@ int	replace_arg(char *args)
 	while (src_index < in_len)
 		process_char(input, buffer, &src_index, &dst_index);
 	buffer[dst_index] = '\0';
-	args = buffer;
-	return (SUCCESS);
+	return (args = buffer, SUCCESS);
 }
 
 // gfree(args); line : 36
 
 static void	process_char(char *in, char *buf, int *i, int *j)
 {
-	if ((in[*i] == '>' || in[*i] == '<') && !check_quote(in, *i))
+	if ((in[*i] == REDIRECT || in[*i] == INPUT) && !check_quote(in, *i))
 	{
-		if (*i > 0 && in[*i - 1] != ' '
-			&& in[*i - 1] != '>' && in[*i - 1] != '<')
-			buf[(*j)++] = ' ';
-		if (in[*i] == '>' && in[*i + 1] == '>')
+		if (in[*i - 1] != SPACE && in[*i - 1] != REDIRECT && in[*i - 1] != INPUT && *i > 0)
+			buf[(*j)++] = SPACE;
+		if (in[*i] == REDIRECT && in[*i + 1] == REDIRECT)
 		{
-			buf[(*j)++] = '>';
-			buf[(*j)++] = '>';
+			buf[(*j)++] = REDIRECT;
+			buf[(*j)++] = REDIRECT;
 			(*i) += 2;
 		}
-		else if (in[*i] == '<' && in[*i + 1] == '<')
+		else if (in[*i] == INPUT && in[*i + 1] == INPUT)
 		{
-			buf[(*j)++] = '<';
-			buf[(*j)++] = '<';
+			buf[(*j)++] = INPUT;
+			buf[(*j)++] = INPUT;
 			(*i) += 2;
 		}
 		else
 			buf[(*j)++] = in[(*i)++];
-		if (*i < (int)ft_strlen(in) && in[*i] != ' '
-			&& in[*i] != '>' && in[*i] != '<')
-			buf[(*j)++] = ' ';
+		if (in[*i] != SPACE && in[*i] != REDIRECT && in[*i] != INPUT && *i < (int)ft_strlen(in))
+			buf[(*j)++] = SPACE;
 	}
 	else
 		buf[(*j)++] = in[(*i)++];

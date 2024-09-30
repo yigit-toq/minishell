@@ -20,7 +20,7 @@ void	echo(char **args)
 
 	index = 1;
 	newline = 1;
-	while (args[index] && args[index][0] == '-' && args[index][1] == 'n')
+	while (args[index][0] == '-' && args[index][1] == 'n' && args[index])
 	{
 		flag_index = 1;
 		while (args[index][flag_index] == 'n')

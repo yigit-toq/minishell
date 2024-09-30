@@ -61,7 +61,7 @@ static int	minishell_loop(t_minishell *minishell, char *env[])
 			clear_garbage();
 			exit(EXIT_SUCCESS);
 		}
-		if (ft_strlen(minishell->line) != 0)
+		if (ft_strlen(minishell->line))
 		{
 			value = minishell_routine(minishell);
 			if (value == FAILURE)

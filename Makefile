@@ -25,7 +25,7 @@ DOLLAR_DIR		=	$(SRCS_DIR)4-dollar/
 
 UTIL_DIR		=	$(SRCS_DIR)5-utils/
 
-SRCS			=	$(SRCS_DIR)minishell.c $(SRCS_DIR)heredoc.c $(COMPILER_DIR)lexer.c $(COMPILER_DIR)parser.c $(COMPILER_DIR)replace_arg.c $(BUILTIN_DIR)echo.c $(BUILTIN_DIR)env.c $(BUILTIN_DIR)exit.c $(BUILTIN_DIR)pwd.c $(BUILTIN_DIR)unset.c $(DOLLAR_DIR)dollar.c $(DOLLAR_DIR)dollar_utils.c $(UTIL_DIR)utils.c $(UTIL_DIR)split.c $(UTIL_DIR)signal.c $(UTIL_DIR)check_line.c
+SRCS			=	$(SRCS_DIR)minishell.c $(SRCS_DIR)heredoc.c $(COMPILER_DIR)lexer.c $(COMPILER_DIR)parser.c $(COMPILER_DIR)replace_arg.c $(BUILTIN_DIR)echo.c $(BUILTIN_DIR)env.c $(BUILTIN_DIR)exit.c $(BUILTIN_DIR)pwd.c $(BUILTIN_DIR)unset.c $(DOLLAR_DIR)dollar.c $(DOLLAR_DIR)dollar_utils.c $(UTIL_DIR)utils.c $(UTIL_DIR)split.c $(UTIL_DIR)signal.c $(UTIL_DIR)h_syntax.c $(UTIL_DIR)check_line.c
 
 OBJS			=	$(patsubst $(SRCS_DIR)%.c, $(OBJS_DIR)%.o, $(SRCS))
 

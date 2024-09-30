@@ -16,8 +16,8 @@
 
 char	*get_pwd(void)
 {
-	char	pwd[4096];
 	char	*path;
+	char	pwd[4096];
 
 	path = getcwd(pwd, 4096);
 	if (!path)
