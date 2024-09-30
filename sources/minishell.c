@@ -6,7 +6,7 @@
 /*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 17:41:40 by ytop              #+#    #+#             */
-/*   Updated: 2024/09/30 13:21:43 by ytop             ###   ########.fr       */
+/*   Updated: 2024/09/30 17:17:22 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,14 @@ static int	minishell_loop(t_minishell *minishell, char *env[])
 	{
 		value = 0;
 		init_data(0);
-		minishell->line = readline(GREEN PROMPT RESET);
+		minishell->line = addgarbage(readline(GREEN PROMPT RESET));
 		if (!minishell->line)
 		{
-			ft_putstr_fd("exit\n", 0);
+			ft_dprintf(STD_INPUT, "exit\n");
 			rl_clear_history();
-			exit(0);
+			clear_garbage();
+			exit(EXIT_SUCCESS);
 		}
-		addgarbage(minishell->line);
 		if (ft_strlen(minishell->line) != 0)
 		{
 			value = minishell_routine(minishell);
@@ -84,7 +84,6 @@ static int	minishell_routine(t_minishell *minishell)
 		lexer(minishell);
 		if (parser(minishell) == FAILURE)
 			return (FAILURE);
-		execute_command(minishell);
 	}
 	return (SUCCESS);
 }

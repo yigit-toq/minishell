@@ -6,7 +6,7 @@
 /*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 18:27:30 by ytop              #+#    #+#             */
-/*   Updated: 2024/09/27 18:27:30 by ytop             ###   ########.fr       */
+/*   Updated: 2024/09/30 15:17:48 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	dollar(t_minishell *shell)
 
 	if (empty_dollar(shell->line))
 		return ;
+	i = 0;
 	quote = 0;
 	result = ft_strdup("");
 	while (shell->line[i])

@@ -6,7 +6,7 @@
 /*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 18:05:59 by ytop              #+#    #+#             */
-/*   Updated: 2024/08/08 14:13:01 by ytop             ###   ########.fr       */
+/*   Updated: 2024/09/30 17:13:54 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,10 @@ char	**ft_split(char const *s, char c)
 		i = 0;
 		while (str[i])
 		{
-			free(str[i]);
+			gfree(str[i]);
 			i++;
 		}
-		free(str);
+		gfree(str);
 		return (0);
 	}
 	return (str);

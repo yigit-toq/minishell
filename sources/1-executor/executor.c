@@ -6,14 +6,17 @@
 /*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:32:47 by ytop              #+#    #+#             */
-/*   Updated: 2024/09/30 00:32:47 by ytop             ###   ########.fr       */
+/*   Updated: 2024/09/30 16:58:09 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	execute_command(t_minishell *minishell)
+int	execute_command(void)
 {
+	t_minishell	*minishell;
+
+	minishell = get_minishell();
 	if (!minishell->value.pipe_count)
 		return (single_command(minishell));
 	else

@@ -6,7 +6,7 @@
 /*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:05:15 by ytop              #+#    #+#             */
-/*   Updated: 2024/09/27 00:07:46 by ytop             ###   ########.fr       */
+/*   Updated: 2024/09/30 17:13:49 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	del(void *content)
 {
 	if (content)
-		free(content);
+		gfree(content);
 }
 
 void	ft_lstdelone(t_list *lst, void (*del)(void *))
@@ -27,5 +27,5 @@ void	ft_lstdelone(t_list *lst, void (*del)(void *))
 	if (lst->next)
 		lst->next->prev = lst->prev;
 	del(lst->content);
-	free(lst);
+	gfree(lst);
 }

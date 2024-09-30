@@ -6,7 +6,7 @@
 /*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 14:02:04 by ytop              #+#    #+#             */
-/*   Updated: 2024/09/29 14:02:04 by ytop             ###   ########.fr       */
+/*   Updated: 2024/09/30 17:20:07 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_parser	*ft_parser_new(char **args, char **args_with_quote)
 {
 	t_parser	*new;
 
-	new = calloc(1, sizeof(t_parser));
+	new = ft_calloc(1, sizeof(t_parser));
 	if (!new)
 		return (NULL);
 	new->args_quote = args_with_quote;
