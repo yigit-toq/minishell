@@ -12,9 +12,7 @@
 
 #include "minishell.h"
 
-// indexes[0]: string_index, indexes[1]: word_start, indexes[2]: word_count, indexes[3]: quote_flag
-
-// Ana fonksiyon: String'i ayırıcıya göre böler ve tırnak içerisini ayrı değerlendirir
+// i[0]: s_index, i[1]: w_start, i[2]: w_count, i[3]: q_flag
 
 static int	get_word_start(char *str, char delimiter, int *index, int *quote_flag);
 static int	count_words(char *str, char delimiter);
@@ -87,7 +85,7 @@ static int	count_words(char *str, char delimiter)
 	return (indexes[0]);
 }
 
-// Fonksiyon: Tırnak içerisini dikkate alarak, string'den bir kelime alır
+// Fonksiyon: Tırnak içerisini dikkate alarak, string'den kelime alır
 
 static void	update_quote(char current_char, int *quote_flag);
 
@@ -106,7 +104,7 @@ static int	get_word_start(char *str, char delimiter, int *index, int *quote_flag
 	return (start);
 }
 
-// Fonksiyon: Bulunan konum tırnak içindeyse, true döner
+// Fonksiyon: Bulunan konum tırnak ise, true döner
 
 static int	is_quote(char c)
 {

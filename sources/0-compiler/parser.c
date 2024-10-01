@@ -57,7 +57,6 @@ static int	handle_token(t_parser *node, t_list *token)
 		return (perror("ft_strdup"), FAILURE);
 	if (replace_arg(&token_content))
 		return (FAILURE);
-	ft_printf("token_content: %s\n", token_content);
 	node->args = parser_split(token_content, SPACE);
 	if (!node->args)
 		return (perror("ft_split"), FAILURE);

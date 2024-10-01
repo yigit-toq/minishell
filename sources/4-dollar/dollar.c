@@ -42,6 +42,8 @@ void	dollar(t_minishell *shell)
 	shell->line = result;
 }
 
+// Düzenleme yapılabilir
+
 static int	empty_dollar(char *line)
 {
 	int	i;

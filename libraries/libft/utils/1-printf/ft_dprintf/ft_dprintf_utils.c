@@ -13,7 +13,7 @@
 #include "utils/printf/ft_dprintf.h"
 #include <unistd.h>
 
-int	ft_putchar(char character, int *lenght)
+int	fd_putchar(char character, int *lenght)
 {
 	int	error;
 
@@ -23,7 +23,7 @@ int	ft_putchar(char character, int *lenght)
 	return (error);
 }
 
-int	ft_putstr(char *string, int	*lenght)
+int	fd_putstr(char *string, int	*lenght)
 {
 	int	index;
 	int	error;
@@ -31,42 +31,42 @@ int	ft_putstr(char *string, int	*lenght)
 	index = 0;
 	if (!string)
 	{
-		error = ft_putstr("(null)", lenght);
+		error = fd_putstr("(null)", lenght);
 		if (error == 6)
 			*lenght += error;
 		return (error);
 	}
 	while (string[index])
 	{
-		if (ft_putchar(string[index++], lenght) == -1)
+		if (fd_putchar(string[index++], lenght) == -1)
 			return (-1);
 	}
 	return (1);
 }
 
-int	ft_decimal(long number, int *lenght)
+int	fd_decimal(long number, int *lenght)
 {
 	if (number < 0)
 	{
-		if (ft_putchar(45, lenght) == -1)
+		if (fd_putchar(45, lenght) == -1)
 			return (-1);
 		number = -number;
 	}
 	if (number < 10)
 	{
-		if (ft_putchar(number + 48, lenght) == -1)
+		if (fd_putchar(number + 48, lenght) == -1)
 			return (-1);
 	}
 	if (number >= 10)
 	{
-		if (ft_decimal(number / 10, lenght) == -1)
+		if (fd_decimal(number / 10, lenght) == -1)
 			return (-1);
-		ft_decimal(number % 10, lenght);
+		fd_decimal(number % 10, lenght);
 	}
 	return (1);
 }
 
-int	ft_hexademical(unsigned long number, int *lenght, char c)
+int	fd_hexademical(unsigned long number, int *lenght, char c)
 {
 	char	string[16];
 	char	*character;
@@ -79,7 +79,7 @@ int	ft_hexademical(unsigned long number, int *lenght, char c)
 		character = "0123456789ABCDEF";
 	if (!number)
 	{
-		if (ft_putchar('0', lenght) == -1)
+		if (fd_putchar('0', lenght) == -1)
 			return (-1);
 	}
 	while (number)
@@ -89,15 +89,15 @@ int	ft_hexademical(unsigned long number, int *lenght, char c)
 	}
 	while (index--)
 	{
-		if (ft_putchar(string[index], lenght) == -1)
+		if (fd_putchar(string[index], lenght) == -1)
 			return (-1);
 	}
 	return (1);
 }
 
-int	ft_pointer(unsigned long pointer, int *lenght)
+int	fd_pointer(unsigned long pointer, int *lenght)
 {
-	if (ft_putstr("0x", lenght) == -1)
+	if (fd_putstr("0x", lenght) == -1)
 		return (-1);
-	return (ft_hexademical(pointer, lenght, 'x'));
+	return (fd_hexademical(pointer, lenght, 'x'));
 }

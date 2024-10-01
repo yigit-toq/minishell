@@ -64,7 +64,6 @@ static int	minishell_loop(t_minishell *minishell, char *env[])
 		if (ft_strlen(minishell->line))
 		{
 			value = minishell_routine(minishell);
-			ft_printf("value: %d\n", value);
 			if (value == FAILURE)
 				return (FAILURE);
 			else if (value == 2)

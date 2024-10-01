@@ -87,9 +87,8 @@ typedef struct s_minishell
 	t_list		*token;
 	t_list		*env;
 	int			*pid;
-	int			*hrdc_fd;
-	char		*line;
 	char		*path;
+	char		*line;
 	t_fd		fd_hl;
 	t_value		value;
 	t_parser	*parser;
@@ -121,36 +120,35 @@ int			execute_command(void);
 
 // Builtins
 
-void		get_env(t_minishell *minishell, char **result, char **str, int *i);
-
 void		env_to_list(char *env[]);
+
+void		get_env(t_minishell *minishell, char **result, char **str, int *i);
 
 t_list		*search_env(t_minishell *minishell, char *key);
 
 // Dollar
 
-void		get_ext_code(t_minishell *shell, char **result, int *i);
-
 void		dollar(t_minishell *shell);
+
+void		get_ext_code(t_minishell *shell, char **result, int *i);
 
 // Utils
 
-void		reset_fd(void);
-
 void		save_fd(void);
+void		reset_fd(void);
 
 void		handle_signals(void);
 
 char		*strjoin_char(char *str, char c);
 char		**parser_split(char *str, char delimiter);
 
-int			heredoc_syntax(char **args);
-
 int			err_msg(char *cmd, char *arg, char *msg);
 
 // Heredoc
 
+int			heredoc(void);
+
 int			delimiter(t_minishell *shell, t_parser *parser);
 
-int			heredoc(void);
+int			heredoc_syntax(char **args);
 #endif

@@ -25,8 +25,6 @@ int	heredoc_syntax(char **args)
 	while (args[i])
 	{
 		len = ft_strlen(args[i]);
-		ft_printf("args[%d]: %s\n", i, args[i]);
-		ft_printf("len: %d\n", len);
 		if (len >= 2 && !ft_strncmp(args[i], "<<", 2))
 		{
 			if (len > 2)
@@ -58,8 +56,9 @@ static int	check_invalid_operator(char *arg)
 
 static int	check_redirection_error(char **args, int i)
 {
-	if ((!ft_strcmp(args[i], ">") || !ft_strcmp(args[i], "<") || !ft_strcmp(args[i], ">>") || !ft_strcmp(args[i], "<<"))
-		&& (!args[i + 1] || ft_strlen(args[i + 1]) == 0))
+	if ((!args[i + 1] || !ft_strlen(args[i + 1]))
+	&& (!ft_strcmp(args[i], ">") || !ft_strcmp(args[i], "<")
+	|| !ft_strcmp(args[i], ">>") || !ft_strcmp(args[i], "<<")))
 	{
 		err_msg(SYNTAX_ERR, "newline'", NULL);
 		return (FAILURE);

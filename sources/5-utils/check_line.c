@@ -70,14 +70,15 @@ static int	pipe_control(char *line)
 	int			i;
 
 	i = 0;
+	pipe = 0;
 	minishell = get_minishell();
 	while (line[i])
 	{
 		if (check_pipe(line, i))
 			return (minishell->value.exit_code = 2, FAILURE);
-		if (line[i] == PIPE && pipe == FALSE && !check_quote(line, i))
+		if (pipe == FALSE && line[i] == PIPE && !check_quote(line, i))
 			pipe = TRUE;
-		else if (ft_isprint(line[i]) && line[i] != SPACE)
+		else if (line[i] != SPACE && ft_isprint(line[i]))
 			pipe = FALSE;
 		else if (line[i] == PIPE)
 			break ;
