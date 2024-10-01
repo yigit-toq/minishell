@@ -14,8 +14,8 @@
 
 void	ft_lstsort(t_list **lst, int (*cmp)(void *, void *))
 {
-	t_list	*node;
 	t_list	*tmp;
+	t_list	*node;
 	void	*content;
 
 	node = *lst;

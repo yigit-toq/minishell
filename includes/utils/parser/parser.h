@@ -22,9 +22,7 @@ typedef struct s_parser
 
 t_parser	*ft_parser_new(char **args, char **args_with_quotes);
 
-void		ft_parser_addback(t_parser **lst, t_parser *new);
-
 void		ft_parser_clear(t_parser **lst, void (*del)(void *));
 
-void		ft_parser_onenode(t_parser *lst, void (*del)(void *));
+void		ft_parser_addback(t_parser **lst, t_parser *new);
 #endif

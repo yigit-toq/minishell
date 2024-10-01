@@ -41,9 +41,10 @@ t_list	*ft_lstcopy(t_list *lst);
 void	ft_lstsort(t_list **lst, int (*cmp)(void *, void *));
 void	ft_lstswap(t_list *lst1, t_list *lst2);
 
+void	ft_lstiter(t_list *lst, void (*f)(void *));
+
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstdelone(t_list *lst, void (*del)(void *));
-void	ft_lstiter(t_list *lst, void (*f)(void *));
 
 void	ft_lstadd_front(t_list **lst, t_list *new);
 void	ft_lstadd_back(t_list **lst, t_list *new);
@@ -105,6 +106,8 @@ size_t	ft_strlen(const char *s);
 
 // Garbage Collector
 
+t_list	**getgarbage(void);
+
 void	clear_garbage(void);
 
 void	gfree(void *address);
@@ -112,6 +115,4 @@ void	gfree(void *address);
 void	*galloc(size_t size);
 
 void	*addgarbage(void *address);
-
-t_list	**getgarbage(void);
 #endif

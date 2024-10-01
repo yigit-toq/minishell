@@ -17,10 +17,10 @@ static int	ft_format_checker(char format, va_list args, int *lenght)
 {
 	if (format == 'c')
 		return (ft_putchar(va_arg(args, int), lenght));
-	else if (format == 's')
-		return (ft_putstr(va_arg(args, char *), lenght));
 	else if (format == 'd' || format == 'i')
 		return (ft_decimal(va_arg(args, int), lenght));
+	else if (format == 's')
+		return (ft_putstr(va_arg(args, char *), lenght));
 	else if (format == 'u')
 		return (ft_decimal(va_arg(args, unsigned int), lenght));
 	else if (format == 'x')

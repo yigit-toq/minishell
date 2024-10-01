@@ -33,9 +33,9 @@ void	save_fd(void)
 	minishell = get_minishell();
 	if (!minishell->fd_hl.change)
 	{
+		minishell->fd_hl.change = TRUE;
 		minishell->fd_hl.std_in = dup(STD_INPUT);
 		minishell->fd_hl.std_out = dup(STD_OUTPUT);
-		minishell->fd_hl.change = TRUE;
 	}
 }
 
@@ -46,8 +46,8 @@ void	reset_fd(void)
 	minishell = get_minishell();
 	if (minishell->fd_hl.change)
 	{
-		dup2(minishell->fd_hl.std_out, STD_OUTPUT);
-		dup2(minishell->fd_hl.std_in, STD_INPUT);
 		minishell->fd_hl.change = 0;
+		dup2(minishell->fd_hl.std_in, STD_INPUT);
+		dup2(minishell->fd_hl.std_out, STD_OUTPUT);
 	}
 }

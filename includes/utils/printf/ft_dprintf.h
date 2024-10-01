@@ -15,14 +15,14 @@
 
 int	ft_dprintf(int fd, const char *string, ...);
 
-int	ft_putchar(char character, int *lenght);
+int	fd_putchar(char character, int *lenght);
 
-int	ft_putstr(char *string, int	*lenght);
+int	fd_putstr(char *string, int	*lenght);
 
-int	ft_decimal(long number, int *lenght);
+int	fd_decimal(long number, int *lenght);
 
-int	ft_pointer(unsigned long pointer, int *lenght);
-int	ft_hexademical(unsigned long number, int *lenght, char c);
+int	fd_pointer(unsigned long pointer, int *lenght);
+int	fd_hexademical(unsigned long number, int *lenght, char c);
 
 int	get_fd(int file_des);
 #endif

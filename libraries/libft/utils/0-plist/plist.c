@@ -65,15 +65,3 @@ void	ft_parser_clear(t_parser **lst, void (*del)(void *))
 	}
 	*lst = 0;
 }
-
-void	ft_parser_onenode(t_parser *lst, void (*del)(void *))
-{
-	t_parser	*node;
-	if (!lst || !del)
-		return ;
-	node = lst->next;
-	del(lst->args);
-	del(lst->args_quote);
-	gfree(lst);
-	lst = node;
-}

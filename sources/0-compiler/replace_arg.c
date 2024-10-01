@@ -31,13 +31,10 @@ int	replace_arg(char **args)
 		return (perror("ft_calloc"), FAILURE);
 	src_index = 0;
 	dst_index = 0;
-	ft_printf("input: %s\n", input);
 	while (src_index < in_len)
 		process_char(&input, &buffer, &src_index, &dst_index);
 	buffer[dst_index] = '\0';
-	ft_printf("buffer: %s\n", buffer);
-	*args = buffer;
-	return (SUCCESS);
+	return (*args = buffer, SUCCESS);
 }
 
 // gfree(args); line : 36
@@ -46,8 +43,7 @@ static void	process_char(char **in, char **buf, int *i, int *j)
 {
 	if (((*in)[(*i)] == '>' || (*in)[(*i)] == '<') && check_quote(*in, *i) == 0)
 	{
-		if ((*i) > 0 && (*in)[(*i) - 1] != ' ' && (*in)[(*i) - 1] != '>'
-			&& (*in)[(*i) - 1] != '<')
+		if ((*i) > 0 && (*in)[(*i) - 1] != ' ' && (*in)[(*i) - 1] != '>' && (*in)[(*i) - 1] != '<')
 			(*buf)[(*j)++] = ' ';
 		if ((*in)[(*i)] == '>' && (*in)[(*i) + 1] == '>')
 		{
@@ -63,8 +59,7 @@ static void	process_char(char **in, char **buf, int *i, int *j)
 		}
 		else
 			(*buf)[(*j)++] = (*in)[(*i)++];
-		if ((*i) < (int)ft_strlen(*in) && (*in)[(*i)] != ' '
-			&& (*in)[(*i)] != '>' && (*in)[(*i)] != '<')
+		if ((*i) < (int)ft_strlen(*in) && (*in)[(*i)] != ' ' && (*in)[(*i)] != '>' && (*in)[(*i)] != '<')
 			(*buf)[(*j)++] = ' ';
 	}
 	else

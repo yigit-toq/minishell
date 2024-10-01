@@ -51,7 +51,7 @@ static void	create_token(t_minishell *minishell)
 	gfree(line);
 }
 
-static void	process_token(t_minishell *shell, char *line, int last_pipe, int i)
+static void	process_token(t_minishell *minishell, char *line, int last_pipe, int i)
 {
 	char	*temp_str;
 	char	*temp_line;
@@ -61,10 +61,10 @@ static void	process_token(t_minishell *shell, char *line, int last_pipe, int i)
 	gfree(temp_str);
 	if (!temp_line)
 		return ;
-	if (!shell->token)
-		shell->token = ft_lstnew(temp_line);
+	if (!minishell->token)
+		minishell->token = ft_lstnew(temp_line);
 	else
-		ft_lstadd_back(&shell->token, ft_lstnew(temp_line));
+		ft_lstadd_back(&minishell->token, ft_lstnew(temp_line));
 }
 
 static void	count_heredoc(t_minishell *minishell)
