@@ -6,13 +6,11 @@
 /*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 01:07:10 by ytop              #+#    #+#             */
-/*   Updated: 2024/09/30 16:58:51 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/01 16:03:49 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static t_parser	*allocate_parser(int count);
 
 static int		process_tokens(t_minishell *minishell, t_parser **parser);
 
@@ -31,7 +29,7 @@ int	parser(t_minishell *minishell)
 	return (SUCCESS);
 }
 
-static t_parser	*allocate_parser(int count)
+t_parser	*allocate_parser(int count)
 {
 	t_parser	*head;
 	t_parser	*new;
@@ -57,8 +55,9 @@ static int	handle_token(t_parser *node, t_list *token)
 	token_content = ft_strdup(token->content);
 	if (!token_content)
 		return (perror("ft_strdup"), FAILURE);
-	if (replace_arg(token_content))
+	if (replace_arg(&token_content))
 		return (FAILURE);
+	ft_printf("token_content: %s\n", token_content);
 	node->args = parser_split(token_content, SPACE);
 	if (!node->args)
 		return (perror("ft_split"), FAILURE);

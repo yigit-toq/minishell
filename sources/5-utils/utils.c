@@ -6,7 +6,7 @@
 /*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:18:53 by ytop              #+#    #+#             */
-/*   Updated: 2024/09/30 16:11:25 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/01 16:22:59 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,30 @@ int	err_msg(char *cmd, char *arg, char *msg)
 		ft_dprintf(STD_ERROR, ": %s", msg);
 	ft_dprintf(STD_ERROR, "\n");
 	return (SUCCESS);
+}
+
+void	save_fd(void)
+{
+	t_minishell	*minishell;
+
+	minishell = get_minishell();
+	if (!minishell->fd_hl.change)
+	{
+		minishell->fd_hl.std_in = dup(STD_INPUT);
+		minishell->fd_hl.std_out = dup(STD_OUTPUT);
+		minishell->fd_hl.change = TRUE;
+	}
+}
+
+void	reset_fd(void)
+{
+	t_minishell	*minishell;
+
+	minishell = get_minishell();
+	if (minishell->fd_hl.change)
+	{
+		dup2(minishell->fd_hl.std_out, STD_OUTPUT);
+		dup2(minishell->fd_hl.std_in, STD_INPUT);
+		minishell->fd_hl.change = 0;
+	}
 }

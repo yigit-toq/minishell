@@ -6,7 +6,7 @@
 /*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 23:59:26 by ytop              #+#    #+#             */
-/*   Updated: 2024/09/26 23:59:26 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/01 14:26:00 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ t_list	*ft_lstcopy(t_list *lst)
 			ft_lstclear(&new, del);
 			return (0);
 		}
+		ft_lstadd_back(&new, node);
 		node = node->next;
 	}
 	return (new);

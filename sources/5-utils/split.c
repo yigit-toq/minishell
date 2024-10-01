@@ -6,7 +6,7 @@
 /*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 21:32:09 by ytop              #+#    #+#             */
-/*   Updated: 2024/09/30 17:21:00 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/01 16:04:13 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	**parser_split(char *str, char delimiter)
 			substr = ft_substr(str, indexes[1], indexes[0] - indexes[1]);
 			if (substr)
 			{
-				replace_arg(substr);
+				replace_arg(&substr);
 				result[indexes[2]++] = substr;
 			}
 		}
