@@ -6,7 +6,7 @@
 /*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 17:08:52 by ytop              #+#    #+#             */
-/*   Updated: 2024/09/30 17:32:56 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/01 16:23:19 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ t_minishell	*get_minishell(void);
 
 // Replace arg
 
-int			replace_arg(char *args);
+int			replace_arg(char **args);
 
 // Check line
 
@@ -112,6 +112,8 @@ int			check_line(void);
 int			parser(t_minishell *minishell);
 
 void		lexer(t_minishell *minishell);
+
+t_parser	*allocate_parser(int count);
 
 // Executor
 
@@ -133,6 +135,10 @@ void		dollar(t_minishell *shell);
 
 // Utils
 
+void		reset_fd(void);
+
+void		save_fd(void);
+
 void		handle_signals(void);
 
 char		*strjoin_char(char *str, char c);
@@ -141,4 +147,10 @@ char		**parser_split(char *str, char delimiter);
 int			heredoc_syntax(char **args);
 
 int			err_msg(char *cmd, char *arg, char *msg);
+
+// Heredoc
+
+int			delimiter(t_minishell *shell, t_parser *parser);
+
+int			heredoc(void);
 #endif

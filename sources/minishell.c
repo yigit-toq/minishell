@@ -6,7 +6,7 @@
 /*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 17:41:40 by ytop              #+#    #+#             */
-/*   Updated: 2024/09/30 17:17:22 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/01 17:20:48 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ static int	minishell_loop(t_minishell *minishell, char *env[])
 		if (ft_strlen(minishell->line))
 		{
 			value = minishell_routine(minishell);
+			ft_printf("value: %d\n", value);
 			if (value == FAILURE)
 				return (FAILURE);
 			else if (value == 2)
@@ -84,6 +85,10 @@ static int	minishell_routine(t_minishell *minishell)
 		lexer(minishell);
 		if (parser(minishell) == FAILURE)
 			return (FAILURE);
+		if (heredoc())
+			return (2);
+		ft_parser_clear(&minishell->parser, del);
+		ft_lstclear(&minishell->token, del);
 	}
 	return (SUCCESS);
 }

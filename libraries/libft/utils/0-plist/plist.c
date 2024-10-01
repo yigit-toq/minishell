@@ -6,7 +6,7 @@
 /*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 14:02:04 by ytop              #+#    #+#             */
-/*   Updated: 2024/09/30 17:20:07 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/01 17:18:38 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,40 @@ void	ft_parser_addback(t_parser **lst, t_parser *new)
 	while (node->next)
 		node = node->next;
 	node->next = new;
+}
+
+void	ft_parser_delone(t_parser *lst, void (*del)(void *))
+{
+	if (!lst || !del)
+		return ;
+	del(lst->args);
+	del(lst->args_quote);
+	gfree(lst);
+}
+
+void	ft_parser_clear(t_parser **lst, void (*del)(void *))
+{
+	t_parser	*node;
+
+	if (!lst)
+		return ;
+	while (*lst)
+	{
+		node = (*lst)->next;
+		ft_parser_delone(*lst, del);
+		*lst = node;
+	}
+	*lst = 0;
+}
+
+void	ft_parser_onenode(t_parser *lst, void (*del)(void *))
+{
+	t_parser	*node;
+	if (!lst || !del)
+		return ;
+	node = lst->next;
+	del(lst->args);
+	del(lst->args_quote);
+	gfree(lst);
+	lst = node;
 }
