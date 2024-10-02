@@ -6,7 +6,7 @@
 /*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 18:46:30 by ytop              #+#    #+#             */
-/*   Updated: 2024/09/30 16:10:39 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/02 17:01:02 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 static void	check_numeric(char *av, int *exit_code);
 
-void	ft_exit(t_minishell *shell, char **av)
+int	ft_exit(t_minishell *shell, char **av)
 {
 	int	exit_code;
 	int	arg_count;
@@ -35,6 +35,7 @@ void	ft_exit(t_minishell *shell, char **av)
 		exit_code = shell->value.exit_code;
 	clear_garbage();
 	exit(exit_code);
+	return (1);
 }
 
 static void	check_numeric(char *av, int *exit_code)

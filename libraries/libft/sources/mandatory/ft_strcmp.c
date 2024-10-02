@@ -6,13 +6,13 @@
 /*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 15:42:35 by ytop              #+#    #+#             */
-/*   Updated: 2024/09/27 15:42:35 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/02 16:48:10 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
+int	ft_strcmp(char *s1, char *s2)
 {
 	size_t	i;
 

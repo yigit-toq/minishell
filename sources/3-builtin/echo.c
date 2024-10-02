@@ -6,13 +6,13 @@
 /*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 23:34:21 by ytop              #+#    #+#             */
-/*   Updated: 2024/09/30 16:01:54 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/02 17:12:40 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	echo(char **args)
+int	echo(char **args)
 {
 	int	flag_index;
 	int	newline;
@@ -39,4 +39,5 @@ void	echo(char **args)
 	}
 	if (newline)
 		ft_dprintf(STD_OUTPUT, "\n");
+	return (1);
 }

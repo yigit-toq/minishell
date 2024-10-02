@@ -6,7 +6,7 @@
 /*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 23:56:50 by ytop              #+#    #+#             */
-/*   Updated: 2024/09/30 16:50:53 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/02 17:03:01 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	is_valid_key(char *key);
 
-void	unset(t_minishell *shell, char **keys)
+int	unset(t_minishell *shell, char **keys)
 {
 	t_list	*env_node;
 	int		key_index;
@@ -39,6 +39,7 @@ void	unset(t_minishell *shell, char **keys)
 			ft_lstdelone(env_node, del);
 		key_index++;
 	}
+	return (1);
 }
 
 static int	is_valid_key(char *key)

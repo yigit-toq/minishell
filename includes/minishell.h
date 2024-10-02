@@ -6,7 +6,7 @@
 /*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 17:08:52 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/01 16:23:19 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/02 17:03:10 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,15 +116,51 @@ t_parser	*allocate_parser(int count);
 
 // Executor
 
+void		check_pid(t_parser *parser, pid_t *pid);
+
+int			check_builtin(t_minishell *minishell, char **cmd, t_parser *parser);
+
 int			execute_command(void);
 
+void		ft_all_lower(char **str);
+
+void		remove_quotes(t_parser *parser);
+
+void		init_cmd(t_parser *parser, char **cmd);
+
+char		*handle_quotes(const char *str);
+
+char		*find_path(char *cmd);
+
 // Builtins
+
+int			print_env(void);
+
+int			export(t_minishell *minishell, char **args);
+
+char		*get_pwd(void);
+
+t_list		*search_env(t_minishell *minishell, char *key);
 
 void		env_to_list(char *env[]);
 
 void		get_env(t_minishell *minishell, char **result, char **str, int *i);
 
-t_list		*search_env(t_minishell *minishell, char *key);
+int			get_key(char *line);
+
+char		*get_value(char *line);
+
+int			ft_exit(t_minishell *shell, char **av);
+
+int			cd(t_minishell *minishell, char *av);
+
+int			echo(char **args);
+
+int			unset(t_minishell *shell, char **keys);
+
+void		change_oldpwd(t_list *old_pwd_env, t_list *pwd_env, char *val);
+
+void		change_pwd(t_minishell *minishell, char *pwd);
 
 // Dollar
 
@@ -151,4 +187,8 @@ int			heredoc(void);
 int			delimiter(t_minishell *shell, t_parser *parser);
 
 int			heredoc_syntax(char **args);
+
+// Redirect
+
+int			check_redirect(char **args);
 #endif
