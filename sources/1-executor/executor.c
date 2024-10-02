@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:32:47 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/02 18:01:26 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/02 20:41:09 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int	create_fork(char **cmd, t_parser *parser)
 		minishell->path = find_path(cmd[0]);
 	else
 		minishell->path = cmd[0];
+	g_signal = 3;
 	pid = fork();
 	if (pid < 0)
 	{
@@ -72,5 +73,6 @@ int	create_fork(char **cmd, t_parser *parser)
 	check_pid(parser, &pid);
 	if (minishell->value.sign)
 		gfree(minishell->path);
+	g_signal = 0;
 	return (SUCCESS);
 }

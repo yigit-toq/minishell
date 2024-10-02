@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 17:08:52 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/02 18:52:51 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/02 20:21:38 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,7 @@ void		save_fd(void);
 void		reset_fd(void);
 
 void		handle_signals(void);
+void		disable_echo(void);
 
 char		*strjoin_char(char *str, char c);
 char		**parser_split(char *str, char delimiter);

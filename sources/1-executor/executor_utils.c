@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 13:56:11 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/02 18:03:13 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/02 20:51:54 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,7 +230,8 @@ void	check_pid(t_parser *parser, pid_t *pid)
 	else
 	{
 		waitpid(*pid, &minishell->value.exit_code, 0);
-		minishell->value.exit_code = WEXITSTATUS(minishell->value.exit_code);
+		if (g_signal != 0)
+			minishell->value.exit_code = WEXITSTATUS(minishell->value.exit_code);
 		reset_fd();
 		gfree(envs);
 	}
