@@ -6,7 +6,7 @@
 /*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 13:43:55 by ytop              #+#    #+#             */
-/*   Updated: 2024/09/30 00:44:12 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/02 16:47:52 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_list	*ft_lstnew(void *content);
 t_list	*ft_lstlast(t_list *lst);
 t_list	*ft_lstcopy(t_list *lst);
 
-void	ft_lstsort(t_list **lst, int (*cmp)(void *, void *));
+void	ft_lstsort(t_list **lst, int (*cmp)(char *, char *));
 void	ft_lstswap(t_list *lst1, t_list *lst2);
 
 void	ft_lstiter(t_list *lst, void (*f)(void *));
@@ -54,7 +54,7 @@ int		ft_lstsize(t_list *lst);
 void	del(void *content);
 
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
-int		ft_strcmp(const char *s1, const char *s2);
+int		ft_strcmp(char *s1, char *s2);
 
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 int		ft_atoi(const char *str);

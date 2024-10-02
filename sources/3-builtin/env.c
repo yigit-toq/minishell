@@ -6,7 +6,7 @@
 /*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 18:16:27 by ytop              #+#    #+#             */
-/*   Updated: 2024/09/30 17:00:40 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/02 16:58:36 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ void	env_to_list(char *env[])
 		ft_lstadd_back(&minishell->env, ft_lstnew(ft_strdup(env[i])));
 	}
 }
-
-static char	*get_value(char *line);
 
 void	get_env(t_minishell *minishell, char **result, char **str, int *i)
 {
@@ -51,7 +49,19 @@ void	get_env(t_minishell *minishell, char **result, char **str, int *i)
 	*result = new_result;
 }
 
-static int	get_key(char *line)
+int	print_env(void)
+{
+	t_minishell	*minishell;
+	t_list		*env_data;
+
+	minishell = get_minishell();
+	env_data = minishell->env;
+	while (env_data && printf("%s\n", env_data->content))
+		env_data = env_data->next;
+	return (1);
+}
+
+int	get_key(char *line)
 {
 	int	j;
 
@@ -61,7 +71,7 @@ static int	get_key(char *line)
 	return (j);
 }
 
-static char	*get_value(char *line)
+char	*get_value(char *line)
 {
 	char	*value;
 	int		i;

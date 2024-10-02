@@ -6,7 +6,7 @@
 /*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 17:41:40 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/01 17:47:46 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/02 17:07:09 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ static int	minishell_routine(t_minishell *minishell)
 			return (FAILURE);
 		if (heredoc())
 			return (2);
+		execute_command();
 	}
 	return (SUCCESS);
 }
