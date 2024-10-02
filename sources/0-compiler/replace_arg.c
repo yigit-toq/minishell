@@ -6,13 +6,13 @@
 /*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 15:55:22 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/01 17:58:01 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/02 13:51:08 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	process_char(char **in, char **buf, int *i, int *j);
+static void	process_char(char *in, char *buf, int *i, int *j);
 
 // Yeniden düzenlenebilir
 
@@ -32,63 +32,36 @@ int	replace_arg(char **args)
 	src_index = 0;
 	dst_index = 0;
 	while (src_index < in_len)
-		process_char(&input, &buffer, &src_index, &dst_index);
+		process_char(input, buffer, &src_index, &dst_index);
 	buffer[dst_index] = '\0';
 	return (*args = buffer, SUCCESS);
 }
 
 // gfree(args); line : 36
 
-static void	process_char(char **in, char **buf, int *i, int *j)
+static void	process_char(char *in, char *buf, int *i, int *j)
 {
-	if (((*in)[(*i)] == '>' || (*in)[(*i)] == '<') && check_quote(*in, *i) == 0)
+	if ((in[(*i)] == '>' || in[(*i)] == '<') && check_quote(in, *i) == 0)
 	{
-		if ((*i) > 0 && (*in)[(*i) - 1] != ' ' && (*in)[(*i) - 1] != '>' && (*in)[(*i) - 1] != '<')
-			(*buf)[(*j)++] = ' ';
-		if ((*in)[(*i)] == '>' && (*in)[(*i) + 1] == '>')
+		if ((*i) > 0 && in[(*i) - 1] != ' ' && in[(*i) - 1] != '>' && in[(*i) - 1] != '<')
+			buf[(*j)++] = ' ';
+		if (in[(*i)] == '>' && in[(*i) + 1] == '>')
 		{
-			(*buf)[(*j)++] = '>';
-			(*buf)[(*j)++] = '>';
+			buf[(*j)++] = '>';
+			buf[(*j)++] = '>';
 			(*i) += 2;
 		}
-		else if ((*in)[(*i)] == '<' && (*in)[(*i) + 1] == '<')
+		else if (in[(*i)] == '<' && in[(*i) + 1] == '<')
 		{
-			(*buf)[(*j)++] = '<';
-			(*buf)[(*j)++] = '<';
+			buf[(*j)++] = '<';
+			buf[(*j)++] = '<';
 			(*i) += 2;
 		}
 		else
-			(*buf)[(*j)++] = (*in)[(*i)++];
-		if ((*i) < (int)ft_strlen(*in) && (*in)[(*i)] != ' ' && (*in)[(*i)] != '>' && (*in)[(*i)] != '<')
-			(*buf)[(*j)++] = ' ';
+			buf[(*j)++] = in[(*i)++];
+		if ((*i) < (int)ft_strlen(in) && in[(*i)] != ' ' && in[(*i)] != '>' && in[(*i)] != '<')
+			buf[(*j)++] = ' ';
 	}
 	else
-		(*buf)[(*j)++] = (*in)[(*i)++];
+		buf[(*j)++] = in[(*i)++];
 }
-
-// static void	process_char(char **in, char **buf, int *i, int *j)
-// {
-// 	if ((in[*i] == REDIRECT || in[*i] == INPUT) && !check_quote(in, *i))
-// 	{
-// 		if (in[*i - 1] != SPACE && in[*i - 1] != REDIRECT && in[*i - 1] != INPUT && *i > 0)
-// 			buf[(*j)++] = SPACE;
-// 		if (in[*i] == REDIRECT && in[*i + 1] == REDIRECT)
-// 		{
-// 			buf[(*j)++] = REDIRECT;
-// 			buf[(*j)++] = REDIRECT;
-// 			(*i) += 2;
-// 		}
-// 		else if (in[*i] == INPUT && in[*i + 1] == INPUT)
-// 		{
-// 			buf[(*j)++] = INPUT;
-// 			buf[(*j)++] = INPUT;
-// 			(*i) += 2;
-// 		}
-// 		else
-// 			buf[(*j)++] = in[(*i)++];
-// 		if (in[*i] != SPACE && in[*i] != REDIRECT && in[*i] != INPUT && *i < (int)ft_strlen(in))
-// 			buf[(*j)++] = SPACE;
-// 	}
-// 	else
-// 		buf[(*j)++] = in[(*i)++];
-// }
