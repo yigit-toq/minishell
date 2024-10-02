@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 17:23:35 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/01 17:18:43 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/02 18:57:15 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ int	heredoc(void)
 	}
 	if (!minishell->value.hrdc_count)
 		return (SUCCESS);
-	if (delimiter(minishell, parser))
+	if (delimiter(minishell))
 		return (FAILURE);
 	if (!minishell->value.pipe_count)
 		gfree(minishell->value.hrdc_fd);
-	return (reset_fd(), SUCCESS);
+	return (SUCCESS);
 }
 
 // geçici : reset_fd() : 39
@@ -93,12 +93,38 @@ static int	process_delimiter(t_minishell *minishell, t_parser *delim)
 	return (SUCCESS);
 }
 
-int	delimiter(t_minishell *shell, t_parser *parser)
+static void	null_heredoc_args(char **args)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (args[i])
+	{
+		if (!ft_strncmp(args[i], "<<", 2) && args[i + 1])
+		{
+			gfree(args[i]);
+			gfree(args[i + 1]);
+			i += 2;
+		}
+		else
+		{
+			args[j] = args[i];
+			i++;
+			j++;
+		}
+	}
+	args[j] = NULL;
+}
+
+int	delimiter(t_minishell *shell)
 {
 	t_parser	*delim;
+	t_parser	*tmp;
 	int			i;
 
-	(void)parser;
+	tmp = shell->parser;
 	shell->value.hrdc_fd = ft_calloc(shell->value.pipe_count + 1, sizeof(int));
 	if (!shell->value.hrdc_fd)
 		return (FAILURE);
@@ -120,7 +146,8 @@ int	delimiter(t_minishell *shell, t_parser *parser)
 			if (read_heredoc(shell, delim->args, i))
 				return (ft_parser_clear(&delim, del), FAILURE);
 		}
-		// null_heredoc_args(delim);
+		null_heredoc_args(tmp->args);
+		tmp = tmp->next;
 		delim = delim->next;
 		i++;
 	}

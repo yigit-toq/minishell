@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 17:41:40 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/02 17:07:09 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/02 19:10:27 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int	minishell_loop(t_minishell *minishell, char *env[])
 	{
 		value = 0;
 		init_data(0);
-		minishell->line = addgarbage(readline(GREEN PROMPT RESET));
+		minishell->line = readline(GREEN PROMPT RESET);
 		if (!minishell->line)
 		{
 			ft_dprintf(STD_INPUT, "exit\n");
@@ -70,7 +70,7 @@ static int	minishell_loop(t_minishell *minishell, char *env[])
 				continue ;
 		}
 		if (minishell->line)
-			gfree(minishell->line);
+			free(minishell->line);
 	}
 	return (SUCCESS);
 }
@@ -87,6 +87,7 @@ static int	minishell_routine(t_minishell *minishell)
 		if (heredoc())
 			return (2);
 		execute_command();
+		reset_fd();
 	}
 	return (SUCCESS);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 18:46:30 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/02 17:01:02 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/02 19:11:17 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int	ft_exit(t_minishell *shell, char **av)
 		check_numeric(av[1], &exit_code);
 	else
 		exit_code = shell->value.exit_code;
+	if (shell->line)
+		free(shell->line);
 	clear_garbage();
 	exit(exit_code);
 	return (1);
