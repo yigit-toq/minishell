@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 17:41:40 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/02 19:10:27 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/02 20:41:57 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,10 @@ int	main(int argc, char *argv[], char *env[])
 
 	(void)argc;
 	(void)argv;
+	g_signal = 0;
 	starting();
 	handle_signals();
+	disable_echo();
 	minishell = get_minishell();
 	minishell_loop(minishell, env);
 	return (SUCCESS);
