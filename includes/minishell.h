@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 17:08:52 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/02 17:03:10 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/02 18:52:51 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,7 +184,7 @@ int			err_msg(char *cmd, char *arg, char *msg);
 
 int			heredoc(void);
 
-int			delimiter(t_minishell *shell, t_parser *parser);
+int			delimiter(t_minishell *shell);
 
 int			heredoc_syntax(char **args);
 
