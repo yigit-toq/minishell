@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 13:56:11 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/02 20:51:54 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/03 13:10:35 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,8 +230,11 @@ void	check_pid(t_parser *parser, pid_t *pid)
 	else
 	{
 		waitpid(*pid, &minishell->value.exit_code, 0);
-		if (g_signal != 0)
-			minishell->value.exit_code = WEXITSTATUS(minishell->value.exit_code);
+		minishell->value.exit_code = WEXITSTATUS(minishell->value.exit_code);
+		if (g_signal == 0)
+			minishell->value.exit_code = 130;
+		else if (g_signal == 4)
+			minishell->value.exit_code = 131;
 		reset_fd();
 		gfree(envs);
 	}
