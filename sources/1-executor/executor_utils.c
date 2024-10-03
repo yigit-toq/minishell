@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 13:56:11 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/03 14:04:55 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/03 14:25:21 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,9 @@ void	init_cmd(t_parser *parser, char **cmd)
 	parser_tmp = parser;
 	while (parser_tmp)
 	{
-		if (parser_tmp->args[i])
+		if (parser_tmp->args[0])
 		{
-			cmd[i] = parser_tmp->args[i];
+			cmd[i] = parser_tmp->args[0];
 			i++;
 		}
 		parser_tmp = parser_tmp->next;
