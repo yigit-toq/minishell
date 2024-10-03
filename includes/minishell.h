@@ -6,7 +6,7 @@
 /*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 17:08:52 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/03 13:18:19 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/03 14:10:19 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,12 @@ typedef struct s_minishell
 
 t_minishell	*get_minishell(void);
 
+int			type_control(t_parser *parser, char **envs);
+
+// Pipe
+
+int			ft_pipe(char **cmd, t_parser *parser);
+
 // Replace arg
 
 int			replace_arg(char **args);
@@ -133,6 +139,8 @@ char		*handle_quotes(const char *str);
 char		*find_path(char *cmd);
 
 // Builtins
+
+char		**env(void);
 
 int			print_env(void);
 

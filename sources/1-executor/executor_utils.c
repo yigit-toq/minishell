@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
+/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 13:56:11 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/03 13:10:35 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/03 14:04:55 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,7 +240,7 @@ void	check_pid(t_parser *parser, pid_t *pid)
 	}
 }
 
-char	**env()
+char	**env(void)
 {
 	t_minishell	*minishell;
 	t_list		*env_list;
