@@ -6,7 +6,7 @@
 /*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 14:11:47 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/01 16:46:39 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/03 13:14:23 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 
 int	ft_dprintf(int fd, const char *string, ...);
 
-int	fd_putchar(char character, int *lenght);
-
 int	fd_putstr(char *string, int	*lenght);
 
 int	fd_decimal(long number, int *lenght);
+
+int	fd_putchar(char character, int *lenght);
 
 int	fd_pointer(unsigned long pointer, int *lenght);
 int	fd_hexademical(unsigned long number, int *lenght, char c);

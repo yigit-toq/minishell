@@ -6,7 +6,7 @@
 /*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 13:43:55 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/02 16:47:52 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/03 13:15:32 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ void	ft_lstswap(t_list *lst1, t_list *lst2);
 
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 
-void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstdelone(t_list *lst, void (*del)(void *));
+void	ft_lstclear(t_list **lst, void (*del)(void *));
 
 void	ft_lstadd_front(t_list **lst, t_list *new);
 void	ft_lstadd_back(t_list **lst, t_list *new);
