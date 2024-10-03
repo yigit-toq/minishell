@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 13:16:19 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/02 17:45:45 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/03 13:16:28 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	rdirect_out(char *file, int *j, int append)
 		fd = open(clean_file, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	else
 		fd = open(clean_file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	free(clean_file);
+	gfree(clean_file);
 	if (fd == -1)
 	{
 		perror("minishell");
