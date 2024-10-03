@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
+/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:32:47 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/02 20:41:09 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/03 14:13:43 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <unistd.h>
 
 static int	single_command(t_minishell *minishell);
+static int	multiple_command(void);
 
 int	execute_command(void)
 {
@@ -22,8 +23,8 @@ int	execute_command(void)
 	minishell = get_minishell();
 	if (!minishell->value.pipe_count)
 		return (single_command(minishell));
-	// else
-	// 	return (multiple_command(minishell));
+	else
+		return (multiple_command());
 	return (FAILURE);
 }
 
@@ -48,6 +49,24 @@ static int	single_command(t_minishell *minishell)
 	if (check_builtin(minishell, cmd, parser))
 		return (SUCCESS);
 	if (create_fork(cmd, parser))
+		return (FAILURE);
+	return (SUCCESS);
+}
+
+static int	multiple_command(void)
+{
+	t_minishell	*minishell;
+	t_parser	*parser;
+	char		**cmd;
+
+	minishell = get_minishell();
+	parser = minishell->parser;
+	cmd = ft_calloc(ft_lstsize(minishell->token) + 1, sizeof(char *));
+	if (!cmd)
+		return (FAILURE);
+	remove_quotes(parser);
+	init_cmd(parser, cmd);
+	if (ft_pipe(cmd, parser))
 		return (FAILURE);
 	return (SUCCESS);
 }
