@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 01:07:10 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/01 16:03:49 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/03 15:19:13 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int		process_tokens(t_minishell *minishell, t_parser **parser);
+static int		process_tokens(t_minishell *minishell, t_parser *parser);
 
 int	parser(t_minishell *minishell)
 {
@@ -23,7 +23,7 @@ int	parser(t_minishell *minishell)
 	parser = allocate_parser(t_count);
 	if (!parser)
 		return (FAILURE);
-	if (process_tokens(minishell, &parser))
+	if (process_tokens(minishell, parser))
 		return (FAILURE);
 	minishell->parser = parser;
 	return (SUCCESS);
@@ -67,12 +67,12 @@ static int	handle_token(t_parser *node, t_list *token)
 	return (SUCCESS);
 }
 
-static int	process_tokens(t_minishell *minishell, t_parser **parser)
+static int	process_tokens(t_minishell *minishell, t_parser *parser)
 {
 	t_parser	*current_parser;
 	t_list		*token;
 
-	current_parser = *parser;
+	current_parser = parser;
 	token = minishell->token;
 	while (current_parser && token)
 	{

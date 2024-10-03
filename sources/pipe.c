@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 13:25:42 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/03 14:14:58 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/03 16:53:01 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ static void	fork_execute(t_parser *parser, char **cmd, int i)
 	if (execve(minishell->path, parser->args, environment) == -1)
 	{
 		type_control(minishell->parser, environment);
-		err_msg(NULL, parser->args[0], ": command not found");
+		err_msg(NULL, parser->args[0], "command not found");
 		if (minishell->value.sign)
 			gfree(minishell->path);
 		exit(127);
@@ -109,7 +109,7 @@ static void	pipe_fork(char **cmd, t_parser *parser, int i)
 	if (check_redirect(parser->args))
 		exit(FAILURE);
 	ft_all_lower(&cmd[i]);
-	if (check_builtin(minishell, cmd, parser))
+	if (check_builtin(minishell, cmd, parser, &i))
 		exit(minishell->value.exit_code);
 	fork_execute(parser, cmd, i);
 }
@@ -154,7 +154,7 @@ int	ft_pipe(char **cmd, t_parser *parser)
 		minishell->pid[i] = fork();
 		if (minishell->pid[i] == -1)
 			return (FAILURE);
-		else if (!minishell->pid[i])
+		else if (minishell->pid[i] == 0)
 			pipe_fork(cmd, tmp, i);
 		tmp = tmp->next;
 		i++;

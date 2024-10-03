@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:32:47 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/03 14:13:43 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/03 15:40:48 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@ static int	single_command(t_minishell *minishell)
 {
 	t_parser	*parser;
 	char		**cmd;
+	int 		i;
 
+	i = 0;
 	parser = minishell->parser;
 	if (check_redirect(parser->args))
 		return (FAILURE);
@@ -46,7 +48,7 @@ static int	single_command(t_minishell *minishell)
 	remove_quotes(parser);
 	init_cmd(parser, cmd);
 	ft_all_lower(&cmd[0]);
-	if (check_builtin(minishell, cmd, parser))
+	if (check_builtin(minishell, cmd, parser, &i))
 		return (SUCCESS);
 	if (create_fork(cmd, parser))
 		return (FAILURE);

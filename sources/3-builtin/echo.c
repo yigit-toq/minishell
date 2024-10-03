@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 23:34:21 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/02 17:12:40 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/03 16:47:35 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,30 @@
 
 int	echo(char **args)
 {
-	int	flag_index;
+	int	i;
 	int	newline;
-	int	index;
+	int	j;
 
-	index = 1;
+	i = 1;
 	newline = 1;
-	while (args[index][0] == '-' && args[index][1] == 'n' && args[index])
+	while (args[i] && args[i][0] == '-' && args[i][1] == 'n')
 	{
-		flag_index = 1;
-		while (args[index][flag_index] == 'n')
-			flag_index++;
-		if (args[index][flag_index] != '\0')
+		j = 1;
+		while (args[i][j] == 'n')
+			j++;
+		if (args[i][j] != '\0')
 			break ;
 		newline = 0;
-		index++;
+		i++;
 	}
-	while (args[index])
+	while (args[i])
 	{
-		ft_dprintf(STD_OUTPUT, "%s", args[index]);
-		if (args[index + 1])
-			ft_dprintf(STD_OUTPUT, " ");
-		index++;
+		ft_putstr_fd(args[i], 1);
+		if (args[i + 1])
+			ft_putstr_fd(" ", 1);
+		i++;
 	}
 	if (newline)
-		ft_dprintf(STD_OUTPUT, "\n");
+		ft_putstr_fd("\n", 1);
 	return (1);
 }

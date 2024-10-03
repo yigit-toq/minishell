@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 17:08:52 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/03 14:10:19 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/03 15:38:16 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ t_parser	*allocate_parser(int count);
 
 void		check_pid(t_parser *parser, pid_t *pid);
 
-int			check_builtin(t_minishell *minishell, char **cmd, t_parser *parser);
+int			check_builtin(t_minishell *minishell, char **cmd, t_parser *parser, int *i);
 
 int			execute_command(void);
 

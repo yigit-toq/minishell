@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 13:16:19 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/03 13:16:28 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/03 16:51:38 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int	rdirect_in(char *file, int *j)
 	(void)*j;
 	clean_file = handle_quotes(file);
 	fd = open(clean_file, O_RDONLY);
-	free(clean_file);
+	gfree(clean_file);
 	if (fd == -1)
 	{
 		perror("minishell");
