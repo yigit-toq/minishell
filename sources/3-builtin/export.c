@@ -6,7 +6,7 @@
 /*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:26:37 by abakirca          #+#    #+#             */
-/*   Updated: 2024/10/02 16:59:43 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/03 13:07:58 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ int	arg_check(char *env)
 	{
 		if (env[i] == '=')
 		{
-				if (env[i + 1] == ' ' || (i > 0 && env[i - 1] == ' '))
-					return (FAILURE);
-				break;
+			if (env[i + 1] == ' ' || (i > 0 && env[i - 1] == ' '))
+				return (FAILURE);
+			break ;
 		}
 		if (!(ft_isalnum(env[i]) || env[i] == '_'))
 			return (FAILURE);
@@ -37,8 +37,8 @@ int	arg_check(char *env)
 static int	export_no_args(char **args, t_minishell *minishell)
 {
 	t_list	*new;
-	char 	*val;
 	t_list	*tmp;
+	char	*val;
 
 	if (!args || !args[1])
 	{

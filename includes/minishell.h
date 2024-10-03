@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
+/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 17:08:52 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/02 20:21:38 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/03 13:18:19 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,6 @@
 # include <readline/history.h>
 # include <readline/readline.h>
 
-# define TRUE		1
-# define FALSE		0
-
 # define FAILURE	1
 # define SUCCESS	0
 
@@ -28,6 +25,9 @@
 # define STD_INPUT  0
 
 # define STD_ERROR	2
+
+# define TRUE		1
+# define FALSE		0
 
 # define SEMICOLON	';'
 # define REDIRECT	'>'
