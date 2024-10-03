@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 17:54:23 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/02 20:51:40 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/03 13:10:09 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,6 @@ static void	ctrl_d(int signal)
 		rl_on_new_line();
 		ft_printf("\033[K");
 		minishell->value.exit_code = 131;
-		g_signal = 0;
+		g_signal = 4;
 	}
 }
