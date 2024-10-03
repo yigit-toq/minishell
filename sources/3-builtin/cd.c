@@ -6,12 +6,14 @@
 /*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:51:54 by abakirca          #+#    #+#             */
-/*   Updated: 2024/10/02 18:04:40 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/03 18:11:26 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <unistd.h>
+
+//cd düzeltilecek
 
 int	change_dir(t_minishell *mini, char *target, char *av, char *pwd)
 {

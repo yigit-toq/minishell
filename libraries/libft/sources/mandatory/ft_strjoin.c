@@ -6,7 +6,7 @@
 /*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:16:18 by ytop              #+#    #+#             */
-/*   Updated: 2024/09/29 01:28:45 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/03 17:38:45 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	while (s1[i])
 		result[j++] = s1[i++];
 	i = 0;
+	if (!s2)
+		return (result);
 	while (s2[i])
 		result[j++] = s2[i++];
 	result[j] = '\0';
