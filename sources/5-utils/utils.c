@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:18:53 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/01 16:22:59 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/03 16:53:55 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	err_msg(char *cmd, char *arg, char *msg)
 	if (cmd)
 		ft_dprintf(STD_ERROR, "%s", cmd);
 	if (arg)
-		ft_dprintf(STD_ERROR, "`%s'", arg);
+		ft_dprintf(STD_ERROR, "%s", arg);
 	if (msg)
 		ft_dprintf(STD_ERROR, ": %s", msg);
 	ft_dprintf(STD_ERROR, "\n");

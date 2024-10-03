@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:26:37 by abakirca          #+#    #+#             */
-/*   Updated: 2024/10/03 13:07:58 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/03 16:38:35 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static int	export_no_args(char **args, t_minishell *minishell)
 
 static void	search_n_add(t_minishell *minishell, char *arg, char *key)
 {
-	t_list *srch;
+	t_list	*srch;
 
 	srch = search_env(minishell, key);
 	if (srch && ft_strncmp(srch->content, arg, ft_strlen(arg)))
@@ -81,12 +81,13 @@ int	export(t_minishell *minishell, char **args)
 	char	*key;
 	int		i;
 
+	minishell->value.exit_code = 0;
 	if (export_no_args(args, minishell))
 		return (FAILURE);
-	i = 1;
-	while (args[i])
+	i = 0;
+	while (args[++i])
 	{
-		if (arg_check(minishell->parser->args_quote[0]))
+		if (arg_check(args[1]))
 		{
 			err_msg("export", args[i], "not a valid identifier");
 			minishell->value.exit_code = 1;
@@ -100,7 +101,6 @@ int	export(t_minishell *minishell, char **args)
 		}
 		search_n_add(minishell, args[i], key);
 		gfree(key);
-		i++;
 	}
 	return (1);
 }

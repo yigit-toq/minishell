@@ -6,12 +6,14 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 13:56:11 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/03 14:25:21 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/03 16:53:22 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <unistd.h>
+#include <sys/types.h>
+#include <sys/dir.h>
 
 //aklımdasın
 
@@ -101,26 +103,26 @@ void	ft_all_lower(char **str)
 	}
 }
 
-int	check_builtin(t_minishell *minishell, char **cmd, t_parser *parser)
+int	check_builtin(t_minishell *minishell, char **cmd, t_parser *parser, int *i)
 {
-	if (cmd[0] == NULL)
+	if (cmd[*i] == NULL)
 		return (FAILURE);
-	if (!ft_strcmp(cmd[0], "env") && print_env())
+	if (!ft_strcmp(cmd[*i], "env") && print_env())
 		minishell->value.exit_code = 0;
-	else if (!ft_strcmp(cmd[0], "export") && export(minishell, parser->args))
+	else if (!ft_strcmp(cmd[*i], "export") && export(minishell, parser->args))
+		return (1);
+	else if (!ft_strcmp(cmd[*i], "pwd") && get_pwd())
 		minishell->value.exit_code = 0;
-	else if (!ft_strcmp(cmd[0], "pwd") && get_pwd())
+	else if (!ft_strcmp(cmd[*i], "exit") && ft_exit(minishell, parser->args))
 		minishell->value.exit_code = 0;
-	else if (!ft_strcmp(cmd[0], "exit") && ft_exit(minishell, parser->args))
-		minishell->value.exit_code = 0;
-	else if (!ft_strcmp(cmd[0], "cd") && cd(minishell, parser->args[0]))
+	else if (!ft_strcmp(cmd[*i], "cd") && cd(minishell, parser->args[1]))
 	{
 		if (minishell->value.exit_code != 1)
 			minishell->value.exit_code = 0;
 	}
-	else if (!ft_strcmp(cmd[0], "echo") && echo(parser->args))
+	else if (!ft_strcmp(cmd[*i], "echo") && echo(parser->args))
 		minishell->value.exit_code = 0;
-	else if (!ft_strcmp(cmd[0], "unset") && unset(minishell, parser->args))
+	else if (!ft_strcmp(cmd[*i], "unset") && unset(minishell, parser->args))
 	{
 		if (minishell->value.exit_code != 1)
 			minishell->value.exit_code = 0;
@@ -195,14 +197,47 @@ char	*handle_quotes(const char *str)
 	return (result);
 }
 
+static void	arg_type(char *arg)
+{
+	DIR	*dir;
+	t_minishell	*minishell;
+
+	minishell = get_minishell();
+	dir = opendir(arg);
+	if ((dir) != NULL)
+	{
+		closedir(dir);
+		ft_putstr_fd(arg, STDERR_FILENO);
+		ft_putstr_fd(": is a directory\n", STDERR_FILENO);
+		minishell->value.exit_code = 126;
+	}
+	else if (access(arg, F_OK) == -1)
+	{
+		ft_putstr_fd(arg, STDERR_FILENO);
+		ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
+		minishell->value.exit_code = 127;
+	}
+	else if (access(arg, X_OK) == -1)
+	{
+		ft_putstr_fd(arg, STDERR_FILENO);
+		ft_putstr_fd(": Permission denied\n", STDERR_FILENO);
+		minishell->value.exit_code = 126;
+	}
+}
+
 int	type_control(t_parser *parser, char **envs)
 {
+	t_minishell	*minishell;
+
+	minishell = get_minishell();
 	if (!ft_strncmp(parser->args[0], "./", 2) || !ft_strncmp(parser->args[0], "/", 1))
 	{
 		if (execve(parser->args[0], parser->args, envs) == -1)
 		{
-			err_msg(NULL, parser->args[0], ": No such file or directory");
-			exit(127);
+			arg_type(parser->args[0]);
+			if (minishell->value.sign)
+				gfree(minishell->path);
+			return (exit(minishell->value.exit_code), 0);
 		}
 	}
 	return (FAILURE);
@@ -223,7 +258,7 @@ void	check_pid(t_parser *parser, pid_t *pid)
 		{
 			if (!type_control(parser, envs))
 				exit(EXIT_FAILURE);
-			err_msg(NULL, minishell->path, ": command not found");
+			err_msg(NULL, minishell->path, "command not found");
 			exit(127);
 		}
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 17:54:23 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/03 13:21:30 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/03 17:22:25 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <termios.h>
 
 static void	ctrl_c(int signal);
-static void	ctrl_d(int signal);
+static void	ctrl_bs(int signal);
 
 void	disable_echo(void)
 {
@@ -32,7 +32,7 @@ void	disable_echo(void)
 void	handle_signals(void)
 {
 	signal(SIGINT, ctrl_c);
-	signal(SIGQUIT, ctrl_d);
+	signal(SIGQUIT, ctrl_bs);
 }
 
 static void	ctrl_c(int signal)
@@ -66,7 +66,7 @@ static void	ctrl_c(int signal)
 	g_signal = 1;
 }
 
-static void	ctrl_d(int signal)
+static void	ctrl_bs(int signal)
 {
 	t_minishell	*minishell;
 
@@ -79,5 +79,10 @@ static void	ctrl_d(int signal)
 		ft_printf("\033[K");
 		minishell->value.exit_code = 131;
 		g_signal = 4;
+	}
+	else
+	{
+		rl_on_new_line();
+		rl_redisplay();
 	}
 }
