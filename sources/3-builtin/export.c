@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:26:37 by abakirca          #+#    #+#             */
-/*   Updated: 2024/10/03 18:13:48 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/04 14:06:05 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,14 +79,14 @@ static void	search_n_add(t_minishell *minishell, char *arg, char *key)
 
 }
 
-int	export(t_minishell *minishell, char **args)
+void	export(t_minishell *minishell, char **args)
 {
 	char	*key;
 	int		i;
 
 	minishell->value.exit_code = 0;
 	if (export_no_args(args, minishell))
-		return (FAILURE);
+		return ;
 	i = 0;
 	while (args[++i])
 	{
@@ -105,5 +105,4 @@ int	export(t_minishell *minishell, char **args)
 		search_n_add(minishell, args[i], key);
 		gfree(key);
 	}
-	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 17:08:52 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/03 15:38:16 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/04 14:06:28 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,9 +142,9 @@ char		*find_path(char *cmd);
 
 char		**env(void);
 
-int			print_env(void);
+void		print_env(void);
 
-int			export(t_minishell *minishell, char **args);
+void		export(t_minishell *minishell, char **args);
 
 char		*get_pwd(void);
 
@@ -158,13 +158,13 @@ int			get_key(char *line);
 
 char		*get_value(char *line);
 
-int			ft_exit(t_minishell *shell, char **av);
+void		ft_exit(t_minishell *shell, char **av);
 
 int			cd(t_minishell *minishell, char *av);
 
-int			echo(char **args);
+void		echo(char **args);
 
-int			unset(t_minishell *shell, char **keys);
+void		unset(t_minishell *shell, char **keys);
 
 void		change_oldpwd(t_list *old_pwd_env, t_list *pwd_env, char *val);
 

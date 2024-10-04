@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replace_arg.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 15:55:22 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/02 13:51:08 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/04 13:06:15 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	replace_arg(char **args)
 	while (src_index < in_len)
 		process_char(input, buffer, &src_index, &dst_index);
 	buffer[dst_index] = '\0';
+	gfree(*args);
 	return (*args = buffer, SUCCESS);
 }
 

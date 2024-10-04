@@ -6,13 +6,13 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 23:34:21 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/03 16:47:35 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/04 14:05:13 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	echo(char **args)
+void	echo(char **args)
 {
 	int	i;
 	int	newline;
@@ -39,5 +39,4 @@ int	echo(char **args)
 	}
 	if (newline)
 		ft_putstr_fd("\n", 1);
-	return (1);
 }

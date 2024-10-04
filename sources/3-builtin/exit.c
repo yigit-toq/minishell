@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 18:46:30 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/03 16:23:03 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/04 14:03:36 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	check_numeric(char *av, int *exit_code)
 	}
 }
 
-int	ft_exit(t_minishell *shell, char **av)
+void	ft_exit(t_minishell *shell, char **av)
 {
 	int	exit_code;
 	int	i;
@@ -73,5 +73,4 @@ int	ft_exit(t_minishell *shell, char **av)
 		exit_code = shell->value.exit_code;
 	clear_garbage();
 	exit(exit_code);
-	return (1);
 }

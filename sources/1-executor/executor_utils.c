@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 13:56:11 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/03 16:53:22 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/04 14:47:45 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,34 +103,86 @@ void	ft_all_lower(char **str)
 	}
 }
 
-int	check_builtin(t_minishell *minishell, char **cmd, t_parser *parser, int *i)
+static int	check_builtin2(t_minishell *minishell, char **cmd,
+			t_parser *parser, int *i)
 {
-	if (cmd[*i] == NULL)
-		return (FAILURE);
-	if (!ft_strcmp(cmd[*i], "env") && print_env())
-		minishell->value.exit_code = 0;
-	else if (!ft_strcmp(cmd[*i], "export") && export(minishell, parser->args))
-		return (1);
-	else if (!ft_strcmp(cmd[*i], "pwd") && get_pwd())
-		minishell->value.exit_code = 0;
-	else if (!ft_strcmp(cmd[*i], "exit") && ft_exit(minishell, parser->args))
-		minishell->value.exit_code = 0;
-	else if (!ft_strcmp(cmd[*i], "cd") && cd(minishell, parser->args[1]))
+	if (ft_strcmp(cmd[*i], "cd") == 0)
 	{
+		cd(minishell, parser->args[1]);
 		if (minishell->value.exit_code != 1)
 			minishell->value.exit_code = 0;
 	}
-	else if (!ft_strcmp(cmd[*i], "echo") && echo(parser->args))
-		minishell->value.exit_code = 0;
-	else if (!ft_strcmp(cmd[*i], "unset") && unset(minishell, parser->args))
+	else if (ft_strcmp(cmd[*i], "echo") == 0)
 	{
+		echo(parser->args);
+		minishell->value.exit_code = 0;
+	}
+	else if (ft_strcmp(cmd[*i], "unset") == 0)
+	{
+		unset(minishell, parser->args);
 		if (minishell->value.exit_code != 1)
 			minishell->value.exit_code = 0;
 	}
 	else
 		return (0);
+	reset_fd();
 	return (1);
 }
+
+int	check_builtin(t_minishell *minishell, char **cmd, t_parser *parser, int *i)
+{
+	if (cmd[*i] == NULL)
+		return (FAILURE);
+	if (ft_strcmp(cmd[*i], "env") == 0)
+	{
+		print_env();
+		minishell->value.exit_code = 0;
+	}
+	else if (ft_strcmp(cmd[*i], "export") == 0)
+	{
+		minishell->value.exit_code = 0;
+		export(minishell, parser->args);
+	}
+	else if (ft_strcmp(cmd[*i], "pwd") == 0 && get_pwd())
+		minishell->value.exit_code = 0;
+	else if (ft_strcmp(cmd[*i], "exit") == 0)
+	{
+		ft_exit(minishell, parser->args);
+		minishell->value.exit_code = 0;
+	}
+	else
+		return (check_builtin2(minishell, cmd, parser, i));
+	return (reset_fd(), 1);
+}
+
+// int	check_builtin(t_minishell *minishell, char **cmd, t_parser *parser, int *i)
+// {
+// 	if (cmd[*i] == NULL)
+// 		return (FAILURE);
+// 	if (!ft_strcmp(cmd[*i], "env") && print_env())
+// 		minishell->value.exit_code = 0;
+// 	else if (!ft_strcmp(cmd[*i], "export") && export(minishell, parser->args))
+// 		return (1);
+// 	else if (!ft_strcmp(cmd[*i], "pwd") && get_pwd())
+// 		minishell->value.exit_code = 0;
+// 	else if (!ft_strcmp(cmd[*i], "exit") && ft_exit(minishell, parser->args))
+// 		minishell->value.exit_code = 0;
+// 	else if (!ft_strcmp(cmd[*i], "cd") && cd(minishell, parser->args[1]))
+// 	{
+// 		if (minishell->value.exit_code != 1)
+// 			minishell->value.exit_code = 0;
+// 	}
+// 	else if (!ft_strcmp(cmd[*i], "echo") && echo(parser->args))
+// 		minishell->value.exit_code = 0;
+// 	else if (!ft_strcmp(cmd[*i], "unset") && unset(minishell, parser->args))
+// 	{
+// 		if (minishell->value.exit_code != 1)
+// 			minishell->value.exit_code = 0;
+// 	}
+// 	else
+// 		return (0);
+// 	return (1);
+// }
 
 char	*search_path(char **path_split, char *temp)
 {
@@ -164,6 +216,11 @@ char	*find_path(char *cmd)
 		return (NULL);
 	minishell = get_minishell();
 	path_list = search_env(minishell, "PATH");
+	if (!path_list)
+	{
+		minishell->value.sign = 0;
+		return (gfree(temp), cmd);
+	}
 	path_split = ft_split(path_list->content + 5, ':');
 	path_cmd = search_path(path_split, temp);
 	if (path_cmd)
