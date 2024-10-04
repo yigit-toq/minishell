@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 17:23:35 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/04 15:23:03 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/04 17:44:00 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ int	delimiter(t_minishell *shell)
 		if (delim && delim->args)
 		{
 			if (read_heredoc(shell, delim->args, i))
-				return (ft_parser_clear(&delim, del), FAILURE);
+				return (FAILURE);
 		}
 		null_heredoc_args(tmp->args);
 		tmp = tmp->next;
