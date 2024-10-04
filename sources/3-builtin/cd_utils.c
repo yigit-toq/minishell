@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:52:30 by abakirca          #+#    #+#             */
-/*   Updated: 2024/10/02 17:06:11 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/04 15:25:53 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ void	change_pwd(t_minishell *minishell, char *pwd)
 	if (pwd_env)
 	{
 		if (!old_pwd_env)
-			ft_lstadd_back(&minishell->env, ft_lstnew(ft_strjoin("OLDPWD=", minishell->value.old_pwd)));
+			ft_lstadd_back(&minishell->env, ft_lstnew(
+					ft_strjoin("OLDPWD=", minishell->value.old_pwd)));
 		gfree(pwd_env->content);
 		pwd_env->content = ft_strjoin("PWD=", pwd);
 	}
-
 }

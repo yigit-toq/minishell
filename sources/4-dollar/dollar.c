@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 18:27:30 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/03 18:01:13 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/04 15:18:37 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ void	dollar(t_minishell *shell)
 	shell->line = result;
 }
 
-// Düzenleme yapılabilir
-
 static int	empty_dollar(char *line)
 {
 	int	i;
@@ -65,8 +63,6 @@ static int	empty_dollar(char *line)
 	}
 	return (FAILURE);
 }
-
-// Düzenleme yapılabilir
 
 static void	replace_dollar(t_minishell *shell, char **result, int *i)
 {

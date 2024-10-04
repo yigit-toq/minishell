@@ -3,18 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   split.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 21:32:09 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/01 17:37:15 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/04 15:17:31 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// i[0]: s_index, i[1]: w_start, i[2]: w_count, i[3]: q_flag
-
-static int	get_word_start(char *str, char delimiter, int *index, int *quote_flag);
+static int	get_word_start(char *str, char delimiter,
+				int *index, int *quote_flag);
 static int	count_words(char *str, char delimiter);
 
 static void	init_indexes(int indexes[], int size);
@@ -55,8 +54,6 @@ static void	init_indexes(int indexes[], int size)
 		indexes[i++] = 0;
 }
 
-// indexes[0]: word_count, indexes[1]: in_word, indexes[2]: quote_flag
-
 static int	is_quote(char c);
 
 static int	count_words(char *str, char delimiter)
@@ -85,11 +82,10 @@ static int	count_words(char *str, char delimiter)
 	return (indexes[0]);
 }
 
-// Fonksiyon: Tırnak içerisini dikkate alarak, string'den kelime alır
-
 static void	update_quote(char current_char, int *quote_flag);
 
-static int	get_word_start(char *str, char delimiter, int *index, int *quote_flag)
+static int	get_word_start(char *str, char delimiter,
+			int *index, int *quote_flag)
 {
 	int	start;
 
@@ -104,14 +100,10 @@ static int	get_word_start(char *str, char delimiter, int *index, int *quote_flag
 	return (start);
 }
 
-// Fonksiyon: Bulunan konum tırnak ise, true döner
-
 static int	is_quote(char c)
 {
 	return (c == S_QUOTE || c == D_QUOTE);
 }
-
-// Fonksiyon: Tırnak durumunu günceller
 
 static void	update_quote(char current_char, int *quote_flag)
 {

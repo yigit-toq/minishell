@@ -6,14 +6,11 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:26:37 by abakirca          #+#    #+#             */
-/*   Updated: 2024/10/04 14:06:05 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/04 15:36:37 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-//sadece export yazıldığında olan hata düzeltilecek
-// unset ile path çıkarılıp ls atınca seg
 
 int	arg_check(char *env)
 {
@@ -49,7 +46,7 @@ static int	export_no_args(char **args, t_minishell *minishell)
 		ft_lstsort(&new, ft_strcmp);
 		while (new)
 		{
-			ft_dprintf(STD_OUTPUT, "declare -x %s\n", new->content);
+			ft_printf("declare -x %s", new->content);
 			val = get_value(new->content);
 			if (val && ft_printf("=\"") && ft_printf("%s", val))
 				ft_printf("\"");
@@ -76,7 +73,6 @@ static void	search_n_add(t_minishell *minishell, char *arg, char *key)
 	}
 	else if (!srch)
 		ft_lstadd_back(&minishell->env, ft_lstnew(ft_strdup(arg)));
-
 }
 
 void	export(t_minishell *minishell, char **args)

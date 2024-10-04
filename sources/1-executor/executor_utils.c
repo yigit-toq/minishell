@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 13:56:11 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/04 14:47:45 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/04 15:21:14 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/dir.h>
-
-//aklımdasın
 
 static void	remove_quotes_helper(char **tmp2, char **tmp, char **new_tmp)
 {
@@ -155,35 +153,6 @@ int	check_builtin(t_minishell *minishell, char **cmd, t_parser *parser, int *i)
 	return (reset_fd(), 1);
 }
 
-// int	check_builtin(t_minishell *minishell, char **cmd, t_parser *parser, int *i)
-// {
-// 	if (cmd[*i] == NULL)
-// 		return (FAILURE);
-// 	if (!ft_strcmp(cmd[*i], "env") && print_env())
-// 		minishell->value.exit_code = 0;
-// 	else if (!ft_strcmp(cmd[*i], "export") && export(minishell, parser->args))
-// 		return (1);
-// 	else if (!ft_strcmp(cmd[*i], "pwd") && get_pwd())
-// 		minishell->value.exit_code = 0;
-// 	else if (!ft_strcmp(cmd[*i], "exit") && ft_exit(minishell, parser->args))
-// 		minishell->value.exit_code = 0;
-// 	else if (!ft_strcmp(cmd[*i], "cd") && cd(minishell, parser->args[1]))
-// 	{
-// 		if (minishell->value.exit_code != 1)
-// 			minishell->value.exit_code = 0;
-// 	}
-// 	else if (!ft_strcmp(cmd[*i], "echo") && echo(parser->args))
-// 		minishell->value.exit_code = 0;
-// 	else if (!ft_strcmp(cmd[*i], "unset") && unset(minishell, parser->args))
-// 	{
-// 		if (minishell->value.exit_code != 1)
-// 			minishell->value.exit_code = 0;
-// 	}
-// 	else
-// 		return (0);
-// 	return (1);
-// }
-
 char	*search_path(char **path_split, char *temp)
 {
 	t_minishell	*minishell;
@@ -256,8 +225,8 @@ char	*handle_quotes(const char *str)
 
 static void	arg_type(char *arg)
 {
-	DIR	*dir;
 	t_minishell	*minishell;
+	DIR			*dir;
 
 	minishell = get_minishell();
 	dir = opendir(arg);
@@ -287,7 +256,8 @@ int	type_control(t_parser *parser, char **envs)
 	t_minishell	*minishell;
 
 	minishell = get_minishell();
-	if (!ft_strncmp(parser->args[0], "./", 2) || !ft_strncmp(parser->args[0], "/", 1))
+	if (!ft_strncmp(parser->args[0], "./", 2)
+		|| !ft_strncmp(parser->args[0], "/", 1))
 	{
 		if (execve(parser->args[0], parser->args, envs) == -1)
 		{
@@ -300,7 +270,7 @@ int	type_control(t_parser *parser, char **envs)
 	return (FAILURE);
 }
 
-char	**env();
+char	**env(void);
 
 void	check_pid(t_parser *parser, pid_t *pid)
 {

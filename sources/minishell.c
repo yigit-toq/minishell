@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 17:41:40 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/04 14:09:15 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/04 15:25:11 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	g_signal;
 
 static int	minishell_loop(t_minishell *minishell, char *env[]);
 
-//static void	starting(void);
+static void	starting(void);
 
 t_minishell	*get_minishell(void)
 {
@@ -32,7 +32,7 @@ int	main(int argc, char *argv[], char *env[])
 
 	(void)argc;
 	(void)argv;
-	//starting();
+	starting();
 	handle_signals();
 	disable_echo();
 	minishell = get_minishell();
@@ -40,7 +40,7 @@ int	main(int argc, char *argv[], char *env[])
 	return (SUCCESS);
 }
 
-static void	init_data(int flag);
+static void	init_data(void);
 
 static int	minishell_routine(t_minishell *minishell);
 
@@ -53,7 +53,7 @@ static int	minishell_loop(t_minishell *minishell, char *env[])
 	while (TRUE)
 	{
 		value = 0;
-		init_data(0);
+		init_data();
 		minishell->line = addgarbage(readline(GREEN PROMPT RESET));
 		if (!minishell->line)
 		{
@@ -99,49 +99,39 @@ static int	minishell_routine(t_minishell *minishell)
 	return (SUCCESS);
 }
 
-static void	init_data(int flag)
+static void	init_data(void)
 {
 	t_minishell	*minishell;
 	t_value		*value;
 
 	minishell = get_minishell();
 	value = &minishell->value;
-	if (flag)
-	{
-		minishell->hrdc_cmd = NULL;
-		minishell->token = NULL;
-		minishell->line = NULL;
-		minishell->env = NULL;
-		minishell->pid = NULL;
-		value->pipe_fd = NULL;
-		value->old_pwd = NULL;
-	}
 	value->sign = 0;
 	value->pipe_count = 0;
 	value->hrdc_count = 0;
 	minishell->fd_hl.change = 0;
 }
 
-// static void	starting(void)
-// {
-// 	ft_printf(GREEN "\033[H\033[J");
-// 	ft_printf("   _____   __        __        __            __   __\n");
-// 	usleep(100000);
-// 	ft_printf("  /     \\ |__| ____ |__| _____|  |__   ____ |  | |  |\n");
-// 	usleep(100000);
-// 	ft_printf(" /  \\ /  \\|  |/    \\|  |/  ___/  |  \\_/ __ \\|  | |  |\n");
-// 	usleep(100000);
-// 	ft_printf("/    Y    \\  |   |  \\  |\\___ \\|   Y  \\  ___/|  |_|  |__\n");
-// 	usleep(100000);
-// 	ft_printf("\\____|__  /__|___|  /__/____  >___|  /\\___  >____/____/\n");
-// 	usleep(100000);
-// 	ft_printf("        \\/        \\/        \\/     \\/     \\/\n" RESET);
-// 	usleep(500000);
-// 	ft_printf(BLACK "\nCREATED BY:\n");
-// 	usleep(500000);
-// 	ft_printf("\t\t _________________");
-// 	ft_printf("\n\t\t/\t\t  \\\n\t\t");
-// 	ft_printf("| ytop & abakirca |\n");
-// 	ft_printf("\t\t\\_________________/\n");
-// 	ft_printf("\n\n" RESET);
-// }
+static void	starting(void)
+{
+	ft_printf(GREEN "\033[H\033[J");
+	ft_printf("   _____   __        __        __            __   __\n");
+	usleep(100000);
+	ft_printf("  /     \\ |__| ____ |__| _____|  |__   ____ |  | |  |\n");
+	usleep(100000);
+	ft_printf(" /  \\ /  \\|  |/    \\|  |/  ___/  |  \\_/ __ \\|  | |  |\n");
+	usleep(100000);
+	ft_printf("/    Y    \\  |   |  \\  |\\___ \\|   Y  \\  ___/|  |_|  |__\n");
+	usleep(100000);
+	ft_printf("\\____|__  /__|___|  /__/____  >___|  /\\___  >____/____/\n");
+	usleep(100000);
+	ft_printf("        \\/        \\/        \\/     \\/     \\/\n" RESET);
+	usleep(500000);
+	ft_printf(BLACK "\nCREATED BY:\n");
+	usleep(500000);
+	ft_printf("\t\t _________________");
+	ft_printf("\n\t\t/\t\t  \\\n\t\t");
+	ft_printf("| ytop & abakirca |\n");
+	ft_printf("\t\t\\_________________/\n");
+	ft_printf("\n\n" RESET);
+}

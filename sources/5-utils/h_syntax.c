@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   h_syntax.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 01:12:16 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/01 15:56:45 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/04 15:18:10 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ static int	check_invalid_operator(char *arg)
 static int	check_redirection_error(char **args, int i)
 {
 	if ((!args[i + 1] || !ft_strlen(args[i + 1]))
-	&& (!ft_strcmp(args[i], ">") || !ft_strcmp(args[i], "<")
-	|| !ft_strcmp(args[i], ">>") || !ft_strcmp(args[i], "<<")))
+		&& (!ft_strcmp(args[i], ">") || !ft_strcmp(args[i], "<")
+			|| !ft_strcmp(args[i], ">>") || !ft_strcmp(args[i], "<<")))
 	{
 		err_msg(SYNTAX_ERR, "newline'", NULL);
 		return (FAILURE);

@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 17:08:52 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/04 14:06:28 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/04 15:22:21 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,8 @@ t_parser	*allocate_parser(int count);
 
 void		check_pid(t_parser *parser, pid_t *pid);
 
-int			check_builtin(t_minishell *minishell, char **cmd, t_parser *parser, int *i);
+int			check_builtin(t_minishell *minishell, char **cmd,
+			t_parser *parser, int *i);
 
 int			execute_command(void);
 
