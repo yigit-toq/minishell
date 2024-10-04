@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 13:16:19 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/03 16:51:38 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/04 15:20:02 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,8 @@ int	check_redirect(char **args)
 	minishell = get_minishell();
 	while (args[i])
 	{
-		if (!ft_strcmp(args[i], ">") || !ft_strcmp(args[i], ">>") || !ft_strcmp(args[i], "<"))
+		if (!ft_strcmp(args[i], ">") || !ft_strcmp(args[i], ">>")
+			|| !ft_strcmp(args[i], "<"))
 		{
 			if (ft_redirect(args))
 				return (minishell->value.exit_code = 1, FAILURE);

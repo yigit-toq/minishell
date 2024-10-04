@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 23:56:50 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/04 14:06:22 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/04 15:19:12 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	unset(t_minishell *shell, char **keys)
 	{
 		if (is_valid_key(keys[key_index]) == FAILURE)
 		{
-			ft_dprintf(STD_ERROR, ERR_TITLE "unset: `%s': not a valid identifier\n", keys[key_index]);
+			ft_dprintf(STD_ERROR, ERR_TITLE "unset: `%s': not a valid\
+					 identifier\n", keys[key_index]);
 			shell->value.exit_code = 1;
 			key_index++;
 			continue ;
@@ -56,5 +57,3 @@ static int	is_valid_key(char *key)
 	}
 	return (SUCCESS);
 }
-
-// Güncellenebilir

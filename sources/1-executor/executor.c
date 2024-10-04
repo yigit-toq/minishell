@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:32:47 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/04 14:45:29 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/04 15:20:25 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,20 @@ int	execute_command(void)
 	return (FAILURE);
 }
 
-int	create_fork(char **cmd, t_parser *parser);
+int			create_fork(char **cmd, t_parser *parser);
 
 static int	single_command(t_minishell *minishell)
 {
 	t_parser	*parser;
 	char		**cmd;
-	int 		i;
+	int			i;
 
 	i = 0;
 	parser = minishell->parser;
 	if (check_redirect(parser->args))
 		return (FAILURE);
 	if (parser->args[0] == NULL)
-		return (SUCCESS);
+		return (reset_fd(), SUCCESS);
 	cmd = ft_calloc(ft_lstsize(minishell->token) + 1, sizeof(char *));
 	if (!cmd)
 		return (FAILURE);

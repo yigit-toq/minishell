@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 13:25:42 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/03 16:53:01 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/04 15:24:05 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ static int	create_pipe(void)
 
 	i = 0;
 	minishell = get_minishell();
-	minishell->value.pipe_fd = ft_calloc(minishell->value.pipe_count * 2, sizeof(int));
+	minishell->value.pipe_fd = ft_calloc(minishell->value.pipe_count * 2,
+			sizeof(int));
 	minishell->pid = ft_calloc(minishell->value.pipe_count + 1, sizeof(int));
 	if (!minishell->value.pipe_fd || !minishell->pid)
 		return (perror("ft_calloc"), FAILURE);

@@ -6,15 +6,13 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 15:55:22 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/04 13:06:15 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/04 15:21:45 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static void	process_char(char *in, char *buf, int *i, int *j);
-
-// Yeniden düzenlenebilir
 
 int	replace_arg(char **args)
 {
@@ -38,13 +36,12 @@ int	replace_arg(char **args)
 	return (*args = buffer, SUCCESS);
 }
 
-// gfree(args); line : 36
-
 static void	process_char(char *in, char *buf, int *i, int *j)
 {
 	if ((in[(*i)] == '>' || in[(*i)] == '<') && check_quote(in, *i) == 0)
 	{
-		if ((*i) > 0 && in[(*i) - 1] != ' ' && in[(*i) - 1] != '>' && in[(*i) - 1] != '<')
+		if ((*i) > 0 && in[(*i) - 1] != ' '
+			&& in[(*i) - 1] != '>' && in[(*i) - 1] != '<')
 			buf[(*j)++] = ' ';
 		if (in[(*i)] == '>' && in[(*i) + 1] == '>')
 		{
@@ -60,7 +57,8 @@ static void	process_char(char *in, char *buf, int *i, int *j)
 		}
 		else
 			buf[(*j)++] = in[(*i)++];
-		if ((*i) < (int)ft_strlen(in) && in[(*i)] != ' ' && in[(*i)] != '>' && in[(*i)] != '<')
+		if ((*i) < (int)ft_strlen(in) && in[(*i)] != ' '
+			&& in[(*i)] != '>' && in[(*i)] != '<')
 			buf[(*j)++] = ' ';
 	}
 	else

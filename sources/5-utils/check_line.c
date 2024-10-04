@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_line.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 14:42:03 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/02 13:50:01 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/04 15:18:25 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,6 @@ int	check_quote(char *line, int value)
 }
 
 static int	check_pipe(char *line, int i);
-
-// Döngü içerisinde bulunan if koşulu hatalı olabilir
 
 static int	pipe_control(char *line)
 {

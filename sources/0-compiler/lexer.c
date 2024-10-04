@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 00:19:13 by ytop              #+#    #+#             */
-/*   Updated: 2024/09/28 00:19:13 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/04 15:21:56 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ static void	create_token(t_minishell *minishell)
 	gfree(line);
 }
 
-static void	process_token(t_minishell *minishell, char *line, int last_pipe, int i)
+static void	process_token(t_minishell *minishell,
+			char *line, int last_pipe, int i)
 {
 	char	*temp_str;
 	char	*temp_line;
