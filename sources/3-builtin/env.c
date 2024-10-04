@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 18:16:27 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/02 18:15:41 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/04 14:05:41 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	get_env(t_minishell *minishell, char **result, char **str, int *i)
 	*result = new_result;
 }
 
-int	print_env(void)
+void	print_env(void)
 {
 	t_minishell	*minishell;
 	t_list		*env_data;
@@ -58,7 +58,6 @@ int	print_env(void)
 	env_data = minishell->env;
 	while (env_data && printf("%s\n", env_data->content))
 		env_data = env_data->next;
-	return (1);
 }
 
 int	get_key(char *line)

@@ -3,17 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:51:54 by abakirca          #+#    #+#             */
-/*   Updated: 2024/10/03 18:11:26 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/04 14:04:10 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <unistd.h>
-
-//cd düzeltilecek
 
 int	change_dir(t_minishell *mini, char *target, char *av, char *pwd)
 {
@@ -38,7 +36,7 @@ static int	check_meta_chars(char *av, t_minishell *minishell, t_list **path)
 				minishell->value.exit_code = 1, FAILURE);
 		*path = search_env(minishell, "HOME");
 		if (!(*path))
-			return (err_msg("cd: ", NULL, " HOME not set"),
+			return (err_msg("cd: ", NULL, " Home not set"),
 				minishell->value.exit_code = 1, FAILURE);
 	}
 	else if (!ft_strncmp(av, "-", 1))

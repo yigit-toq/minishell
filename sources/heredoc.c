@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 17:23:35 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/02 18:57:15 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/04 13:03:40 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ int	heredoc(void)
 	return (SUCCESS);
 }
 
-// geçici : reset_fd() : 39
-
 static char	**get_delimiters(t_minishell *minishell, char **args)
 {
 	char	**delimiters;
@@ -70,7 +68,6 @@ static char	**get_delimiters(t_minishell *minishell, char **args)
 	return (delimiters);
 }
 
-// delimiters[j] = NULL; : 69
 
 static int	process_delimiter(t_minishell *minishell, t_parser *delim)
 {
@@ -154,7 +151,6 @@ int	delimiter(t_minishell *shell)
 	return (SUCCESS);
 }
 
-// gfree(delim) : 118
 
 static int	heredoc_loop(t_minishell *minishell, char **delim, int *fd, int *j)
 {

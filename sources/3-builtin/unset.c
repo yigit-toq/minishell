@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 23:56:50 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/02 17:03:01 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/04 14:06:22 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	is_valid_key(char *key);
 
-int	unset(t_minishell *shell, char **keys)
+void	unset(t_minishell *shell, char **keys)
 {
 	t_list	*env_node;
 	int		key_index;
@@ -39,7 +39,6 @@ int	unset(t_minishell *shell, char **keys)
 			ft_lstdelone(env_node, del);
 		key_index++;
 	}
-	return (1);
 }
 
 static int	is_valid_key(char *key)
