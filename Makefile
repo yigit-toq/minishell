@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+         #
+#    By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/26 17:02:40 by ytop              #+#    #+#              #
-#    Updated: 2024/10/03 14:10:47 by ytop             ###   ########.fr        #
+#    Updated: 2024/10/04 15:38:58 by abakirca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,7 @@ all				:	$(NAME)
 
 $(NAME)			:	$(LIBFT) $(OBJS)
 					$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT) $(RDFLAGS)
-					@printf "MINISHELL		$(COLOR_GREEN)\e[1m[OK]\e[0m\n$(COLOR_END) \n"
+					@printf "MINISHELL		$(COLOR_GREEN)\e[1m[OK]\e[0m\n$(COLOR_END)"
 
 $(OBJS_DIR)%.o	:	$(SRCS_DIR)%.c
 					@mkdir -p $(@D)
@@ -70,7 +70,7 @@ fclean			:	clean
 
 re				:	fclean all
 
-$(LIBFT)		:	
+$(LIBFT)		:
 					$(LIBFT_MAKE) all
 
 .PHONY			:	all clean fclean re
