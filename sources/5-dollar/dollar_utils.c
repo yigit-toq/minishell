@@ -12,13 +12,13 @@
 
 #include "minishell.h"
 
-void	get_ext_code(t_minishell *shell, char **result, int *i)
+void	get_ext_code(t_minishell *minishell, char **result, int *i)
 {
 	int		index;
 	char	*nbr;
 	char	*tmp;
 
-	nbr = ft_itoa(shell->value.exit_code);
+	nbr = ft_itoa(minishell->value.exit_code);
 	index = 0;
 	(*i) += 2;
 	while (nbr[index])

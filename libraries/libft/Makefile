@@ -66,9 +66,6 @@ RM				=	@rm -rf
 
 NAME			=	libft.a
 
-PRINTF_MAKE		=	@make -C ./ft_printf
-PRINTF_ARCHIVE	=	./ft_printf/libftprintf.a
-
 COLOR_YELLOW	=	\033[0;33m
 COLOR_GREEN		=	\033[0;32m
 COLOR_RED		=	\033[0;31m

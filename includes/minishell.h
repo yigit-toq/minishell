@@ -21,13 +21,13 @@
 # define FAILURE	1
 # define SUCCESS	0
 
+# define TRUE		1
+# define FALSE		0
+
 # define STD_OUTPUT 1
 # define STD_INPUT  0
 
 # define STD_ERROR	2
-
-# define TRUE		1
-# define FALSE		0
 
 # define SEMICOLON	';'
 # define REDIRECT	'>'
@@ -98,97 +98,87 @@ t_minishell	*get_minishell(void);
 
 int			type_control(t_parser *parser, char **envs);
 
-// Pipe
-
-int			ft_pipe(char **cmd, t_parser *parser);
-
 // Replace arg
 
 int			replace_arg(char **args);
 
 // Check line
 
-int			check_quote(char *line, int value);
-
 int			check_line(void);
+
+int			check_quote(char *line, int value);
 
 // Compiler
 
-int			parser(t_minishell *minishell);
+t_parser	*allocate_parser(int count);
 
 void		lexer(t_minishell *minishell);
 
-t_parser	*allocate_parser(int count);
+int			parser(t_minishell *minishell);
 
 // Executor
 
+int			check_builtin(char **cmd, t_parser *parser, int *i);
+
+void		pipe_fork(char **cmd, t_parser *parser, int i);
+
 void		check_pid(t_parser *parser, pid_t *pid);
-
-int			check_builtin(t_minishell *minishell, char **cmd,
-			t_parser *parser, int *i);
-
-int			execute_command(void);
-
-void		ft_all_lower(char **str);
-
-void		remove_quotes(t_parser *parser);
 
 void		init_cmd(t_parser *parser, char **cmd);
 
-char		*handle_quotes(const char *str);
-
 char		*find_path(char *cmd);
+
+int			execute_command(void);
 
 // Builtins
 
-char		**env(void);
-
-void		print_env(void);
+// export
 
 void		export(t_minishell *minishell, char **args);
 
-char		*get_pwd(void);
+// unset
 
-t_list		*search_env(t_minishell *minishell, char *key);
+void		unset(t_minishell *minishell, char **keys);
 
-void		env_to_list(char *env[]);
+// exit
 
-void		get_env(t_minishell *minishell, char **result, char **str, int *i);
+void		ft_exit(t_minishell *minishell, char **av);
 
-int			get_key(char *line);
-
-char		*get_value(char *line);
-
-void		ft_exit(t_minishell *shell, char **av);
-
-int			cd(t_minishell *minishell, char *av);
+// echo
 
 void		echo(char **args);
 
-void		unset(t_minishell *shell, char **keys);
+// pwd
 
-void		change_oldpwd(t_list *old_pwd_env, t_list *pwd_env, char *val);
+char		*get_pwd(void);
+
+// env
+
+t_list		*search_env(t_minishell *minishell, char *key);
+
+void		get_env(t_minishell *minishell, char **result, char **str, int *i);
+
+void		env_to_list(char *env[]);
+
+void		print_env(void);
+
+char		**env(void);
+
+char		*get_value(char *line);
+
+int			get_key(char *line);
+
+// cd
+
+void		change_oldpwd(t_list *old_pwd_env, t_list *pwd_env, char *value);
 
 void		change_pwd(t_minishell *minishell, char *pwd);
 
-// Dollar
+int			cd(t_minishell *minishell, char *av);
 
-void		dollar(t_minishell *shell);
+// Redirect
 
-void		get_ext_code(t_minishell *shell, char **result, int *i);
-
-// Utils
-
-void		save_fd(void);
-void		reset_fd(void);
-
-void		handle_signals(void);
-void		disable_echo(void);
-
-char		*strjoin_char(char *str, char c);
-char		**parser_split(char *str, char delimiter);
-
-int			err_msg(char *cmd, char *arg, char *msg);
+int			check_redirect(char **args);
 
 // Heredoc
 
@@ -198,7 +188,34 @@ int			delimiter(t_minishell *shell);
 
 int			heredoc_syntax(char **args);
 
-// Redirect
+// Quotes
 
-int			check_redirect(char **args);
+char		*handle_quotes(const char *str);
+
+void		remove_quotes(t_parser *parser);
+
+// Dollar
+
+void		dollar(t_minishell *minishell);
+
+void		get_ext_code(t_minishell *minishell, char **result, int *i);
+
+// Utils
+
+void		save_fd(void);
+void		reset_fd(void);
+
+void		disable_echo(void);
+void		handle_signals(void);
+
+void		ft_all_lower(char **str);
+
+char		*strjoin_char(char *str, char c);
+char		**parser_split(char *str, char delimiter);
+
+int			err_msg(char *cmd, char *arg, char *msg);
+
+// Pipe
+
+int			ft_pipe(char **cmd, t_parser *parser);
 #endif

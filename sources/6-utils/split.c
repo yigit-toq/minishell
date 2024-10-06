@@ -12,11 +12,8 @@
 
 #include "minishell.h"
 
-static int	get_word_start(char *str, char delimiter,
-				int *index, int *quote_flag);
-static int	count_words(char *str, char delimiter);
-
-static void	init_indexes(int indexes[], int size);
+static int	get_word_start(char *str, char delim, int *i, int *q_flag);
+static int	count_words(char *str, char delim);
 
 char	**parser_split(char *str, char delimiter)
 {
@@ -24,7 +21,7 @@ char	**parser_split(char *str, char delimiter)
 	char	**result;
 	char	*substr;
 
-	init_indexes(indexes, 4);
+	ft_bzero(indexes, sizeof(indexes));
 	result = ft_calloc(count_words(str, delimiter) + 1, sizeof(char *));
 	if (!result)
 		return (0);
@@ -45,22 +42,13 @@ char	**parser_split(char *str, char delimiter)
 	return (result);
 }
 
-static void	init_indexes(int indexes[], int size)
-{
-	int	i;
-
-	i = 0;
-	while (i < size)
-		indexes[i++] = 0;
-}
-
 static int	is_quote(char c);
 
-static int	count_words(char *str, char delimiter)
+static int	count_words(char *str, char delim)
 {
 	int	indexes[3];
 
-	init_indexes(indexes, 3);
+	ft_bzero(indexes, sizeof(indexes));
 	while (*str)
 	{
 		if (is_quote(*str))
@@ -70,7 +58,7 @@ static int	count_words(char *str, char delimiter)
 			else if (indexes[2] == *str)
 				indexes[2] = 0;
 		}
-		if (*str != delimiter || indexes[2])
+		if (*str != delim || indexes[2])
 		{
 			if (!indexes[1] && indexes[0]++)
 				indexes[1] = 1;
@@ -84,18 +72,17 @@ static int	count_words(char *str, char delimiter)
 
 static void	update_quote(char current_char, int *quote_flag);
 
-static int	get_word_start(char *str, char delimiter,
-			int *index, int *quote_flag)
+static int	get_word_start(char *str, char delim, int *i, int *q_flag)
 {
 	int	start;
 
-	while (str[*index] && (str[*index] == delimiter && *quote_flag == 0))
-		(*index)++;
-	start = *index;
-	while (str[*index] && (str[*index] != delimiter || *quote_flag))
+	while (str[*i] && (str[*i] == delim && !*q_flag))
+		(*i)++;
+	start = *i;
+	while (str[*i] && (str[*i] != delim || *q_flag))
 	{
-		update_quote(str[*index], quote_flag);
-		(*index)++;
+		update_quote(str[*i], q_flag);
+		(*i)++;
 	}
 	return (start);
 }

@@ -51,3 +51,42 @@ void	reset_fd(void)
 		dup2(minishell->fd_hl.std_out, STD_OUTPUT);
 	}
 }
+
+void	ft_all_lower(char **str)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		j = 0;
+		while (str[i][j])
+		{
+			str[i][j] = ft_tolower(str[i][j]);
+			j++;
+		}
+		i++;
+	}
+}
+
+int	check_redirect(char **args)
+{
+	t_minishell	*minishell;
+	int			i;
+
+	i = 0;
+	minishell = get_minishell();
+	while (args[i])
+	{
+		if (!ft_strcmp(args[i], ">") || !ft_strcmp(args[i], "<") || !ft_strcmp(args[i], ">>"))
+		{
+			if (ft_redirect(args))
+				return (minishell->value.exit_code = 1, FAILURE);
+			return (SUCCESS);
+		}
+		i++;
+	}
+	return (SUCCESS);
+}

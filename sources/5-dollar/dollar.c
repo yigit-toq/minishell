@@ -14,39 +14,36 @@
 
 static int	empty_dollar(char *line);
 
-static void	replace_dollar(t_minishell *shell, char **result,
-				int *i, char d_q, char s_q);
+static void	replace_dollar(t_minishell *shell, char **result, int *i, char *q);
 
-void	dollar(t_minishell *shell)
+void	dollar(t_minishell *minishell)
 {
 	char	*result;
-	char	s_q;
-	char	d_q;
+	char	q[2];
 	int		i;
 
-	if (empty_dollar(shell->line))
+	if (empty_dollar(minishell->line))
 		return ;
 	i = 0;
-	s_q = 0;
-	d_q = 0;
+	ft_bzero(q, 2);
 	result = ft_strdup("");
-	while (shell->line[i])
+	while (minishell->line[i])
 	{
-		if (!s_q && shell->line[i] == S_QUOTE)
-			s_q = shell->line[i];
-		else if (!d_q && shell->line[i] == D_QUOTE)
-			d_q = shell->line[i];
-		else if (s_q && s_q == shell->line[i])
-			s_q = 0;
-		else if (d_q && d_q == shell->line[i])
-			d_q = 0;
-		if (s_q || (!s_q && shell->line[i] == S_QUOTE))
-			result = strjoin_char(result, shell->line[i++]);
+		if (!q[0] && minishell->line[i] == S_QUOTE)
+			q[0] = minishell->line[i];
+		else if (!q[1] && minishell->line[i] == D_QUOTE)
+			q[1] = minishell->line[i];
+		else if (q[0] && q[0] == minishell->line[i])
+			q[0] = 0;
+		else if (q[1] && q[1] == minishell->line[i])
+			q[1] = 0;
+		if (q[0] || (!q[0] && minishell->line[i] == S_QUOTE))
+			result = strjoin_char(result, minishell->line[i++]);
 		else
-			replace_dollar(shell, &result, &i, d_q, s_q);
+			replace_dollar(minishell, &result, &i, q);
 	}
-	gfree(shell->line);
-	shell->line = result;
+	gfree(minishell->line);
+	minishell->line = result;
 }
 
 static int	empty_dollar(char *line)
@@ -71,17 +68,15 @@ static int	empty_dollar(char *line)
 	return (FAILURE);
 }
 
-static void	replace_dollar(t_minishell *shell, char **result,
-			int *i, char d_q, char s_q)
+static void	replace_dollar(t_minishell *shell, char **result, int *i, char *q)
 {
 	char	*tmp;
 	char	*str;
 
-	(void)d_q;
 	str = shell->line;
 	if (str[*i] == DOLLAR && str[*i + 1] == D_QUOTE)
 	{
-		if (s_q || !d_q)
+		if (q[0] || !q[1])
 			(*i)++;
 		else
 		{
@@ -90,9 +85,9 @@ static void	replace_dollar(t_minishell *shell, char **result,
 			return ;
 		}
 	}
-	if (str[*i] == DOLLAR && str[(*i) + 1] && str[(*i) + 1] == QUESTION)
+	if (str[*i] == DOLLAR && str[(*i) + 1] == QUESTION && str[(*i) + 1])
 		get_ext_code(shell, result, i);
-	else if (str[*i] == DOLLAR && str[(*i) + 1] && str[(*i) + 1] != DOLLAR)
+	else if (str[*i] == DOLLAR && str[(*i) + 1] != DOLLAR && str[(*i) + 1])
 		get_env(shell, result, &str, i);
 	else
 	{

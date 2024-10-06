@@ -13,7 +13,7 @@
 #include "minishell.h"
 #include <unistd.h>
 
-static int	single_command(t_minishell *minishell);
+static int	single_command(void);
 static int	multiple_command(void);
 
 int	execute_command(void)
@@ -22,25 +22,27 @@ int	execute_command(void)
 
 	minishell = get_minishell();
 	if (!minishell->value.pipe_count)
-		return (single_command(minishell));
+		return (single_command());
 	else
 		return (multiple_command());
 	return (FAILURE);
 }
 
-int			create_fork(char **cmd, t_parser *parser);
+static int	create_fork(char **cmd, t_parser *parser);
 
-static int	single_command(t_minishell *minishell)
+static int	single_command(void)
 {
+	t_minishell	*minishell;
 	t_parser	*parser;
 	char		**cmd;
 	int			i;
 
-	i = 0;
+	minishell = get_minishell();
 	parser = minishell->parser;
+	i = 0;
 	if (check_redirect(parser->args))
 		return (FAILURE);
-	if (parser->args[0] == NULL)
+	if (!parser->args[0])
 		return (reset_fd(), SUCCESS);
 	cmd = ft_calloc(ft_lstsize(minishell->token) + 1, sizeof(char *));
 	if (!cmd)
@@ -48,7 +50,7 @@ static int	single_command(t_minishell *minishell)
 	remove_quotes(parser);
 	init_cmd(parser, cmd);
 	ft_all_lower(&cmd[0]);
-	if (check_builtin(minishell, cmd, parser, &i))
+	if (check_builtin(cmd, parser, &i))
 		return (SUCCESS);
 	if (create_fork(cmd, parser))
 		return (FAILURE);
@@ -73,7 +75,7 @@ static int	multiple_command(void)
 	return (SUCCESS);
 }
 
-int	create_fork(char **cmd, t_parser *parser)
+static int	create_fork(char **cmd, t_parser *parser)
 {
 	t_minishell	*minishell;
 	pid_t		pid;

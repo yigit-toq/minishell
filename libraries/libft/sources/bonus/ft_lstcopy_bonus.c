@@ -14,10 +14,10 @@
 
 t_list	*ft_lstcopy(t_list *lst)
 {
-	t_list	*new_lst;
 	t_list	*current;
+	t_list	*new_lst;
 	t_list	*new_node;
-	t_list	*temp;
+	t_list	*temp_lst;
 
 	new_lst = NULL;
 	current = lst;
@@ -28,10 +28,10 @@ t_list	*ft_lstcopy(t_list *lst)
 		{
 			while (new_lst)
 			{
-				temp = new_lst;
+				temp_lst = new_lst;
 				new_lst = new_lst->next;
-				gfree(temp->content);
-				gfree(temp);
+				gfree(temp_lst->content);
+				gfree(temp_lst);
 			}
 			return (NULL);
 		}

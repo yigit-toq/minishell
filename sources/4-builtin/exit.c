@@ -45,14 +45,12 @@ static void	check_numeric(char *av, int *exit_code)
 		(*exit_code) = ft_atoi(av);
 	else
 	{
-		ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
-		ft_putstr_fd(av, STDERR_FILENO);
-		ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
+		err_msg("exit: ", av, "numeric argument required");
 		(*exit_code) = 255;
 	}
 }
 
-void	ft_exit(t_minishell *shell, char **av)
+void	ft_exit(t_minishell *minishell, char **av)
 {
 	int	exit_code;
 	int	i;
@@ -61,16 +59,16 @@ void	ft_exit(t_minishell *shell, char **av)
 	while (av[i])
 		i++;
 	exit_code = 0;
-	ft_putstr_fd("exit\n", STD_OUTPUT);
+	ft_dprintf(STD_OUTPUT, "exit\n");
 	if (i > 2)
 	{
-		ft_putstr_fd(" too many arguments\n", STDERR_FILENO);
+		ft_dprintf(STD_ERROR, " too many arguments\n");
 		exit_code = 1;
 	}
 	else if (av[1] != NULL)
 		check_numeric(av[1], &exit_code);
 	else
-		exit_code = shell->value.exit_code;
+		exit_code = minishell->value.exit_code;
 	clear_garbage();
 	exit(exit_code);
 }

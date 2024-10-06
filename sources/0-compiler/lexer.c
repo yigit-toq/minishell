@@ -23,7 +23,7 @@ void	lexer(t_minishell *minishell)
 	count_heredoc(minishell);
 }
 
-static void	process_token(t_minishell *shell, char *line, int last_pipe, int i);
+static void	proces_token(t_minishell *minishell, char *line, int l_pipe, int i);
 
 static void	create_token(t_minishell *minishell)
 {
@@ -40,7 +40,7 @@ static void	create_token(t_minishell *minishell)
 	{
 		if ((line[index] == PIPE || !line[index]) && !check_quote(line, index))
 		{
-			process_token(minishell, line, last_pipe, index);
+			proces_token(minishell, line, last_pipe, index);
 			if (line[index] == '\0')
 				break ;
 			last_pipe = index + 1;
@@ -51,13 +51,12 @@ static void	create_token(t_minishell *minishell)
 	gfree(line);
 }
 
-static void	process_token(t_minishell *minishell,
-			char *line, int last_pipe, int i)
+static void	proces_token(t_minishell *minishell, char *line, int l_pipe, int i)
 {
 	char	*temp_str;
 	char	*temp_line;
 
-	temp_str = ft_substr(line, last_pipe, i - last_pipe);
+	temp_str = ft_substr(line, l_pipe, i - l_pipe);
 	temp_line = ft_strtrim(temp_str, " ");
 	gfree(temp_str);
 	if (!temp_line)
