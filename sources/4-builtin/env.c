@@ -56,7 +56,7 @@ void	print_env(void)
 
 	minishell = get_minishell();
 	env_data = minishell->env;
-	while (env_data && printf("%s\n", env_data->content))
+	while (env_data && ft_printf("%s\n", env_data->content))
 		env_data = env_data->next;
 }
 
@@ -86,22 +86,22 @@ char	*get_value(char *line)
 
 t_list	*search_env(t_minishell *minishell, char *key)
 {
-	t_list	*cur_env;
+	t_list	*tmp_env;
 	char	*env_key;
 
 	if (key == NULL || ft_strlen(key) == 0)
 		return (NULL);
-	cur_env = minishell->env;
-	while (cur_env)
+	tmp_env = minishell->env;
+	while (tmp_env)
 	{
-		env_key = ft_substr(cur_env->content, 0, get_key(cur_env->content));
+		env_key = ft_substr(tmp_env->content, 0, get_key(tmp_env->content));
 		if (!ft_strcmp(env_key, key))
 		{
 			gfree(env_key);
-			return (cur_env);
+			return (tmp_env);
 		}
 		gfree(env_key);
-		cur_env = cur_env->next;
+		tmp_env = tmp_env->next;
 	}
 	return (NULL);
 }

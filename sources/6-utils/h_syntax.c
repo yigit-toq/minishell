@@ -56,12 +56,14 @@ static int	check_invalid_operator(char *arg)
 
 static int	check_redirection_error(char **args, int i)
 {
-	if ((!args[i + 1] || !ft_strlen(args[i + 1]))
-		&& (!ft_strcmp(args[i], ">") || !ft_strcmp(args[i], "<")
-			|| !ft_strcmp(args[i], ">>") || !ft_strcmp(args[i], "<<")))
+	if ((!args[i + 1] || !ft_strlen(args[i + 1])))
 	{
-		err_msg(SYNTAX_ERR, "newline'", NULL);
-		return (FAILURE);
+		if (!ft_strcmp(args[i], ">") || !ft_strcmp(args[i], "<")
+			|| !ft_strcmp(args[i], ">>") || !ft_strcmp(args[i], "<<"))
+		{
+			err_msg(SYNTAX_ERR, "newline'", NULL);
+			return (FAILURE);
+		}
 	}
 	return (SUCCESS);
 }

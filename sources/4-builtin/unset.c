@@ -14,7 +14,7 @@
 
 static int	is_valid_key(char *key);
 
-void	unset(t_minishell *shell, char **keys)
+void	unset(t_minishell *minishell, char **keys)
 {
 	t_list	*env_node;
 	int		key_index;
@@ -24,9 +24,8 @@ void	unset(t_minishell *shell, char **keys)
 	{
 		if (is_valid_key(keys[key_index]) == FAILURE)
 		{
-			ft_dprintf(STD_ERROR, ERR_TITLE "unset: `%s': not a valid\
-					 identifier\n", keys[key_index]);
-			shell->value.exit_code = 1;
+			err_msg("unset: ", keys[key_index], "not a valid identifier");
+			minishell->value.exit_code = 1;
 			key_index++;
 			continue ;
 		}
@@ -35,7 +34,7 @@ void	unset(t_minishell *shell, char **keys)
 			key_index++;
 			continue ;
 		}
-		env_node = search_env(shell, keys[key_index]);
+		env_node = search_env(minishell, keys[key_index]);
 		if (env_node)
 			ft_lstdelone(env_node, del);
 		key_index++;

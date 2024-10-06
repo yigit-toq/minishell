@@ -17,15 +17,19 @@ COMPILER_DIR	=	$(SRCS_DIR)0-compiler/
 
 EXECUTOR_DIR	=	$(SRCS_DIR)1-executor/
 
-REDIRECT_DIR	=	$(SRCS_DIR)2-redirect/
+HEREDOC_DIR		=	$(SRCS_DIR)2-heredoc/
 
-BUILTIN_DIR		=	$(SRCS_DIR)3-builtin/
+RDIRECT_DIR		=	$(SRCS_DIR)3-rdirect/
 
-DOLLAR_DIR		=	$(SRCS_DIR)4-dollar/
+BUILTIN_DIR		=	$(SRCS_DIR)4-builtin/
 
-UTIL_DIR		=	$(SRCS_DIR)5-utils/
+DOLLAR_DIR		=	$(SRCS_DIR)5-dollar/
 
-SRCS			=	$(SRCS_DIR)minishell.c $(SRCS_DIR)heredoc.c $(SRCS_DIR)pipe.c $(COMPILER_DIR)lexer.c $(COMPILER_DIR)parser.c $(COMPILER_DIR)replace_arg.c $(EXECUTOR_DIR)executor.c $(EXECUTOR_DIR)executor_utils.c $(REDIRECT_DIR)redirect.c $(BUILTIN_DIR)cd.c $(BUILTIN_DIR)cd_utils.c $(BUILTIN_DIR)echo.c $(BUILTIN_DIR)env.c $(BUILTIN_DIR)exit.c $(BUILTIN_DIR)export.c $(BUILTIN_DIR)pwd.c $(BUILTIN_DIR)unset.c $(DOLLAR_DIR)dollar.c $(DOLLAR_DIR)dollar_utils.c $(UTIL_DIR)check_line.c $(UTIL_DIR)h_syntax.c $(UTIL_DIR)signal.c $(UTIL_DIR)split.c $(UTIL_DIR)utils.c
+UTIL_DIR		=	$(SRCS_DIR)6-utils/
+
+PIPE_DIR		=	$(SRCS_DIR)7-pipe/
+
+SRCS			=	$(SRCS_DIR)minishell.c $(COMPILER_DIR)lexer.c $(COMPILER_DIR)parser.c $(COMPILER_DIR)replace_arg.c $(EXECUTOR_DIR)executor.c $(EXECUTOR_DIR)executor_utils_1.c $(EXECUTOR_DIR)executor_utils_2.c $(EXECUTOR_DIR)executor_utils.c $(HEREDOC_DIR)heredoc.c $(HEREDOC_DIR)heredoc_utils.c $(REDIRECT_DIR)redirect.c $(BUILTIN_DIR)cd.c $(BUILTIN_DIR)cd_utils.c $(BUILTIN_DIR)echo.c $(BUILTIN_DIR)env.c $(BUILTIN_DIR)exit.c $(BUILTIN_DIR)export.c $(BUILTIN_DIR)pwd.c $(BUILTIN_DIR)unset.c $(DOLLAR_DIR)dollar.c $(DOLLAR_DIR)dollar_utils.c $(UTIL_DIR)check_line.c $(UTIL_DIR)h_syntax.c $(UTIL_DIR)quotes.c $(UTIL_DIR)signal.c $(UTIL_DIR)split.c $(UTIL_DIR)utils.c $(PIPE_DIR)pipe.c $(PIPE_DIR)pipe_utils.c
 
 OBJS			=	$(patsubst $(SRCS_DIR)%.c, $(OBJS_DIR)%.o, $(SRCS))
 
