@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/07 01:02:34 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/07 13:10:27 by ytop             ###   ########.fr       */
+/*   Created: 2024/10/07 13:43:25 by ytop              #+#    #+#             */
+/*   Updated: 2024/10/07 14:13:46 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ static void	handle_pipe_dup(int i)
 	t_minishell	*minishell;
 	int			j;
 
-	minishell = get_minishell();
 	j = 0;
+	minishell = get_minishell();
 	handle_heredoc_dup(i);
 	if (i != minishell->value.pipe_count)
 	{
@@ -60,19 +60,17 @@ static void	handle_pipe_dup(int i)
 	}
 }
 
-// Create Pipe son güncelleme hatalı olabilir
-
 static void	fork_execute(t_parser *parser, char **cmd, int i)
 {
 	t_minishell	*minishell;
-	char		**envs;
+	char		**environment;
 
-	envs = env();
 	minishell = get_minishell();
+	environment = env();
 	minishell->path = find_path(cmd[i]);
-	if (execve(minishell->path, parser->args, envs) == -1)
+	if (execve(minishell->path, parser->args, environment) == -1)
 	{
-		type_control(minishell->parser, envs);
+		type_control(minishell->parser, environment);
 		err_msg(NULL, parser->args[0], "command not found");
 		if (minishell->value.sign)
 			gfree(minishell->path);
@@ -86,8 +84,8 @@ void	pipe_fork(char **cmd, t_parser *parser, int i)
 {
 	t_minishell	*minishell;
 
-	handle_pipe_dup(i);
 	minishell = get_minishell();
+	handle_pipe_dup(i);
 	if (check_redirect(parser->args))
 		exit(FAILURE);
 	ft_all_lower(&cmd[i]);

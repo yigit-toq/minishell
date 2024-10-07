@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
+/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 18:27:30 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/04 17:30:27 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/07 13:59:48 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,13 @@ static int	empty_dollar(char *line);
 
 static void	replace_dollar(t_minishell *shell, char **result, int *i, char *q);
 
-void	dollar(t_minishell *minishell)
+void	dollar(t_minishell *minishell, int i)
 {
 	char	*result;
 	char	q[2];
-	int		i;
 
 	if (empty_dollar(minishell->line))
 		return ;
-	i = 0;
 	ft_bzero(q, 2);
 	result = ft_strdup("");
 	while (minishell->line[i])

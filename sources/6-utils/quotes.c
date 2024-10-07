@@ -5,34 +5,33 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/06 23:56:12 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/06 23:56:12 by ytop             ###   ########.fr       */
+/*   Created: 2024/10/07 13:39:53 by ytop              #+#    #+#             */
+/*   Updated: 2024/10/07 13:40:44 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	remove_quotes_helper(char **tmp1, char **tmp2, char **new_tmp)
+static void	remove_quotes_helper(char **tmp2, char **tmp, char **new_tmp)
 {
-	int	i;
+	int	k;
 	int	quote;
 
-	i = 0;
+	k = -1;
 	quote = 0;
-	while ((*tmp2)[i])
+	while ((*tmp2)[++k])
 	{
-		if (quote == 0 && ((*tmp2)[i] == S_QUOTE || (*tmp2)[i] == D_QUOTE))
-			quote = (*tmp2)[i];
-		else if (quote != 0 && quote == (*tmp2)[i])
+		if (quote == 0 && ((*tmp2)[k] == '\'' || (*tmp2)[k] == '\"'))
+			quote = (*tmp2)[k];
+		else if (quote != 0 && quote == (*tmp2)[k])
 			quote = 0;
 		else
 		{
-			*new_tmp = strjoin_char(*tmp1, (*tmp2)[i]);
+			*new_tmp = strjoin_char(*tmp, (*tmp2)[k]);
 			if (!(*new_tmp))
 				return ;
-			*tmp1 = *new_tmp;
+			*tmp = *new_tmp;
 		}
-		i++;
 	}
 }
 
@@ -54,7 +53,7 @@ void	remove_quotes(t_parser *parser)
 			if (!tmp_one)
 				return ;
 			tmp_two = parser_tmp->args[i];
-			remove_quotes_helper(&tmp_one, &tmp_two, &new_tmp);
+			remove_quotes_helper(&tmp_two, &tmp_one, &new_tmp);
 			parser_tmp->args[i] = tmp_one;
 			i++;
 		}

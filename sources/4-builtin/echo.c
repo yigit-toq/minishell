@@ -14,8 +14,8 @@
 
 void	echo(char **args)
 {
-	int	newline;
 	int	i;
+	int	newline;
 	int	j;
 
 	i = 1;

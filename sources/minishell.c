@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
+/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 17:41:40 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/04 16:24:23 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/07 14:19:49 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,9 @@
 
 int	g_signal;
 
+static int	minishell_loop(t_minishell *minishell, int value);
+
 static void	starting(void);
-
-t_minishell	*get_minishell(void)
-{
-	static t_minishell	minishell;
-
-	return (&minishell);
-}
-
-static void	init_data(void)
-{
-	t_minishell	*minishell;
-	t_value		*value;
-
-	minishell = get_minishell();
-	value = &minishell->value;
-	value->sign = 0;
-	value->pipe_count = 0;
-	value->hrdc_count = 0;
-	minishell->fd_hl.change = 0;
-}
-
-static int	minishell_loop(t_minishell *minishell, char *env[]);
 
 int	main(int argc, char *argv[], char *env[])
 {
@@ -49,18 +29,18 @@ int	main(int argc, char *argv[], char *env[])
 	handle_signals();
 	disable_echo();
 	minishell = get_minishell();
-	minishell_loop(minishell, env);
+	ft_bzero(minishell, sizeof(t_minishell));
+	env_to_list(env);
+	minishell_loop(minishell, 0);
 	return (SUCCESS);
 }
 
+static void	init_data(void);
+
 static int	minishell_routine(t_minishell *minishell);
 
-static int	minishell_loop(t_minishell *minishell, char *env[])
+static int	minishell_loop(t_minishell *minishell, int value)
 {
-	int	value;
-
-	ft_bzero(minishell, sizeof(t_minishell));
-	env_to_list(env);
 	while (TRUE)
 	{
 		value = 0;
@@ -87,23 +67,34 @@ static int	minishell_loop(t_minishell *minishell, char *env[])
 	return (SUCCESS);
 }
 
-// value = 2 durumu kontrol edilecek
-
 static int	minishell_routine(t_minishell *minishell)
 {
 	add_history(minishell->line);
 	if (!check_line())
 	{
-		dollar(minishell);
+		dollar(minishell, 0);
 		lexer(minishell);
 		if (parser(minishell) == FAILURE)
 			return (FAILURE);
-		if (heredoc() == FAILURE)
+		if (heredoc())
 			return (2);
 		execute_command();
-		reset_fd(); // Gereksiz olabilir
+		reset_fd();
 	}
 	return (SUCCESS);
+}
+
+static void	init_data(void)
+{
+	t_minishell	*minishell;
+	t_value		*value;
+
+	minishell = get_minishell();
+	value = &minishell->value;
+	value->sign = 0;
+	value->pipe_count = 0;
+	value->hrdc_count = 0;
+	minishell->fd_hl.change = 0;
 }
 
 static void	starting(void)

@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 18:46:30 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/04 14:03:36 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/07 14:56:33 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,14 @@ static void	check_numeric(char *av, int *exit_code)
 		(*exit_code) = ft_atoi(av);
 	else
 	{
-		err_msg("exit: ", av, "numeric argument required");
+		ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
+		ft_putstr_fd(av, STDERR_FILENO);
+		ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
 		(*exit_code) = 255;
 	}
 }
 
-void	ft_exit(t_minishell *minishell, char **av)
+void	ft_exit(t_minishell *shell, char **av)
 {
 	int	exit_code;
 	int	i;
@@ -59,16 +61,16 @@ void	ft_exit(t_minishell *minishell, char **av)
 	while (av[i])
 		i++;
 	exit_code = 0;
-	ft_dprintf(STD_OUTPUT, "exit\n");
+	ft_putstr_fd("exit\n", STD_OUTPUT);
 	if (i > 2)
 	{
-		ft_dprintf(STD_ERROR, " too many arguments\n");
+		ft_putstr_fd(" too many arguments\n", STDERR_FILENO);
 		exit_code = 1;
 	}
 	else if (av[1] != NULL)
 		check_numeric(av[1], &exit_code);
 	else
-		exit_code = minishell->value.exit_code;
+		exit_code = shell->value.exit_code;
 	clear_garbage();
 	exit(exit_code);
 }

@@ -32,16 +32,17 @@ int	replace_arg(char **args)
 	while (src_index < in_len)
 		process_char(input, buffer, &src_index, &dst_index);
 	buffer[dst_index] = '\0';
-	return (gfree(*args), *args = buffer, SUCCESS);
+	gfree(*args);
+	return (*args = buffer, SUCCESS);
 }
 
 static void	process_char(char *in, char *buf, int *i, int *j)
 {
-	if ((in[(*i)] == '>' || in[(*i)] == '<') && !check_quote(in, *i))
+	if ((in[(*i)] == '>' || in[(*i)] == '<') && check_quote(in, *i) == 0)
 	{
-		if (in[(*i) - 1] != '>' && in[(*i) - 1] != '<')
-			if (in[(*i) - 1] != ' ' && (*i) > 0)
-				buf[(*j)++] = ' ';
+		if ((*i) > 0 && in[(*i) - 1] != ' '
+			&& in[(*i) - 1] != '>' && in[(*i) - 1] != '<')
+			buf[(*j)++] = ' ';
 		if (in[(*i)] == '>' && in[(*i) + 1] == '>')
 		{
 			buf[(*j)++] = '>';
@@ -56,9 +57,9 @@ static void	process_char(char *in, char *buf, int *i, int *j)
 		}
 		else
 			buf[(*j)++] = in[(*i)++];
-		if (in[(*i)] != '>' && in[(*i)] != '<')
-			if (in[(*i)] != ' ' && (*i) < (int)ft_strlen(in))
-				buf[(*j)++] = ' ';
+		if ((*i) < (int)ft_strlen(in) && in[(*i)] != ' '
+			&& in[(*i)] != '>' && in[(*i)] != '<')
+			buf[(*j)++] = ' ';
 	}
 	else
 		buf[(*j)++] = in[(*i)++];

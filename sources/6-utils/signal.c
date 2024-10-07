@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
+/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 17:54:23 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/03 17:22:25 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/07 14:09:16 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,18 @@ void	handle_signals(void)
 	signal(SIGQUIT, ctrl_bs);
 }
 
+static void	ctrl_c_utils(void)
+{
+	t_minishell	*minishell;
+
+	minishell = get_minishell();
+	ft_printf("\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+	minishell->value.exit_code = 1;
+}
+
 static void	ctrl_c(int signal)
 {
 	t_minishell	*minishell;
@@ -57,11 +69,7 @@ static void	ctrl_c(int signal)
 	}
 	else
 	{
-		ft_printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-		minishell->value.exit_code = 1;
+		ctrl_c_utils();
 	}
 	g_signal = 1;
 }

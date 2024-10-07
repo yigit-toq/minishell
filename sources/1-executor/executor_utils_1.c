@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executor_utils.c                                   :+:      :+:    :+:   */
+/*   executor_utils_1.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
+/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/02 13:56:11 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/04 17:33:45 by abakirca         ###   ########.fr       */
+/*   Created: 2024/10/07 13:38:29 by ytop              #+#    #+#             */
+/*   Updated: 2024/10/07 14:12:46 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <unistd.h>
 #include <dirent.h>
+#include <unistd.h>
 
-static int	check_builtin_utils(char **cmd, t_parser *parser, int *i)
+static int	check_builtin2(t_minishell *minishell, char **cmd,
+			t_parser *parser, int *i)
 {
-	t_minishell	*minishell;
-
-	minishell = get_minishell();
 	if (ft_strcmp(cmd[*i], "cd") == 0)
 	{
 		cd(minishell, parser->args[1]);
@@ -37,38 +35,38 @@ static int	check_builtin_utils(char **cmd, t_parser *parser, int *i)
 			minishell->value.exit_code = 0;
 	}
 	else
-		return (SUCCESS);
+		return (0);
 	reset_fd();
-	return (FAILURE);
+	return (1);
 }
 
 int	check_builtin(char **cmd, t_parser *parser, int *i)
 {
-	t_minishell	*minishell;
+	t_minishell	*shell;
 
-	minishell = get_minishell();
+	shell = get_minishell();
 	if (cmd[*i] == NULL)
 		return (FAILURE);
 	if (ft_strcmp(cmd[*i], "env") == 0)
 	{
 		print_env();
-		minishell->value.exit_code = 0;
-	}
-	else if (ft_strcmp(cmd[*i], "exit") == 0)
-	{
-		ft_exit(minishell, parser->args);
-		minishell->value.exit_code = 0;
+		shell->value.exit_code = 0;
 	}
 	else if (ft_strcmp(cmd[*i], "export") == 0)
 	{
-		minishell->value.exit_code = 0;
-		export(minishell, parser->args);
+		shell->value.exit_code = 0;
+		export(shell, parser->args);
 	}
 	else if (ft_strcmp(cmd[*i], "pwd") == 0 && get_pwd())
-		minishell->value.exit_code = 0;
+		shell->value.exit_code = 0;
+	else if (ft_strcmp(cmd[*i], "exit") == 0)
+	{
+		ft_exit(shell, parser->args);
+		shell->value.exit_code = 0;
+	}
 	else
-		return (check_builtin_utils(cmd, parser, i));
-	return (reset_fd(), FAILURE);
+		return (check_builtin2(shell, cmd, parser, i));
+	return (reset_fd(), 1);
 }
 
 static void	arg_type(char *arg)
@@ -81,18 +79,21 @@ static void	arg_type(char *arg)
 	if ((dir) != NULL)
 	{
 		closedir(dir);
-		ft_dprintf(STD_ERROR, "%s: is a directory\n", arg);
-		minishell->value.exit_code = 126;
-	}
-	else if (access(arg, X_OK) == -1)
-	{
-		ft_dprintf(STD_ERROR, "%s: Permission denied\n", arg);
+		ft_putstr_fd(arg, STDERR_FILENO);
+		ft_putstr_fd(": is a directory\n", STDERR_FILENO);
 		minishell->value.exit_code = 126;
 	}
 	else if (access(arg, F_OK) == -1)
 	{
-		ft_dprintf(STD_ERROR, "%s: No such file or directory\n", arg);
+		ft_putstr_fd(arg, STDERR_FILENO);
+		ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
 		minishell->value.exit_code = 127;
+	}
+	else if (access(arg, X_OK) == -1)
+	{
+		ft_putstr_fd(arg, STDERR_FILENO);
+		ft_putstr_fd(": Permission denied\n", STDERR_FILENO);
+		minishell->value.exit_code = 126;
 	}
 }
 

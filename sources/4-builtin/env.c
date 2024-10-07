@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
+/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 18:16:27 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/04 14:05:41 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/07 14:03:22 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	print_env(void)
 
 	minishell = get_minishell();
 	env_data = minishell->env;
-	while (env_data && ft_printf("%s\n", env_data->content))
+	while (env_data && printf("%s\n", env_data->content))
 		env_data = env_data->next;
 }
 
@@ -82,26 +82,4 @@ char	*get_value(char *line)
 		return (NULL);
 	value = ft_strdup(line + i + 1);
 	return (value);
-}
-
-t_list	*search_env(t_minishell *minishell, char *key)
-{
-	t_list	*tmp_env;
-	char	*env_key;
-
-	if (key == NULL || ft_strlen(key) == 0)
-		return (NULL);
-	tmp_env = minishell->env;
-	while (tmp_env)
-	{
-		env_key = ft_substr(tmp_env->content, 0, get_key(tmp_env->content));
-		if (!ft_strcmp(env_key, key))
-		{
-			gfree(env_key);
-			return (tmp_env);
-		}
-		gfree(env_key);
-		tmp_env = tmp_env->next;
-	}
-	return (NULL);
 }

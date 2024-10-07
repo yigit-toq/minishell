@@ -5,37 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/07 00:59:25 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/07 13:04:14 by ytop             ###   ########.fr       */
+/*   Created: 2024/10/07 13:42:21 by ytop              #+#    #+#             */
+/*   Updated: 2024/10/07 14:13:30 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static void	null_heredoc_args(char **args)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (args[i])
-	{
-		if (!ft_strncmp(args[i], "<<", 2) && args[i + 1])
-		{
-			gfree(args[i]);
-			gfree(args[i + 1]);
-			i += 2;
-		}
-		else
-		{
-			args[j] = args[i];
-			i++;
-			j++;
-		}
-	}
-	args[j] = NULL;
-}
 
 static char	**get_delimiters(t_minishell *minishell, char **args)
 {
@@ -66,20 +41,20 @@ static char	**get_delimiters(t_minishell *minishell, char **args)
 	return (delimiters);
 }
 
-static int	process_delimiter(t_minishell *minishell, t_parser *delimiter)
+static int	process_delimiter(t_minishell *minishell, t_parser *delim)
 {
 	t_parser	*parser;
 	t_parser	*tmp;
 	int			i;
 
 	i = 0;
-	tmp = delimiter;
+	tmp = delim;
 	parser = minishell->parser;
 	while (i <= minishell->value.pipe_count && parser && tmp)
 	{
 		tmp->args = get_delimiters(minishell, parser->args);
 		if (!tmp->args && minishell->value.hrdc_count > 0)
-			return (ft_parser_clear(&delimiter, del), FAILURE);
+			return (ft_parser_clear(&delim, del), FAILURE);
 		parser = parser->next;
 		tmp = tmp->next;
 		i++;
@@ -87,36 +62,71 @@ static int	process_delimiter(t_minishell *minishell, t_parser *delimiter)
 	return (SUCCESS);
 }
 
+static void	null_heredoc_args(char **args)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (args[i])
+	{
+		if (!ft_strncmp(args[i], "<<", 2) && args[i + 1])
+		{
+			gfree(args[i]);
+			gfree(args[i + 1]);
+			i += 2;
+		}
+		else
+		{
+			args[j] = args[i];
+			i++;
+			j++;
+		}
+	}
+	args[j] = NULL;
+}
+
+static int	delimiter_utils(t_minishell *shell, t_parser *tmp, t_parser *delim)
+{
+	int	i;
+
+	i = 0;
+	while (i <= shell->value.pipe_count && delim)
+	{
+		shell->value.hrdc_fd[i] = -1;
+		if (delim && delim->args)
+		{
+			if (read_heredoc(shell, delim->args, i))
+				return (FAILURE);
+		}
+		null_heredoc_args(tmp->args);
+		tmp = tmp->next;
+		delim = delim->next;
+		i++;
+	}
+	return (SUCCESS);
+}
+
 int	delimiter(t_minishell *shell)
 {
-	t_parser	*parser_tmp;
-	t_parser	*delimiter;
-	int			i;
+	t_parser	*delim;
+	t_parser	*tmp;
 
-	parser_tmp = shell->parser;
+	tmp = shell->parser;
 	shell->value.hrdc_fd = ft_calloc(shell->value.pipe_count + 1, sizeof(int));
 	if (!shell->value.hrdc_fd)
 		return (FAILURE);
-	delimiter = allocate_parser(shell->value.pipe_count + 1);
-	if (!delimiter)
+	delim = allocate_parser(shell->value.pipe_count + 1);
+	if (!delim)
 		return (gfree(shell->value.hrdc_fd), FAILURE);
-	if (process_delimiter(shell, delimiter) || !delimiter)
+	if (process_delimiter(shell, delim) || !delim)
 	{
-		ft_dprintf(STD_ERROR, "%s%s'newline'\n", ERR_TITLE, SYNTAX_ERR);
+		ft_dprintf(STD_ERROR, "%s%s 'newline'\n", ERR_TITLE, SYNTAX_ERR);
 		shell->value.exit_code = 2;
-		return (gfree(shell->value.hrdc_fd), gfree(delimiter), FAILURE);
+		return (gfree(shell->value.hrdc_fd), gfree(delim), FAILURE);
 	}
-	i = 0;
-	while (i <= shell->value.pipe_count && delimiter)
-	{
-		shell->value.hrdc_fd[i] = -1;
-		if (delimiter && delimiter->args)
-			if (read_heredoc(shell, delimiter->args, i))
-				return (FAILURE);
-		null_heredoc_args(parser_tmp->args);
-		parser_tmp = parser_tmp->next;
-		delimiter = delimiter->next;
-		i++;
-	}
+	if (delimiter_utils(shell, tmp, delim))
+		return (FAILURE);
 	return (SUCCESS);
 }

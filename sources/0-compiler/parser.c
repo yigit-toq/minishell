@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static int	process_tokens(t_minishell *minishell, t_parser *parser);
+static int		process_tokens(t_minishell *minishell, t_parser *parser);
 
 int	parser(t_minishell *minishell)
 {

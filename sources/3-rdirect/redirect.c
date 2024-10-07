@@ -6,28 +6,29 @@
 /*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 13:16:19 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/07 13:08:44 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/07 13:54:09 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <unistd.h>
 #include <fcntl.h>
+#include <unistd.h>
 
 void	free_n_null(char **args, int *j)
 {
-	(*j) += 2;
 	gfree(args[(*j)]);
-	args[(*j)] = NULL;
 	gfree(args[(*j) + 1]);
+	args[(*j)] = NULL;
 	args[(*j) + 1] = NULL;
+	(*j) += 2;
 }
 
-static int	redirect_out(char *file, int append)
+static int	rdirect_out(char *file, int *j, int append)
 {
-	char	*clean_file;
 	int		fd;
+	char	*clean_file;
 
+	(void)*j;
 	clean_file = handle_quotes(file);
 	if (append)
 		fd = open(clean_file, O_CREAT | O_WRONLY | O_APPEND, 0644);
@@ -35,45 +36,53 @@ static int	redirect_out(char *file, int append)
 		fd = open(clean_file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	gfree(clean_file);
 	if (fd == -1)
-		return (perror("minishell"), FAILURE);
-	if (fd >= 0 && dup2(fd, STD_OUTPUT) == -1)
-		return (perror("minishell"), close(fd), FAILURE);
-	return (close(fd), SUCCESS);
+	{
+		perror("minishell");
+		return (1);
+	}
+	if (fd >= 0 && dup2(fd, STDOUT_FILENO) == -1)
+		return (perror("dup2"), close(fd), 1);
+	return (close(fd), 0);
 }
 
-static int	redirect_in(char *file)
+static int	rdirect_in(char *file, int *j)
 {
-	char	*clean_file;
 	int		fd;
+	char	*clean_file;
 
+	(void)*j;
 	clean_file = handle_quotes(file);
 	fd = open(clean_file, O_RDONLY);
 	gfree(clean_file);
 	if (fd == -1)
-		return (perror("minishell"), FAILURE);
-	if (fd >= 0 && dup2(fd, STD_INPUT) == -1)
-		return (perror("minishell"), close(fd), FAILURE);
-	return (close(fd), SUCCESS);
+	{
+		perror("minishell");
+		return (1);
+	}
+	if (fd >= 0 && dup2(fd, STDIN_FILENO) == -1)
+		return (perror("minishell"), close(fd), 1);
+	return (close(fd), 0);
 }
 
-static int	find_exec(char **args, char **file, int *i, int *j)
+int	find_exec(char **args, int *j, int *i, char **file)
 {
-	if (!(ft_strcmp(args[(*j)], ">") || !ft_strcmp(args[(*j)], ">>")) && args[(*j) + 1])
+	if ((ft_strcmp(args[(*j)], ">") == 0 && args[(*j) + 1])
+		|| (ft_strcmp(args[(*j)], ">>") == 0 && args[(*j) + 1]))
 	{
 		*file = args[(*j) + 1];
 		if (ft_strcmp(args[(*j)], ">") == 0)
 		{
-			if (redirect_out(*file, 0))
+			if (rdirect_out(*file, j, 0))
 				return (FAILURE);
 		}
-		else if (redirect_out(*file, 1))
+		else if (rdirect_out(*file, j, 1))
 			return (FAILURE);
 		free_n_null(args, j);
 	}
-	else if (!ft_strcmp(args[(*j)], "<") && args[(*j) + 1])
+	else if (ft_strcmp(args[(*j)], "<") == 0 && args[(*j) + 1])
 	{
 		*file = args[(*j) + 1];
-		if (redirect_in(*file))
+		if (rdirect_in(*file, j))
 			return (FAILURE);
 		free_n_null(args, j);
 	}
@@ -95,7 +104,7 @@ int	ft_redirect(char **args)
 	minishell = get_minishell();
 	while (args[i])
 	{
-		if (find_exec(args, &file, &i, &j))
+		if (find_exec(args, &i, &j, &file))
 			return (FAILURE);
 	}
 	args[j] = NULL;
