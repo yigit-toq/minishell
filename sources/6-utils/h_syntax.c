@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 01:12:16 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/04 15:18:10 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/07 20:47:05 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,19 @@ int	heredoc_syntax(char **args)
 
 static int	check_invalid_operator(char *arg)
 {
-	if (ft_strcmp(arg, "<>") == 0 || ft_strcmp(arg, "><") == 0)
+	if (ft_strcmp(arg, "<>") == 0 || ft_strcmp(arg, "<<<") == 0)
 	{
 		err_msg(SYNTAX_ERR, "newline'", NULL);
 		return (FAILURE);
 	}
-	if (ft_strcmp(arg, ">>>") == 0 || ft_strcmp(arg, "<<<") == 0)
+	if (ft_strcmp(arg, ">>>") == 0)
 	{
 		err_msg(SYNTAX_ERR, ">'", NULL);
+		return (FAILURE);
+	}
+	if (ft_strcmp(arg, "><") == 0)
+	{
+		err_msg(SYNTAX_ERR, "<'", NULL);
 		return (FAILURE);
 	}
 	return (SUCCESS);
