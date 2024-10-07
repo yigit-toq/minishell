@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 18:46:30 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/07 14:56:33 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/07 17:47:08 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,11 @@ void	ft_exit(t_minishell *shell, char **av)
 	ft_putstr_fd("exit\n", STD_OUTPUT);
 	if (i > 2)
 	{
-		ft_putstr_fd(" too many arguments\n", STDERR_FILENO);
-		exit_code = 1;
+		err_msg("exit", NULL, "too many arguments");
+		return ;
 	}
-	else if (av[1] != NULL)
+	av[1] = ft_strtrim(av[1], " ");
+	if (av[1] != NULL)
 		check_numeric(av[1], &exit_code);
 	else
 		exit_code = shell->value.exit_code;

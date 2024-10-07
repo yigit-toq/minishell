@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 18:16:27 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/07 14:03:22 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/07 17:53:28 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,12 @@ void	print_env(void)
 
 	minishell = get_minishell();
 	env_data = minishell->env;
-	while (env_data && printf("%s\n", env_data->content))
+	while (env_data)
+	{
+		if (ft_strchr(env_data->content, '='))
+			printf("%s\n", env_data->content);
 		env_data = env_data->next;
+	}
 }
 
 int	get_key(char *line)

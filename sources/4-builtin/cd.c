@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:51:54 by abakirca          #+#    #+#             */
-/*   Updated: 2024/10/07 17:18:43 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/07 18:05:43 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,18 @@ static int	check_meta_chars(char *av, t_minishell *minishell, t_list **path)
 	if (!av || !ft_strncmp(av, "~", 1))
 	{
 		if (av && !ft_strncmp(av, "~~", 2))
-			return (err_msg("cd: ", av, " No such file or directory"),
+			return (err_msg("cd: ", av, "No such file or directory"),
 				minishell->value.exit_code = 1, FAILURE);
 		*path = search_env(minishell, "HOME");
 		if (!(*path))
-			return (err_msg("cd: ", NULL, " Home not set"),
+			return (err_msg("cd: ", NULL, "Home not set"),
 				minishell->value.exit_code = 1, FAILURE);
 	}
 	else if (!ft_strncmp(av, "-", 1))
 	{
 		*path = search_env(minishell, "OLDPWD");
 		if (!(*path))
-			return (err_msg("cd: ", NULL, " OLDPWD not set"),
+			return (err_msg("cd: ", NULL, "OLDPWD not set"),
 				minishell->value.exit_code = 1, FAILURE);
 	}
 	return (SUCCESS);
