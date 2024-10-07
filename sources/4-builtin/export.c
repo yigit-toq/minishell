@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:26:37 by abakirca          #+#    #+#             */
-/*   Updated: 2024/10/04 15:36:37 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/07 18:10:32 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	export_no_args(char **args, t_minishell *minishell)
 		ft_lstsort(&new, ft_strcmp);
 		while (new)
 		{
-			ft_printf("declare -x %s", new->content);
+			ft_printf("declare -x %s", ft_substr(new->content, 0, get_key(new->content)));
 			val = get_value(new->content);
 			if (val && ft_printf("=\"") && ft_printf("%s", val))
 				ft_printf("\"");
@@ -66,6 +66,8 @@ static void	search_n_add(t_minishell *minishell, char *arg, char *key)
 	t_list	*srch;
 
 	srch = search_env(minishell, key);
+	printf("key: %s\n", key);
+	printf("arg: %s\n", arg);
 	if (srch && ft_strncmp(srch->content, arg, ft_strlen(arg)))
 	{
 		gfree(srch->content);
@@ -86,9 +88,9 @@ void	export(t_minishell *minishell, char **args)
 	i = 0;
 	while (args[++i])
 	{
-		if (arg_check(args[1]))
+		if (arg_check(args[i]))
 		{
-			err_msg("export", args[i], "not a valid identifier");
+			err_msg("export: ", args[i], "not a valid identifier");
 			minishell->value.exit_code = 1;
 			continue ;
 		}

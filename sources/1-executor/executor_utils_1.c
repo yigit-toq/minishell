@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_utils_1.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:38:29 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/07 14:12:46 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/07 17:46:54 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	check_builtin(char **cmd, t_parser *parser, int *i)
 	else if (ft_strcmp(cmd[*i], "exit") == 0)
 	{
 		ft_exit(shell, parser->args);
-		shell->value.exit_code = 0;
+		shell->value.exit_code = 1;
 	}
 	else
 		return (check_builtin2(shell, cmd, parser, i));
