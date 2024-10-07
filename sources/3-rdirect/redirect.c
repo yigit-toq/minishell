@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
+/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 13:16:19 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/04 15:20:02 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/07 13:08:44 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,17 +63,17 @@ static int	find_exec(char **args, char **file, int *i, int *j)
 		*file = args[(*j) + 1];
 		if (ft_strcmp(args[(*j)], ">") == 0)
 		{
-			if (redirect_out(*file, j, 0))
+			if (redirect_out(*file, 0))
 				return (FAILURE);
 		}
-		else if (redirect_out(*file, j, 1))
+		else if (redirect_out(*file, 1))
 			return (FAILURE);
 		free_n_null(args, j);
 	}
 	else if (!ft_strcmp(args[(*j)], "<") && args[(*j) + 1])
 	{
 		*file = args[(*j) + 1];
-		if (redirect_in(*file, j))
+		if (redirect_in(*file))
 			return (FAILURE);
 		free_n_null(args, j);
 	}
@@ -82,7 +82,7 @@ static int	find_exec(char **args, char **file, int *i, int *j)
 	return (SUCCESS);
 }
 
-static int	ft_redirect(char **args)
+int	ft_redirect(char **args)
 {
 	t_minishell	*minishell;
 	char		*file;

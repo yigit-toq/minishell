@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
+/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 17:08:52 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/04 17:11:33 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/07 13:08:51 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,11 +180,15 @@ int			cd(t_minishell *minishell, char *av);
 
 int			check_redirect(char **args);
 
+int			ft_redirect(char **args);
+
 // Heredoc
 
 int			heredoc(void);
 
 int			delimiter(t_minishell *shell);
+
+int			read_heredoc(t_minishell *minishell, char **delimiter, int i);
 
 int			heredoc_syntax(char **args);
 

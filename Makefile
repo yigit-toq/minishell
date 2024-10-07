@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+         #
+#    By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/26 17:02:40 by ytop              #+#    #+#              #
-#    Updated: 2024/10/04 15:38:58 by abakirca         ###   ########.fr        #
+#    Updated: 2024/10/07 13:12:00 by ytop             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,12 @@ UTIL_DIR		=	$(SRCS_DIR)6-utils/
 
 PIPE_DIR		=	$(SRCS_DIR)7-pipe/
 
-SRCS			=	$(SRCS_DIR)minishell.c $(COMPILER_DIR)lexer.c $(COMPILER_DIR)parser.c $(COMPILER_DIR)replace_arg.c $(EXECUTOR_DIR)executor.c $(EXECUTOR_DIR)executor_utils_1.c $(EXECUTOR_DIR)executor_utils_2.c $(EXECUTOR_DIR)executor_utils.c $(HEREDOC_DIR)heredoc.c $(HEREDOC_DIR)heredoc_utils.c $(REDIRECT_DIR)redirect.c $(BUILTIN_DIR)cd.c $(BUILTIN_DIR)cd_utils.c $(BUILTIN_DIR)echo.c $(BUILTIN_DIR)env.c $(BUILTIN_DIR)exit.c $(BUILTIN_DIR)export.c $(BUILTIN_DIR)pwd.c $(BUILTIN_DIR)unset.c $(DOLLAR_DIR)dollar.c $(DOLLAR_DIR)dollar_utils.c $(UTIL_DIR)check_line.c $(UTIL_DIR)h_syntax.c $(UTIL_DIR)quotes.c $(UTIL_DIR)signal.c $(UTIL_DIR)split.c $(UTIL_DIR)utils.c $(PIPE_DIR)pipe.c $(PIPE_DIR)pipe_utils.c
+SRCS			=	$(SRCS_DIR)minishell.c $(COMPILER_DIR)lexer.c $(COMPILER_DIR)parser.c $(COMPILER_DIR)replace_arg.c \
+					$(EXECUTOR_DIR)executor.c $(EXECUTOR_DIR)executor_utils_1.c $(EXECUTOR_DIR)executor_utils_2.c	\
+					$(HEREDOC_DIR)heredoc.c $(HEREDOC_DIR)heredoc_utils.c $(RDIRECT_DIR)redirect.c	\
+					$(BUILTIN_DIR)cd.c $(BUILTIN_DIR)cd_utils.c $(BUILTIN_DIR)echo.c $(BUILTIN_DIR)env.c $(BUILTIN_DIR)exit.c $(BUILTIN_DIR)export.c $(BUILTIN_DIR)pwd.c $(BUILTIN_DIR)unset.c	\
+					$(DOLLAR_DIR)dollar.c $(DOLLAR_DIR)dollar_utils.c $(UTIL_DIR)check_line.c $(UTIL_DIR)h_syntax.c $(UTIL_DIR)quotes.c $(UTIL_DIR)signal.c $(UTIL_DIR)split.c $(UTIL_DIR)utils.c	\
+					$(PIPE_DIR)pipe.c $(PIPE_DIR)pipe_utils.c
 
 OBJS			=	$(patsubst $(SRCS_DIR)%.c, $(OBJS_DIR)%.o, $(SRCS))
 
