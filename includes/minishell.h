@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 17:08:52 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/07 14:12:29 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/07 20:43:24 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@
 
 # define RESET		"\033[0m"
 
-# define SYNTAX_ERR	"syntax error near unexpected token "
+# define SYNTAX_ERR	"syntax error near unexpected token `"
 # define ERR_TITLE	"minishell: "
 # define PROMPT		"minishell> "
 
