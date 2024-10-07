@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:51:54 by abakirca          #+#    #+#             */
-/*   Updated: 2024/10/04 14:04:10 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/07 17:18:43 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	change_dir(t_minishell *mini, char *target, char *av, char *pwd)
 	if (chdir(target) == -1)
 		return (perror("minishell: cd"), mini->value.exit_code = 1, FAILURE);
 	if (!getcwd(pwd, 4096))
-		return (err_msg("cd: ", NULL, "Getcwd error"), FAILURE);
+		return (err_msg("cd: ", target, "No such file or directory"), FAILURE);
 	change_pwd(mini, pwd);
 	if (av && !ft_strncmp(av, "-", 1))
 		ft_printf("%s\n", pwd);
@@ -79,7 +79,12 @@ int	cd(t_minishell *minishell, char *av)
 	char	pwd[4096];
 
 	if (!getcwd(pwd, 4096))
-		return (err_msg("cd: ", NULL, "Getcwd error"), FAILURE);
+	{
+		if (search_env(minishell, "PWD")->content)
+			ft_strlcpy(pwd, get_value(search_env(minishell, "PWD")->content), 4096);
+		else
+			return (err_msg("cd: ", NULL, "Getcwd error"), FAILURE);
+	}
 	oldpwd = ft_strdup(pwd);
 	if (!oldpwd)
 		return (err_msg("cd: ", NULL, "OLDPWD not set"), FAILURE);
