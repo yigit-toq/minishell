@@ -3,17 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
+/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 17:23:35 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/04 17:44:00 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/07 13:04:29 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <unistd.h>
-
-static int	read_heredoc(t_minishell *minishell, char **delimiter, int i);
 
 int	heredoc(void)
 {
@@ -64,7 +62,7 @@ static int	heredoc_loop(t_minishell *minishell, char **delim, int *fd, int *j)
 	return (SUCCESS);
 }
 
-static int	read_heredoc(t_minishell *minishell, char **delimiter, int i)
+int	read_heredoc(t_minishell *minishell, char **delimiter, int i)
 {
 	int		fd[2];
 	int		j;

@@ -6,11 +6,12 @@
 /*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 01:02:34 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/07 01:02:34 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/07 13:10:27 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <unistd.h>
 
 static void	handle_heredoc_dup(int i)
 {
@@ -64,14 +65,14 @@ static void	handle_pipe_dup(int i)
 static void	fork_execute(t_parser *parser, char **cmd, int i)
 {
 	t_minishell	*minishell;
-	char		**env;
+	char		**envs;
 
-	env = env();
+	envs = env();
 	minishell = get_minishell();
 	minishell->path = find_path(cmd[i]);
-	if (execve(minishell->path, parser->args, env) == -1)
+	if (execve(minishell->path, parser->args, envs) == -1)
 	{
-		type_control(minishell->parser, env);
+		type_control(minishell->parser, envs);
 		err_msg(NULL, parser->args[0], "command not found");
 		if (minishell->value.sign)
 			gfree(minishell->path);
