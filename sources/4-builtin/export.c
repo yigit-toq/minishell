@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:26:37 by abakirca          #+#    #+#             */
-/*   Updated: 2024/10/07 18:10:32 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/07 18:45:30 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,6 @@ static void	search_n_add(t_minishell *minishell, char *arg, char *key)
 	t_list	*srch;
 
 	srch = search_env(minishell, key);
-	printf("key: %s\n", key);
-	printf("arg: %s\n", arg);
 	if (srch && ft_strncmp(srch->content, arg, ft_strlen(arg)))
 	{
 		gfree(srch->content);

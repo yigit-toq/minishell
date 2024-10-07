@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 17:23:35 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/07 18:22:48 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/07 18:43:31 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ static int	heredoc_loop(t_minishell *minishell, char **delim, int *fd, int *j)
 			*j += 1;
 			break ;
 		}
-		ft_dprintf(fd[1], "%s\n", line);
+		if (*j == minishell->value.hrdc_count - 1)
+			ft_dprintf(fd[1], "%s\n", line);
 		free(line);
 	}
 	return (SUCCESS);
@@ -80,9 +81,7 @@ int	read_heredoc(t_minishell *minishell, char **delimiter, int i)
 	}
 	close(fd[1]);
 	if (minishell->value.pipe_count)
-	{
 		minishell->value.hrdc_fd[i] = fd[0];
-	}
 	else
 	{
 		dup2(fd[0], STD_INPUT);
