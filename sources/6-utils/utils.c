@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
+/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:18:53 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/03 16:53:55 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/07 13:46:58 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ int	check_redirect(char **args)
 	minishell = get_minishell();
 	while (args[i])
 	{
-		if (!ft_strcmp(args[i], ">") || !ft_strcmp(args[i], "<") || !ft_strcmp(args[i], ">>"))
+		if (!ft_strcmp(args[i], ">") || !ft_strcmp(args[i], ">>")
+			|| !ft_strcmp(args[i], "<"))
 		{
 			if (ft_redirect(args))
 				return (minishell->value.exit_code = 1, FAILURE);

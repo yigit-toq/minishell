@@ -23,7 +23,7 @@ int	arg_check(char *env)
 	{
 		if (env[i] == '=')
 		{
-			if (env[i + 1] == SPACE || (i > 0 && env[i - 1] == SPACE))
+			if (env[i + 1] == ' ' || (i > 0 && env[i - 1] == ' '))
 				return (FAILURE);
 			break ;
 		}
@@ -38,7 +38,7 @@ static int	export_no_args(char **args, t_minishell *minishell)
 {
 	t_list	*new;
 	t_list	*tmp;
-	char	*value;
+	char	*val;
 
 	if (!args || !args[1])
 	{
@@ -47,11 +47,11 @@ static int	export_no_args(char **args, t_minishell *minishell)
 		while (new)
 		{
 			ft_printf("declare -x %s", new->content);
-			value = get_value(new->content);
-			if (value && ft_printf("=\"") && ft_printf("%s", value))
+			val = get_value(new->content);
+			if (val && ft_printf("=\"") && ft_printf("%s", val))
 				ft_printf("\"");
 			ft_printf("\n");
-			gfree(value);
+			gfree(val);
 			tmp = new;
 			new = new->next;
 			gfree(tmp);
@@ -63,15 +63,15 @@ static int	export_no_args(char **args, t_minishell *minishell)
 
 static void	search_n_add(t_minishell *minishell, char *arg, char *key)
 {
-	t_list	*search;
+	t_list	*srch;
 
-	search = search_env(minishell, key);
-	if (search && ft_strncmp(search->content, arg, ft_strlen(arg)))
+	srch = search_env(minishell, key);
+	if (srch && ft_strncmp(srch->content, arg, ft_strlen(arg)))
 	{
-		gfree(search->content);
-		search->content = ft_strdup(arg);
+		gfree(srch->content);
+		srch->content = ft_strdup(arg);
 	}
-	else if (!search)
+	else if (!srch)
 		ft_lstadd_back(&minishell->env, ft_lstnew(ft_strdup(arg)));
 }
 

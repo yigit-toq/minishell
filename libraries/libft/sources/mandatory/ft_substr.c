@@ -15,10 +15,10 @@
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char			*str;
-	unsigned int	index;
 	unsigned int	strlen;
+	unsigned int	i;
 
-	index = 0;
+	i = 0;
 	strlen = ft_strlen(s);
 	if (!s)
 		return (0);
@@ -29,11 +29,11 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	str = ft_calloc(len + 1, sizeof(char));
 	if (!str)
 		return (0);
-	while ((size_t)index < len)
+	while ((size_t)i < len)
 	{
-		str[index] = s[index + start];
-		index++;
+		str[i] = s[i + start];
+		i++;
 	}
-	str[index] = '\0';
+	str[i] = '\0';
 	return (str);
 }

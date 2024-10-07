@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
+/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 00:19:13 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/04 15:21:56 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/07 14:20:17 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	lexer(t_minishell *minishell)
 	count_heredoc(minishell);
 }
 
-static void	proces_token(t_minishell *minishell, char *line, int l_pipe, int i);
+static void	process_token(t_minishell *shell, char *line, int last_pipe, int i);
 
 static void	create_token(t_minishell *minishell)
 {
@@ -40,7 +40,7 @@ static void	create_token(t_minishell *minishell)
 	{
 		if ((line[index] == PIPE || !line[index]) && !check_quote(line, index))
 		{
-			proces_token(minishell, line, last_pipe, index);
+			process_token(minishell, line, last_pipe, index);
 			if (line[index] == '\0')
 				break ;
 			last_pipe = index + 1;
@@ -51,12 +51,13 @@ static void	create_token(t_minishell *minishell)
 	gfree(line);
 }
 
-static void	proces_token(t_minishell *minishell, char *line, int l_pipe, int i)
+static void	process_token(t_minishell *minishell,
+			char *line, int last_pipe, int i)
 {
 	char	*temp_str;
 	char	*temp_line;
 
-	temp_str = ft_substr(line, l_pipe, i - l_pipe);
+	temp_str = ft_substr(line, last_pipe, i - last_pipe);
 	temp_line = ft_strtrim(temp_str, " ");
 	gfree(temp_str);
 	if (!temp_line)
@@ -84,4 +85,11 @@ static void	count_heredoc(t_minishell *minishell)
 		}
 		i++;
 	}
+}
+
+t_minishell	*get_minishell(void)
+{
+	static t_minishell	minishell;
+
+	return (&minishell);
 }

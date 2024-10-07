@@ -12,30 +12,30 @@
 
 #include "minishell.h"
 
-void	change_oldpwd(t_list *old_pwd_env, t_list *pwd_env, char *value)
+void	change_oldpwd(t_list *old_pwd_env, t_list *pwd_env, char *val)
 {
 	if (old_pwd_env && pwd_env)
 	{
-		value = get_value(pwd_env->content);
-		if (value)
+		val = get_value(pwd_env->content);
+		if (val)
 		{
 			gfree(old_pwd_env->content);
-			old_pwd_env->content = ft_strjoin("OLDPWD=", value);
-			gfree(value);
+			old_pwd_env->content = ft_strjoin("OLDPWD=", val);
+			gfree(val);
 		}
 	}
 }
 
 void	change_pwd(t_minishell *minishell, char *pwd)
 {
-	t_list	*old_pwd_env;
 	t_list	*pwd_env;
-	char	*value;
+	t_list	*old_pwd_env;
+	char	*val;
 
-	value = NULL;
 	pwd_env = search_env(minishell, "PWD");
 	old_pwd_env = search_env(minishell, "OLDPWD");
-	change_oldpwd(old_pwd_env, pwd_env, value);
+	val = NULL;
+	change_oldpwd(old_pwd_env, pwd_env, val);
 	if (pwd_env)
 	{
 		if (!old_pwd_env)

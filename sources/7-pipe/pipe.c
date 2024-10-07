@@ -3,84 +3,83 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
+/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 13:25:42 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/04 15:24:05 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/07 13:44:15 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <unistd.h>
 
+static int	create_pipe(void)
+{
+	t_minishell	*minishell;
+	int			i;
+
+	i = 0;
+	minishell = get_minishell();
+	minishell->value.pipe_fd = ft_calloc(minishell->value.pipe_count * 2,
+			sizeof(int));
+	minishell->pid = ft_calloc(minishell->value.pipe_count + 1, sizeof(int));
+	if (!minishell->value.pipe_fd || !minishell->pid)
+		return (perror("ft_calloc"), FAILURE);
+	while (i < minishell->value.pipe_count)
+	{
+		if (pipe(minishell->value.pipe_fd + i * 2) == -1)
+			return (perror("pipe"), FAILURE);
+		i++;
+	}
+	return (SUCCESS);
+}
+
 int	close_fd(void)
 {
 	t_minishell	*minishell;
-	int			index;
+	int			i;
 
-	index = 0;
+	i = 0;
 	minishell = get_minishell();
-	while (index < minishell->value.pipe_count * 2)
+	while (i < minishell->value.pipe_count * 2)
 	{
-		close(minishell->value.pipe_fd[index]);
-		index++;
+		close(minishell->value.pipe_fd[i]);
+		i++;
 	}
-	index = 0;
-	while (index < minishell->value.pipe_count + 1)
+	i = 0;
+	while (i < minishell->value.pipe_count + 1)
 	{
-		waitpid(minishell->pid[index], &minishell->value.exit_code, 0);
+		waitpid(minishell->pid[i], &minishell->value.exit_code, 0);
 		minishell->value.exit_code = WEXITSTATUS(minishell->value.exit_code);
-		index++;
+		i++;
 	}
 	gfree(minishell->pid);
 	gfree(minishell->value.pipe_fd);
 	return (SUCCESS);
 }
 
-static int	create_pipe(void)
-{
-	t_minishell	*minishell;
-	int			*pipe_fd;
-	int			index;
-
-	minishell = get_minishell();
-	index = 0;
-	minishell->pid = ft_calloc(minishell->value.pipe_count + 1, sizeof(int));
-	pipe_fd = ft_calloc(minishell->value.pipe_count * 2, sizeof(int));
-	if (!minishell->pid || !pipe_fd)
-		return (perror("ft_calloc"), FAILURE);
-	while (index < minishell->value.pipe_count)
-	{
-		if (pipe(pipe_fd + index * 2) == -1)
-			return (perror("pipe"), FAILURE);
-		index++;
-	}
-	minishell->value.pipe_fd = pipe_fd;
-	return (SUCCESS);
-}
-
 int	ft_pipe(char **cmd, t_parser *parser)
 {
 	t_minishell	*minishell;
-	t_parser	*pars_tmp;
+	t_parser	*tmp;
 	int			i;
 
 	i = 0;
-	pars_tmp = parser;
+	tmp = parser;
 	minishell = get_minishell();
 	if (create_pipe())
 		return (FAILURE);
-	while (i < minishell->value.pipe_count + 1 && pars_tmp)
+	while (i < minishell->value.pipe_count + 1 && tmp)
 	{
 		minishell->pid[i] = fork();
 		if (minishell->pid[i] == -1)
 			return (FAILURE);
 		else if (minishell->pid[i] == 0)
-			pipe_fork(cmd, pars_tmp, i);
-		pars_tmp = pars_tmp->next;
+			pipe_fork(cmd, tmp, i);
+		tmp = tmp->next;
 		i++;
 	}
-	if (minishell->value.hrdc_fd && minishell->value.hrdc_count > 0)
+	if (minishell->value.hrdc_count > 0 && minishell->value.hrdc_fd)
 		gfree(minishell->value.hrdc_fd);
 	return (close_fd());
 }

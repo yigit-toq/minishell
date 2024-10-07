@@ -6,7 +6,7 @@
 /*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 17:08:52 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/07 13:08:51 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/07 14:12:29 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@
 # define FAILURE	1
 # define SUCCESS	0
 
-# define TRUE		1
-# define FALSE		0
-
 # define STD_OUTPUT 1
 # define STD_INPUT  0
 
 # define STD_ERROR	2
+
+# define TRUE		1
+# define FALSE		0
 
 # define SEMICOLON	';'
 # define REDIRECT	'>'
@@ -122,7 +122,7 @@ int			check_builtin(char **cmd, t_parser *parser, int *i);
 
 void		pipe_fork(char **cmd, t_parser *parser, int i);
 
-void		check_pid(t_parser *parser, pid_t *pid);
+void		check_pid(t_minishell *minishell, t_parser *parser, pid_t *pid);
 
 void		init_cmd(t_parser *parser, char **cmd);
 
@@ -200,7 +200,7 @@ void		remove_quotes(t_parser *parser);
 
 // Dollar
 
-void		dollar(t_minishell *minishell);
+void		dollar(t_minishell *minishell, int i);
 
 void		get_ext_code(t_minishell *minishell, char **result, int *i);
 
