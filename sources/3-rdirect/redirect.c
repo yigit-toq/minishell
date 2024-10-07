@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 13:16:19 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/07 13:54:09 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/07 19:31:35 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,12 @@ static int	rdirect_out(char *file, int *j, int append)
 
 static int	rdirect_in(char *file, int *j)
 {
-	int		fd;
-	char	*clean_file;
+	int			fd;
+	char		*clean_file;
+	t_minishell	*minishell;
 
 	(void)*j;
+	minishell = get_minishell();
 	clean_file = handle_quotes(file);
 	fd = open(clean_file, O_RDONLY);
 	gfree(clean_file);
@@ -59,7 +61,9 @@ static int	rdirect_in(char *file, int *j)
 		perror("minishell");
 		return (1);
 	}
-	if (fd >= 0 && dup2(fd, STDIN_FILENO) == -1)
+	if (minishell->value.hrdc_count)
+		return (close(fd), 0);
+	else if (fd >= 0 && dup2(fd, STDIN_FILENO) == -1)
 		return (perror("minishell"), close(fd), 1);
 	return (close(fd), 0);
 }
