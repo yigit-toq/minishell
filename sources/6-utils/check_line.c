@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_line.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 14:42:03 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/07 14:03:59 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/08 13:28:30 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,10 @@ int	check_line(void)
 	{
 		gfree(line);
 		minishell->value.exit_code = 2;
-		return (ft_dprintf(STD_ERROR, SYNTAX_ERR " `%c\'\n", quote), FAILURE);
+		return (ft_dprintf(STD_ERROR, SYNTAX_ERR "%c\'\n", quote), FAILURE);
 	}
 	if (pipe_control(line, 0))
-	{
 		return (FAILURE);
-	}
 	return (SUCCESS);
 }
 

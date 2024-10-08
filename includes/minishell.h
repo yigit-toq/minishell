@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 17:08:52 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/07 20:43:24 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/08 14:01:14 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,7 +200,7 @@ void		remove_quotes(t_parser *parser);
 
 // Dollar
 
-void		dollar(t_minishell *minishell, int i);
+void		dollar(t_minishell *minishell, int i, int j);
 
 void		get_ext_code(t_minishell *minishell, char **result, int *i);
 

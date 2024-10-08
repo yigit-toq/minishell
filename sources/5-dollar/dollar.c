@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 18:27:30 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/07 13:59:48 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/08 14:10:05 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,19 @@ static int	empty_dollar(char *line);
 
 static void	replace_dollar(t_minishell *shell, char **result, int *i, char *q);
 
-void	dollar(t_minishell *minishell, int i)
+static void dollar_ext(t_minishell *minishell, int i, char *q)
+{
+	if (!q[0] && minishell->line[i] == S_QUOTE)
+		q[0] = minishell->line[i];
+	else if (!q[1] && minishell->line[i] == D_QUOTE)
+		q[1] = minishell->line[i];
+	else if (q[0] && q[0] == minishell->line[i])
+		q[0] = 0;
+	else if (q[1] && q[1] == minishell->line[i])
+		q[1] = 0;
+}
+
+void	dollar(t_minishell *minishell, int i, int j)
 {
 	char	*result;
 	char	q[2];
@@ -27,18 +39,19 @@ void	dollar(t_minishell *minishell, int i)
 	result = ft_strdup("");
 	while (minishell->line[i])
 	{
-		if (!q[0] && minishell->line[i] == S_QUOTE)
-			q[0] = minishell->line[i];
-		else if (!q[1] && minishell->line[i] == D_QUOTE)
-			q[1] = minishell->line[i];
-		else if (q[0] && q[0] == minishell->line[i])
-			q[0] = 0;
-		else if (q[1] && q[1] == minishell->line[i])
-			q[1] = 0;
-		if (q[0] || (!q[0] && minishell->line[i] == S_QUOTE))
+		dollar_ext(minishell, i, q);
+		if ((q[0] || (!q[0] && minishell->line[i] == S_QUOTE)) && !j)
+		{
+			if (q[1])
+			{
+				j = 1;
+				continue;
+			}
 			result = strjoin_char(result, minishell->line[i++]);
+		}
 		else
 			replace_dollar(minishell, &result, &i, q);
+		j = 0;
 	}
 	gfree(minishell->line);
 	minishell->line = result;
@@ -72,7 +85,7 @@ static void	replace_dollar(t_minishell *shell, char **result, int *i, char *q)
 	char	*str;
 
 	str = shell->line;
-	if (str[*i] == DOLLAR && str[*i + 1] == D_QUOTE)
+	if (str[*i] == DOLLAR && (str[*i + 1] == D_QUOTE || str[*i + 1] == S_QUOTE))
 	{
 		if (q[0] || !q[1])
 			(*i)++;
