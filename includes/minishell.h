@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 17:08:52 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/08 14:01:14 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/08 16:54:53 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,6 +218,10 @@ char		*strjoin_char(char *str, char c);
 char		**parser_split(char *str, char delimiter);
 
 int			err_msg(char *cmd, char *arg, char *msg);
+
+void		get_home(void);
+
+void		free_head(t_list **head);
 
 // Pipe
 

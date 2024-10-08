@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 18:46:30 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/07 17:47:08 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/08 16:44:52 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,6 @@ void	ft_exit(t_minishell *shell, char **av)
 	else
 		exit_code = shell->value.exit_code;
 	clear_garbage();
+	rl_clear_history();
 	exit(exit_code);
 }

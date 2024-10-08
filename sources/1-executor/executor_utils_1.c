@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:38:29 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/07 17:46:54 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/08 17:05:12 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ static int	check_builtin2(t_minishell *minishell, char **cmd,
 		if (minishell->value.exit_code != 1)
 			minishell->value.exit_code = 0;
 	}
+	else if (ft_strcmp(cmd[*i], "~") == 0)
+		get_home();
 	else
 		return (0);
 	reset_fd();
@@ -100,6 +102,7 @@ static void	arg_type(char *arg)
 int	type_control(t_parser *parser, char **envs)
 {
 	t_minishell	*minishell;
+	int			i;
 
 	minishell = get_minishell();
 	if (!ft_strncmp(parser->args[0], "./", 2)
@@ -110,7 +113,8 @@ int	type_control(t_parser *parser, char **envs)
 			arg_type(parser->args[0]);
 			if (minishell->value.sign)
 				gfree(minishell->path);
-			return (exit(minishell->value.exit_code), 0);
+			i = minishell->value.exit_code;
+			return (clear_garbage(), rl_clear_history(), exit(i), 0);
 		}
 	}
 	return (FAILURE);

@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 18:27:30 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/08 14:10:05 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/08 17:01:00 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	dollar(t_minishell *minishell, int i, int j)
 			if (q[1])
 			{
 				j = 1;
-				continue;
+				continue ;
 			}
 			result = strjoin_char(result, minishell->line[i++]);
 		}

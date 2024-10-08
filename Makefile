@@ -6,7 +6,7 @@
 #    By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/26 17:02:40 by ytop              #+#    #+#              #
-#    Updated: 2024/10/08 13:29:14 by abakirca         ###   ########.fr        #
+#    Updated: 2024/10/08 16:13:10 by abakirca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ SRCS			=	$(SRCS_DIR)minishell.c		$(COMPILER_DIR)lexer.c				$(COMPILER_DIR)parser
 					$(BUILTIN_DIR)cd.c			$(BUILTIN_DIR)cd_utils.c			$(BUILTIN_DIR)echo.c				$(BUILTIN_DIR)env.c 			\
 					$(BUILTIN_DIR)exit.c 		$(BUILTIN_DIR)export.c				$(BUILTIN_DIR)pwd.c					$(BUILTIN_DIR)unset.c			\
 					$(UTIL_DIR)check_line.c		$(UTIL_DIR)h_syntax.c				$(UTIL_DIR)quotes.c					$(UTIL_DIR)signal.c				\
-					$(UTIL_DIR)split.c			$(UTIL_DIR)utils.c																						\
+					$(UTIL_DIR)split.c			$(UTIL_DIR)utils.c					$(UTIL_DIR)utils2.c													\
 					$(PIPE_DIR)pipe.c			$(PIPE_DIR)pipe_utils.c																					\
 					$(DOLLAR_DIR)dollar.c 		$(DOLLAR_DIR)dollar_utils.c																				\
 

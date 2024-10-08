@@ -6,13 +6,13 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 18:16:27 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/07 17:53:28 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/08 15:24:54 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	env_to_list(char *env[])
+void	env_to_list(char **env)
 {
 	t_minishell	*minishell;
 	int			i;
@@ -21,9 +21,7 @@ void	env_to_list(char *env[])
 	minishell = get_minishell();
 	minishell->env = ft_lstnew(ft_strdup(env[i]));
 	while (env[++i])
-	{
 		ft_lstadd_back(&minishell->env, ft_lstnew(ft_strdup(env[i])));
-	}
 }
 
 void	get_env(t_minishell *minishell, char **result, char **str, int *i)
