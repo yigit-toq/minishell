@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:43:25 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/07 14:13:46 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/08 16:43:08 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ static void	fork_execute(t_parser *parser, char **cmd, int i)
 		err_msg(NULL, parser->args[0], "command not found");
 		if (minishell->value.sign)
 			gfree(minishell->path);
+		rl_clear_history();
+		clear_garbage();
 		exit(127);
 	}
 	if (minishell->value.sign)

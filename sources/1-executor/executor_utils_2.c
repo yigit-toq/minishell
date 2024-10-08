@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 13:56:11 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/07 19:32:36 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/08 16:43:43 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ void	check_pid(t_minishell *minishell, t_parser *parser, pid_t *pid)
 			if (!type_control(parser, envs))
 				exit(EXIT_FAILURE);
 			err_msg(NULL, minishell->path, "command not found");
+			clear_garbage();
+			rl_clear_history();
 			exit(127);
 		}
 	}

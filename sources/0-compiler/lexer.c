@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 00:19:13 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/07 14:20:17 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/08 17:03:09 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,4 @@ static void	count_heredoc(t_minishell *minishell)
 		}
 		i++;
 	}
-}
-
-t_minishell	*get_minishell(void)
-{
-	static t_minishell	minishell;
-
-	return (&minishell);
 }
