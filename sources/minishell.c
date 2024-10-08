@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 17:41:40 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/07 19:40:09 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/08 14:01:03 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static int	minishell_routine(t_minishell *minishell)
 	add_history(minishell->line);
 	if (!check_line())
 	{
-		dollar(minishell, 0);
+		dollar(minishell, 0, 0);
 		lexer(minishell);
 		if (parser(minishell) == FAILURE)
 			return (FAILURE);

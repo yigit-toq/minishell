@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:39:53 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/07 13:40:44 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/08 13:33:01 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,7 @@ char	*handle_quotes(const char *str)
 	while (str[i])
 	{
 		if (str[i] != S_QUOTE && str[i] != D_QUOTE)
-		{
 			result[j++] = str[i];
-		}
 		i++;
 	}
 	result[j] = '\0';

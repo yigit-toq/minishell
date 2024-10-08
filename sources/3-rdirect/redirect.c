@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 13:16:19 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/07 20:42:30 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/08 14:13:10 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,11 @@ void	free_n_null(char **args, int *j)
 	(*j) += 2;
 }
 
-static int	rdirect_out(char *file, int *j, int append)
+static int	rdirect_out(char *file, int append)
 {
 	int		fd;
 	char	*clean_file;
 
-	(void)*j;
 	clean_file = handle_quotes(file);
 	if (append)
 		fd = open(clean_file, O_CREAT | O_WRONLY | O_APPEND, 0644);
@@ -45,13 +44,12 @@ static int	rdirect_out(char *file, int *j, int append)
 	return (close(fd), 0);
 }
 
-static int	rdirect_in(char *file, int *j)
+static int	rdirect_in(char *file)
 {
 	int			fd;
 	char		*clean_file;
 	t_minishell	*minishell;
 
-	(void)*j;
 	minishell = get_minishell();
 	clean_file = handle_quotes(file);
 	fd = open(clean_file, O_RDONLY);
@@ -76,17 +74,17 @@ int	find_exec(char **args, int *j, int *i, char **file)
 		*file = args[(*j) + 1];
 		if (ft_strcmp(args[(*j)], ">") == 0)
 		{
-			if (rdirect_out(*file, j, 0))
+			if (rdirect_out(*file, 0))
 				return (FAILURE);
 		}
-		else if (rdirect_out(*file, j, 1))
+		else if (rdirect_out(*file, 1))
 			return (FAILURE);
 		free_n_null(args, j);
 	}
 	else if (ft_strcmp(args[(*j)], "<") == 0 && args[(*j) + 1])
 	{
 		*file = args[(*j) + 1];
-		if (rdirect_in(*file, j))
+		if (rdirect_in(*file))
 			return (FAILURE);
 		free_n_null(args, j);
 	}
