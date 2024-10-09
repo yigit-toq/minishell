@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 17:41:40 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/09 15:06:37 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/09 17:50:41 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,13 @@ int	main(int argc, char *argv[], char *env[])
 {
 	t_minishell	*minishell;
 
-	(void)argc;
+
 	(void)argv;
+	if (argc != 1)
+	{
+		ft_dprintf(STD_ERROR, "minishell: too many arguments\n");
+		return (FAILURE);
+	}
 	starting();
 	handle_signals();
 	disable_echo();
