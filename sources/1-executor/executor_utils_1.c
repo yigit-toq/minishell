@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:38:29 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/09 15:11:09 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/09 17:44:36 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ static int	check_builtin2(t_minishell *minishell, char **cmd,
 		if (minishell->value.exit_code != 1)
 			minishell->value.exit_code = 0;
 	}
-	else if (ft_strcmp(cmd[*i], "~") == 0)
-		get_home();
 	else
 		return (0);
 	reset_fd();

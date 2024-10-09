@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 23:56:50 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/09 15:18:23 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/09 16:49:04 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	unset(t_minishell *shell, char **keys)
 		env_node = search_env(shell, keys[key_index]);
 		if (env_node)
 		{
-			if (key_index == 1)
+			if (!ft_strncmp(env_node->content, "USER", 4))
 				free_head(&shell->env);
 			else
 				ft_lstdelone(env_node, del);
