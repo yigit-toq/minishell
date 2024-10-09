@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:26:37 by abakirca          #+#    #+#             */
-/*   Updated: 2024/10/07 18:45:30 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/09 15:17:28 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ static int	export_no_args(char **args, t_minishell *minishell)
 		ft_lstsort(&new, ft_strcmp);
 		while (new)
 		{
-			ft_printf("declare -x %s", ft_substr(new->content, 0, get_key(new->content)));
+			ft_printf("declare -x %s", ft_substr(new->content,
+					0, get_key(new->content)));
 			val = get_value(new->content);
 			if (val && ft_printf("=\"") && ft_printf("%s", val))
 				ft_printf("\"");

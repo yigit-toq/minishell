@@ -6,12 +6,14 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 17:41:40 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/08 17:22:12 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/09 15:06:37 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <unistd.h>
+#include <stdio.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 
 int	g_signal;
 
@@ -72,12 +74,12 @@ static int	minishell_routine(t_minishell *minishell)
 	add_history(minishell->line);
 	if (!check_line())
 	{
-		dollar(minishell, 0, 0);
 		lexer(minishell);
 		if (parser(minishell) == FAILURE)
 			return (FAILURE);
 		if (heredoc())
 			return (2);
+		parser_update(minishell, minishell->parser, 0);
 		execute_command();
 		reset_fd();
 	}
@@ -101,19 +103,12 @@ static void	starting(void)
 {
 	ft_printf(GREEN "\033[H\033[J");
 	ft_printf("   _____   __        __        __            __   __\n");
-	usleep(100000);
 	ft_printf("  /     \\ |__| ____ |__| _____|  |__   ____ |  | |  |\n");
-	usleep(100000);
 	ft_printf(" /  \\ /  \\|  |/    \\|  |/  ___/  |  \\_/ __ \\|  | |  |\n");
-	usleep(100000);
 	ft_printf("/    Y    \\  |   |  \\  |\\___ \\|   Y  \\  ___/|  |_|  |__\n");
-	usleep(100000);
 	ft_printf("\\____|__  /__|___|  /__/____  >___|  /\\___  >____/____/\n");
-	usleep(100000);
 	ft_printf("        \\/        \\/        \\/     \\/     \\/\n" RESET);
-	usleep(500000);
 	ft_printf(BLACK "\nCREATED BY:\n");
-	usleep(500000);
 	ft_printf("\t\t _________________");
 	ft_printf("\n\t\t/\t\t  \\\n\t\t");
 	ft_printf("| ytop & abakirca |\n");

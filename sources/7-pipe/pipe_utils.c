@@ -6,12 +6,14 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:43:25 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/08 16:43:08 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/09 15:25:03 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdio.h>
 #include <unistd.h>
+#include <readline/readline.h>
 
 static void	handle_heredoc_dup(int i)
 {

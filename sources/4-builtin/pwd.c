@@ -6,13 +6,13 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 18:40:41 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/07 17:22:24 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/09 15:18:09 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell.h"
 #include <unistd.h>
 #include <stdio.h>
-#include "minishell.h"
 
 char	*get_pwd(void)
 {

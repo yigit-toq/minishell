@@ -6,11 +6,12 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 15:55:22 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/04 15:21:45 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/09 15:07:35 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdio.h>
 
 static void	process_char(char *in, char *buf, int *i, int *j);
 

@@ -6,13 +6,14 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 13:16:19 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/08 14:13:10 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/09 15:14:14 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <fcntl.h>
 #include <unistd.h>
+#include <stdio.h>
 
 void	free_n_null(char **args, int *j)
 {
@@ -39,7 +40,7 @@ static int	rdirect_out(char *file, int append)
 		perror("minishell");
 		return (1);
 	}
-	if (fd >= 0 && dup2(fd, STDOUT_FILENO) == -1)
+	if (fd >= 0 && dup2(fd, STD_OUTPUT) == -1)
 		return (perror("dup2"), close(fd), 1);
 	return (close(fd), 0);
 }
@@ -61,7 +62,7 @@ static int	rdirect_in(char *file)
 	}
 	if (minishell->value.hrdc_count)
 		return (close(fd), 0);
-	else if (fd >= 0 && dup2(fd, STDIN_FILENO) == -1)
+	else if (fd >= 0 && dup2(fd, STD_INPUT) == -1)
 		return (perror("minishell"), close(fd), 1);
 	return (close(fd), 0);
 }
@@ -95,7 +96,6 @@ int	find_exec(char **args, int *j, int *i, char **file)
 
 int	ft_redirect(char **args)
 {
-	t_minishell	*minishell;
 	char		*file;
 	int			i;
 	int			j;
@@ -103,7 +103,6 @@ int	ft_redirect(char **args)
 	i = 0;
 	j = 0;
 	save_fd();
-	minishell = get_minishell();
 	while (args[i])
 	{
 		if (find_exec(args, &i, &j, &file))

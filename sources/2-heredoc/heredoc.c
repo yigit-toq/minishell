@@ -6,11 +6,13 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 17:23:35 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/08 13:29:24 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/09 15:12:55 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdio.h>
+#include <readline/readline.h>
 #include <unistd.h>
 
 int	heredoc(void)
@@ -57,7 +59,7 @@ static int	heredoc_loop(t_minishell *minishell, char **delim, int *fd, int *j)
 			break ;
 		}
 		if (*j == minishell->value.hrdc_count - 1)
-			ft_dprintf(fd[1], "%s\n", line);
+			ft_dprintf(fd[1], "%s\n", dollar(0, 0, line));
 		free(line);
 	}
 	return (SUCCESS);

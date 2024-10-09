@@ -6,11 +6,11 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 23:34:21 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/04 14:05:13 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/09 15:15:30 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
 void	echo(char **args)
 {
