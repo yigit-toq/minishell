@@ -6,12 +6,13 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:51:54 by abakirca          #+#    #+#             */
-/*   Updated: 2024/10/07 18:05:43 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/09 15:15:00 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <unistd.h>
+#include <stdio.h>
 
 int	change_dir(t_minishell *mini, char *target, char *av, char *pwd)
 {
@@ -71,7 +72,7 @@ static int	get_target_dir(t_minishell *minishell, char *av, char **target)
 	return (SUCCESS);
 }
 
-int	cd(t_minishell *minishell, char *av)
+int	cd(t_minishell *shell, char *av)
 {
 	char	*target;
 	int		err;
@@ -80,21 +81,21 @@ int	cd(t_minishell *minishell, char *av)
 
 	if (!getcwd(pwd, 4096))
 	{
-		if (search_env(minishell, "PWD")->content)
-			ft_strlcpy(pwd, get_value(search_env(minishell, "PWD")->content), 4096);
+		if (search_env(shell, "PWD")->content)
+			ft_strlcpy(pwd, get_value(search_env(shell, "PWD")->content), 4096);
 		else
 			return (err_msg("cd: ", NULL, "Getcwd error"), FAILURE);
 	}
 	oldpwd = ft_strdup(pwd);
 	if (!oldpwd)
 		return (err_msg("cd: ", NULL, "OLDPWD not set"), FAILURE);
-	if (minishell->value.old_pwd)
-		gfree(minishell->value.old_pwd);
-	minishell->value.old_pwd = oldpwd;
-	err = get_target_dir(minishell, av, &target);
+	if (shell->value.old_pwd)
+		gfree(shell->value.old_pwd);
+	shell->value.old_pwd = oldpwd;
+	err = get_target_dir(shell, av, &target);
 	if (err)
 		return (FAILURE);
-	if (change_dir(minishell, target, av, pwd))
+	if (change_dir(shell, target, av, pwd))
 		return (FAILURE);
 	return (SUCCESS);
 }

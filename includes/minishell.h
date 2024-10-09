@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 17:08:52 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/08 16:54:53 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/09 15:05:44 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 # define MINISHELL_H
 
 # include "libft.h"
-# include <stdio.h>
-# include <readline/history.h>
-# include <readline/readline.h>
 
 # define FAILURE	1
 # define SUCCESS	0
@@ -29,7 +26,6 @@
 # define TRUE		1
 # define FALSE		0
 
-# define SEMICOLON	';'
 # define REDIRECT	'>'
 # define INPUT		'<'
 # define PIPE		'|'
@@ -53,14 +49,6 @@
 # define PROMPT		"minishell> "
 
 extern int	g_signal;
-
-typedef enum e_token
-{
-	SEMICOLON_T = SEMICOLON,
-	REDIRECT_T = REDIRECT,
-	INPUT_T = INPUT,
-	PIPE_T = PIPE,
-}			t_token;
 
 typedef struct s_fd
 {
@@ -111,6 +99,8 @@ int			check_quote(char *line, int value);
 // Compiler
 
 t_parser	*allocate_parser(int count);
+
+void		parser_update(t_minishell *shell, t_parser *tmp, t_parser *head);
 
 void		lexer(t_minishell *minishell);
 
@@ -174,7 +164,7 @@ void		change_oldpwd(t_list *old_pwd_env, t_list *pwd_env, char *value);
 
 void		change_pwd(t_minishell *minishell, char *pwd);
 
-int			cd(t_minishell *minishell, char *av);
+int			cd(t_minishell *shell, char *av);
 
 // Redirect
 
@@ -200,7 +190,7 @@ void		remove_quotes(t_parser *parser);
 
 // Dollar
 
-void		dollar(t_minishell *minishell, int i, int j);
+char		*dollar(int i, int j, char *arg);
 
 void		get_ext_code(t_minishell *minishell, char **result, int *i);
 
@@ -222,6 +212,8 @@ int			err_msg(char *cmd, char *arg, char *msg);
 void		get_home(void);
 
 void		free_head(t_list **head);
+
+int			ft_size(char **args);
 
 // Pipe
 

@@ -6,14 +6,14 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 13:56:11 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/08 16:43:43 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/09 15:11:53 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <unistd.h>
-#include <sys/types.h>
-#include <sys/dir.h>
+#include <stdio.h>
+#include <readline/readline.h>
 
 void	init_cmd(t_parser *parser, char **cmd)
 {
@@ -104,7 +104,6 @@ void	check_pid(t_minishell *minishell, t_parser *parser, pid_t *pid)
 		else if (g_signal == 4)
 			minishell->value.exit_code = 131;
 		reset_fd();
-		gfree(envs);
 	}
 }
 

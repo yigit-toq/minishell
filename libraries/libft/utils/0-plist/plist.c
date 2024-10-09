@@ -3,23 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   plist.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 14:02:04 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/01 17:18:38 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/09 14:36:25 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_parser	*ft_parser_new(char **args, char **args_with_quote)
+t_parser	*ft_parser_new(char **args)
 {
 	t_parser	*new;
 
 	new = ft_calloc(1, sizeof(t_parser));
 	if (!new)
 		return (NULL);
-	new->args_quote = args_with_quote;
 	new->args = args;
 	new->next = NULL;
 	return (new);
@@ -47,7 +46,6 @@ void	ft_parser_delone(t_parser *lst, void (*del)(void *))
 	if (!lst || !del)
 		return ;
 	del(lst->args);
-	del(lst->args_quote);
 	gfree(lst);
 }
 

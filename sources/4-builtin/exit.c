@@ -6,12 +6,13 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 18:46:30 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/08 16:44:52 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/09 15:17:11 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <unistd.h>
+#include <stdio.h>
+#include <readline/readline.h>
 
 static int	is_str_digit(char *str)
 {
@@ -45,9 +46,9 @@ static void	check_numeric(char *av, int *exit_code)
 		(*exit_code) = ft_atoi(av);
 	else
 	{
-		ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
-		ft_putstr_fd(av, STDERR_FILENO);
-		ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
+		ft_putstr_fd("minishell: exit: ", STD_ERROR);
+		ft_putstr_fd(av, STD_ERROR);
+		ft_putstr_fd(": numeric argument required\n", STD_ERROR);
 		(*exit_code) = 255;
 	}
 }

@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 13:25:42 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/07 13:44:15 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/09 15:24:27 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdio.h>
 #include <unistd.h>
 
 static int	create_pipe(void)

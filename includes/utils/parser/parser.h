@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 14:21:07 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/01 17:18:30 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/09 14:36:13 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,11 @@
 
 typedef struct s_parser
 {
-	char			**args_quote;
 	char			**args;
 	struct s_parser	*next;
 }					t_parser;
 
-t_parser	*ft_parser_new(char **args, char **args_with_quotes);
+t_parser	*ft_parser_new(char **args);
 
 void		ft_parser_clear(t_parser **lst, void (*del)(void *));
 

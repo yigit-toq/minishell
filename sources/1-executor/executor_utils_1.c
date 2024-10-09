@@ -6,13 +6,15 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:38:29 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/08 17:05:12 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/09 15:11:09 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <dirent.h>
+#include <sys/dir.h>
 #include <unistd.h>
+#include <stdio.h>
+#include <readline/readline.h>
 
 static int	check_builtin2(t_minishell *minishell, char **cmd,
 			t_parser *parser, int *i)
@@ -81,20 +83,20 @@ static void	arg_type(char *arg)
 	if ((dir) != NULL)
 	{
 		closedir(dir);
-		ft_putstr_fd(arg, STDERR_FILENO);
-		ft_putstr_fd(": is a directory\n", STDERR_FILENO);
+		ft_putstr_fd(arg, STD_ERROR);
+		ft_putstr_fd(": is a directory\n", STD_ERROR);
 		minishell->value.exit_code = 126;
 	}
 	else if (access(arg, F_OK) == -1)
 	{
-		ft_putstr_fd(arg, STDERR_FILENO);
-		ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
+		ft_putstr_fd(arg, STD_ERROR);
+		ft_putstr_fd(": No such file or directory\n", STD_ERROR);
 		minishell->value.exit_code = 127;
 	}
 	else if (access(arg, X_OK) == -1)
 	{
-		ft_putstr_fd(arg, STDERR_FILENO);
-		ft_putstr_fd(": Permission denied\n", STDERR_FILENO);
+		ft_putstr_fd(arg, STD_ERROR);
+		ft_putstr_fd(": Permission denied\n", STD_ERROR);
 		minishell->value.exit_code = 126;
 	}
 }

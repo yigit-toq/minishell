@@ -6,11 +6,12 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:32:47 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/07 19:39:53 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/09 15:08:08 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdio.h>
 #include <unistd.h>
 
 static int	single_command(t_minishell *minishell);

@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 17:54:23 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/07 14:09:16 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/09 15:20:48 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <sys/ioctl.h>
-#include <signal.h>
 #include <termios.h>
+#include <stdio.h>
+#include <readline/readline.h>
+#include <sys/ioctl.h>
 
 static void	ctrl_c(int signal);
 static void	ctrl_bs(int signal);

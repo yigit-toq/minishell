@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 18:16:27 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/08 15:24:54 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/09 15:16:04 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	print_env(void)
 	while (env_data)
 	{
 		if (ft_strchr(env_data->content, '='))
-			printf("%s\n", env_data->content);
+			ft_printf("%s\n", env_data->content);
 		env_data = env_data->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 23:56:50 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/08 16:49:45 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/09 15:18:23 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ void	unset(t_minishell *shell, char **keys)
 			shell->value.exit_code = 1;
 			continue ;
 		}
-		if (!ft_strcmp(keys[key_index], "_"))
-			continue ;
 		env_node = search_env(shell, keys[key_index]);
 		if (env_node)
 		{
