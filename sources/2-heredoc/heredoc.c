@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 17:23:35 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/10 19:02:26 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/10 20:04:18 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,31 +55,30 @@ static int	heredoc_loop(t_minishell *minishell, char **delim, int *fd, int *j)
 		if (!line || ft_strcmp(line, delim[*j]) == 0)
 		{
 			free(line);
-			*j += 1;
+			j[0] += 1;
 			break ;
 		}
-		if (*j == minishell->value.hrdc_count - 1)
+		if (j[1] == minishell->value.hrdc_count - 1)
 			ft_dprintf(fd[1], "%s\n", dollar(0, 0, line));
 		free(line);
 	}
 	return (SUCCESS);
 }
 
-int	read_heredoc(t_minishell *minishell, char **delimiter, int i)
+int	read_heredoc(t_minishell *minishell, char **delimiter, int *j, int i)
 {
 	int		fd[2];
-	int		j;
 
 	if (pipe(fd) == -1)
 		return (perror("pipe"), FAILURE);
 	if (!minishell->value.pipe_count)
 		save_fd();
-	j = 0;
 	g_signal = 2;
-	while (delimiter[j] && g_signal == 2)
+	while (delimiter[j[0]] && g_signal == 2)
 	{
-		if (heredoc_loop(minishell, delimiter, fd, &j))
+		if (heredoc_loop(minishell, delimiter, fd, j))
 			return (FAILURE);
+		j[1] += 1;
 	}
 	close(fd[1]);
 	if (minishell->value.pipe_count)
