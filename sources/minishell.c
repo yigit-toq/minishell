@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 17:41:40 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/09 17:50:41 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/10 13:23:54 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static void	starting(void);
 int	main(int argc, char *argv[], char *env[])
 {
 	t_minishell	*minishell;
-
 
 	(void)argv;
 	if (argc != 1)
