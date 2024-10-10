@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:42:21 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/10 17:41:00 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/10 20:04:55 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,19 +90,22 @@ void	null_heredoc_args(char **args)
 static int	delimiter_utils(t_minishell *shell, t_parser *tmp, t_parser *delim)
 {
 	int	i;
+	int	j[2];
 
 	i = 0;
-	while (i <= shell->value.pipe_count && delim)
+	ft_bzero(j, sizeof(int) * 2);
+	while (i <= shell->value.pipe_count)
 	{
 		shell->value.hrdc_fd[i] = -1;
-		if (delim && delim->args)
+		if (delim && delim->args[0])
 		{
-			if (read_heredoc(shell, delim->args, i))
+			if (read_heredoc(shell, delim->args, j, i))
 				return (FAILURE);
 		}
 		tmp = tmp->next;
 		delim = delim->next;
 		i++;
+		j[0] = 0;
 	}
 	return (SUCCESS);
 }

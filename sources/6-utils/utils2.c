@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 14:39:11 by abakirca          #+#    #+#             */
-/*   Updated: 2024/10/10 18:17:03 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/10 20:10:49 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	init_cmd_mltpl(t_parser *parser, char **cmd)
 	while (parser_tmp)
 	{
 		i = -1;
-		null_heredoc_args(parser_tmp->args);
 		while (parser_tmp->args[++i])
 		{
 			if (!ft_strcmp(parser_tmp->args[i], ">>") || !ft_strcmp(parser_tmp->args[i], ">") || !ft_strcmp(parser_tmp->args[i], "<") || !ft_strcmp(parser_tmp->args[i], "<<"))
@@ -82,10 +81,10 @@ void	init_cmd_mltpl(t_parser *parser, char **cmd)
 			else
 			{
 				cmd[j++] = ft_strdup(parser_tmp->args[i]);
-				ft_printf("cmd[%d] = %s\n", j - 1, cmd[j - 1]);
 				break;
 			}
 		}
+		null_heredoc_args(parser_tmp->args);
 			parser_tmp = parser_tmp->next;
 	}
 }

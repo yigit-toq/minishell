@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 17:08:52 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/10 18:01:59 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/10 20:04:36 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,7 @@ int			heredoc(void);
 
 int			delimiter(t_minishell *shell);
 
-int			read_heredoc(t_minishell *minishell, char **delimiter, int i);
+int			read_heredoc(t_minishell *minishell, char **delimiter, int *j, int i);
 
 int			heredoc_syntax(char **args);
 
