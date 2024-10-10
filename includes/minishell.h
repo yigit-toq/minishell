@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 17:08:52 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/09 17:45:22 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/10 18:01:59 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,6 +182,8 @@ int			read_heredoc(t_minishell *minishell, char **delimiter, int i);
 
 int			heredoc_syntax(char **args);
 
+void		null_heredoc_args(char **args);
+
 // Quotes
 
 char		*handle_quotes(const char *str);
@@ -212,6 +214,8 @@ int			err_msg(char *cmd, char *arg, char *msg);
 void		free_head(t_list **head);
 
 int			ft_size(char **args);
+
+void		init_cmd_mltpl(t_parser *parser, char **cmd);
 
 // Pipe
 

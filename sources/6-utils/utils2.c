@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 14:39:11 by abakirca          #+#    #+#             */
-/*   Updated: 2024/10/09 17:45:11 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/10 18:17:03 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,43 @@ int	ft_size(char **args)
 		i++;
 	}
 	return (size);
+}
+
+void	init_cmd_mltpl(t_parser *parser, char **cmd)
+{
+	t_parser	*parser_tmp;
+	int			i;
+	int			j;
+
+	j = 0;
+	parser_tmp = parser;
+	while (parser_tmp)
+	{
+		i = -1;
+		null_heredoc_args(parser_tmp->args);
+		while (parser_tmp->args[++i])
+		{
+			if (!ft_strcmp(parser_tmp->args[i], ">>") || !ft_strcmp(parser_tmp->args[i], ">") || !ft_strcmp(parser_tmp->args[i], "<") || !ft_strcmp(parser_tmp->args[i], "<<"))
+			{
+				i += 2;
+				if (parser_tmp->args[i] == NULL)
+				{
+					cmd[j++] = NULL;
+					continue;
+				}
+				else
+				{
+					i -= 1;
+					continue;
+				}
+			}
+			else
+			{
+				cmd[j++] = ft_strdup(parser_tmp->args[i]);
+				ft_printf("cmd[%d] = %s\n", j - 1, cmd[j - 1]);
+				break;
+			}
+		}
+			parser_tmp = parser_tmp->next;
+	}
 }
