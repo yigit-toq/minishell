@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:32:47 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/09 15:08:08 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/10 18:06:57 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ static int	single_command(t_minishell *minishell)
 	if (!cmd)
 		return (FAILURE);
 	remove_quotes(parser);
-	init_cmd(parser, cmd);
-	ft_all_lower(&cmd[0]);
+	init_cmd_mltpl(parser, cmd);
+	ft_all_lower(cmd);
 	if (check_builtin(cmd, parser, &i))
 		return (SUCCESS);
 	if (create_fork(cmd, parser))
@@ -68,7 +68,7 @@ static int	multiple_command(void)
 	if (!cmd)
 		return (FAILURE);
 	remove_quotes(parser);
-	init_cmd(parser, cmd);
+	init_cmd_mltpl(parser, cmd);
 	if (ft_pipe(cmd, parser))
 		return (FAILURE);
 	return (SUCCESS);

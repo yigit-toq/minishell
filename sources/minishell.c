@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 17:41:40 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/10 13:23:54 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/10 19:02:09 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	g_signal;
 
 static int	minishell_loop(t_minishell *minishell, int value);
 
-static void	starting(void);
+// static void	starting(void);
 
 int	main(int argc, char *argv[], char *env[])
 {
@@ -31,7 +31,7 @@ int	main(int argc, char *argv[], char *env[])
 		ft_dprintf(STD_ERROR, "minishell: too many arguments\n");
 		return (FAILURE);
 	}
-	starting();
+	// starting();
 	handle_signals();
 	disable_echo();
 	minishell = get_minishell();
@@ -103,19 +103,19 @@ static void	init_data(void)
 	minishell->fd_hl.change = 0;
 }
 
-static void	starting(void)
-{
-	ft_printf(GREEN "\033[H\033[J");
-	ft_printf("   _____   __        __        __            __   __\n");
-	ft_printf("  /     \\ |__| ____ |__| _____|  |__   ____ |  | |  |\n");
-	ft_printf(" /  \\ /  \\|  |/    \\|  |/  ___/  |  \\_/ __ \\|  | |  |\n");
-	ft_printf("/    Y    \\  |   |  \\  |\\___ \\|   Y  \\  ___/|  |_|  |__\n");
-	ft_printf("\\____|__  /__|___|  /__/____  >___|  /\\___  >____/____/\n");
-	ft_printf("        \\/        \\/        \\/     \\/     \\/\n" RESET);
-	ft_printf(BLACK "\nCREATED BY:\n");
-	ft_printf("\t\t _________________");
-	ft_printf("\n\t\t/\t\t  \\\n\t\t");
-	ft_printf("| ytop & abakirca |\n");
-	ft_printf("\t\t\\_________________/\n");
-	ft_printf("\n\n" RESET);
-}
+// static void	starting(void)
+// {
+// 	ft_printf(GREEN "\033[H\033[J");
+// 	ft_printf("   _____   __        __        __            __   __\n");
+// 	ft_printf("  /     \\ |__| ____ |__| _____|  |__   ____ |  | |  |\n");
+// 	ft_printf(" /  \\ /  \\|  |/    \\|  |/  ___/  |  \\_/ __ \\|  | |  |\n");
+// 	ft_printf("/    Y    \\  |   |  \\  |\\___ \\|   Y  \\  ___/|  |_|  |__\n");
+// 	ft_printf("\\____|__  /__|___|  /__/____  >___|  /\\___  >____/____/\n");
+// 	ft_printf("        \\/        \\/        \\/     \\/     \\/\n" RESET);
+// 	ft_printf(BLACK "\nCREATED BY:\n");
+// 	ft_printf("\t\t _________________");
+// 	ft_printf("\n\t\t/\t\t  \\\n\t\t");
+// 	ft_printf("| ytop & abakirca |\n");
+// 	ft_printf("\t\t\\_________________/\n");
+// 	ft_printf("\n\n" RESET);
+// }
