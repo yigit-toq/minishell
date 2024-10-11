@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
+/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:42:21 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/11 14:02:39 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/11 17:51:42 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	process_delimiter(t_minishell *minishell, t_parser *delim)
 	{
 		tmp->args = get_delimiters(minishell, parser->args);
 		if (!tmp->args && minishell->value.hrdc_count > 0)
-			return (ft_parser_clear(&delim, del), FAILURE);
+			return (FAILURE);
 		parser = parser->next;
 		tmp = tmp->next;
 		i++;
