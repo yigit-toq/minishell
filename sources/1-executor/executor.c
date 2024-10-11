@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
+/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:32:47 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/11 16:25:49 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/11 17:08:03 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	single_command(t_minishell *minishell)
 	if (!cmd)
 		return (FAILURE);
 	remove_quotes(parser);
-	init_cmd_mltpl(parser, cmd);
+	init_cmd(parser, cmd);
 	ft_all_lower(cmd);
 	if (check_builtin(cmd, parser, &i))
 		return (SUCCESS);
@@ -68,7 +68,7 @@ static int	multiple_command(void)
 	if (!cmd)
 		return (FAILURE);
 	remove_quotes(parser);
-	init_cmd_mltpl(parser, cmd);
+	init_cmd(parser, cmd);
 	if (ft_pipe(cmd, parser))
 		return (FAILURE);
 	return (SUCCESS);
