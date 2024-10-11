@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
+/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 17:08:52 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/11 16:25:01 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/11 17:07:51 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,6 @@ void		pipe_fork(char **cmd, t_parser *parser, int i);
 
 void		check_pid(t_minishell *minishell, t_parser *parser, pid_t *pid);
 
-void		init_cmd(t_parser *parser, char **cmd);
-
 char		*find_path(char *cmd);
 
 int			execute_command(void);
@@ -214,7 +212,7 @@ void		free_head(t_list **head);
 
 int			ft_size(char **args);
 
-void		init_cmd_mltpl(t_parser *parser, char **cmd);
+void		init_cmd(t_parser *parser, char **cmd);
 
 // Pipe
 

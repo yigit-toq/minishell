@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
+/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 14:39:11 by abakirca          #+#    #+#             */
-/*   Updated: 2024/10/11 16:18:02 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/11 17:07:07 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	ft_size(char **args)
 	return (size);
 }
 
-void	handle_redirection(char **args, int *i, char **cmd, int *j)
+static void	handle_redirection(char **args, int *i, char **cmd, int *j)
 {
 	if (args[*i] && (!ft_strcmp(args[*i], ">>") || !ft_strcmp(args[*i], ">")
 			|| !ft_strcmp(args[*i], "<") || !ft_strcmp(args[*i], "<<")))
@@ -54,7 +54,7 @@ void	handle_redirection(char **args, int *i, char **cmd, int *j)
 	}
 }
 
-void	process_args(t_parser *parser_tmp, char **cmd, int *j)
+static void	process_args(t_parser *parser_tmp, char **cmd, int *j)
 {
 	int	i;
 
