@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:43:25 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/10 17:05:16 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/11 13:15:19 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,22 @@ static void	fork_execute(t_parser *parser, char **cmd, int i)
 void	pipe_fork(char **cmd, t_parser *parser, int i)
 {
 	t_minishell	*minishell;
+	int			j;
 
 	minishell = get_minishell();
 	handle_pipe_dup(i);
 	if (check_redirect(parser->args))
+	{
+		clear_garbage();
 		exit(FAILURE);
+	}
 	ft_all_lower(&cmd[i]);
 	if (check_builtin(cmd, parser, &i))
-		exit(minishell->value.exit_code);
+	{
+		j = minishell->value.exit_code;
+		clear_garbage();
+		exit(j);
+	}
 	fork_execute(parser, cmd, i);
+	clear_garbage();
 }

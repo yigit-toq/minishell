@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 13:25:42 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/10 17:08:57 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/11 13:21:44 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int	ft_pipe(char **cmd, t_parser *parser)
 	minishell = get_minishell();
 	if (create_pipe())
 		return (FAILURE);
+	g_signal = 3;
 	while (i < minishell->value.pipe_count + 1 && tmp)
 	{
 		minishell->pid[i] = fork();

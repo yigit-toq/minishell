@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 17:41:40 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/10 19:02:09 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/11 13:08:32 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ static int	minishell_routine(t_minishell *minishell)
 			return (FAILURE);
 		if (heredoc())
 			return (2);
-		parser_update(minishell, minishell->parser, 0);
+		if (ft_strchr(minishell->line, '$'))
+			parser_update(minishell, minishell->parser, 0);
 		execute_command();
 		reset_fd();
 	}
