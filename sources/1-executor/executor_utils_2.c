@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_utils_2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
+/*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 13:56:11 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/11 16:25:35 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/11 17:08:46 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,6 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <readline/readline.h>
-
-void	init_cmd(t_parser *parser, char **cmd)
-{
-	t_parser	*parser_tmp;
-	int			i;
-
-	i = 0;
-	parser_tmp = parser;
-	while (parser_tmp)
-	{
-		if (parser_tmp->args[0])
-		{
-			cmd[i] = parser_tmp->args[0];
-			i++;
-		}
-		parser_tmp = parser_tmp->next;
-	}
-}
 
 char	*search_path(char **path_split, char *temp)
 {

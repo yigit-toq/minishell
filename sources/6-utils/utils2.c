@@ -6,7 +6,7 @@
 /*   By: ytop <ytop@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 14:39:11 by abakirca          #+#    #+#             */
-/*   Updated: 2024/10/11 17:07:07 by ytop             ###   ########.fr       */
+/*   Updated: 2024/10/11 17:09:17 by ytop             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static void	process_args(t_parser *parser_tmp, char **cmd, int *j)
 	null_heredoc_args(parser_tmp->args);
 }
 
-void	init_cmd_mltpl(t_parser *parser, char **cmd)
+void	init_cmd(t_parser *parser, char **cmd)
 {
 	t_parser	*parser_tmp;
 	int			j;
