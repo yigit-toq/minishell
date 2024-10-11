@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:39:53 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/09 15:19:04 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/11 14:31:14 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,11 @@ char	*handle_quotes(const char *str)
 	}
 	result[j] = '\0';
 	return (result);
+}
+
+t_minishell	*get_minishell(void)
+{
+	static t_minishell	minishell;
+
+	return (&minishell);
 }

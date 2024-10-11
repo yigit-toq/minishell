@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 13:56:11 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/10 19:02:23 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/11 16:25:35 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,9 @@ void	check_pid(t_minishell *minishell, t_parser *parser, pid_t *pid)
 	{
 		waitpid(*pid, &minishell->value.exit_code, 0);
 		minishell->value.exit_code = WEXITSTATUS(minishell->value.exit_code);
-		if (g_signal == 0)
+		if (minishell->value.signal == 0)
 			minishell->value.exit_code = 130;
-		else if (g_signal == 4)
+		else if (minishell->value.signal == 4)
 			minishell->value.exit_code = 131;
 		reset_fd();
 	}

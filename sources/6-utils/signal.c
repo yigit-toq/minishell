@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 17:54:23 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/09 15:20:48 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/11 16:26:49 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,25 +54,25 @@ static void	ctrl_c(int signal)
 
 	minishell = get_minishell();
 	(void)signal;
-	if (g_signal == 2)
+	if (minishell->value.signal == 2)
 	{
 		ft_printf("\033[A");
 		ioctl(0, TIOCSTI, "\n");
 	}
-	else if (g_signal == 3)
+	else if (minishell->value.signal == 3)
 	{
 		ft_printf("\n");
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		minishell->value.exit_code = 130;
-		g_signal = 0;
+		minishell->value.signal = 0;
 		return ;
 	}
 	else
 	{
 		ctrl_c_utils();
 	}
-	g_signal = 1;
+	minishell->value.signal = 1;
 }
 
 static void	ctrl_bs(int signal)
@@ -81,13 +81,13 @@ static void	ctrl_bs(int signal)
 
 	minishell = get_minishell();
 	(void)signal;
-	if (g_signal == 3)
+	if (minishell->value.signal == 3)
 	{
 		ft_printf("Quit: 3\n");
 		rl_on_new_line();
 		ft_printf("\033[K");
 		minishell->value.exit_code = 131;
-		g_signal = 4;
+		minishell->value.signal = 4;
 	}
 	else
 	{

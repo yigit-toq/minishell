@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 17:08:52 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/10 20:04:36 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/11 16:25:01 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@
 # define ERR_TITLE	"minishell: "
 # define PROMPT		"minishell> "
 
-extern int	g_signal;
-
 typedef struct s_fd
 {
 	int		change;
@@ -67,6 +65,7 @@ typedef struct s_value
 	int		exit_code;
 	int		status;
 	int		sign;
+	int		signal;
 }			t_value;
 
 typedef struct s_minishell
@@ -148,7 +147,7 @@ t_list		*search_env(t_minishell *minishell, char *key);
 
 void		get_env(t_minishell *minishell, char **result, char **str, int *i);
 
-void		env_to_list(char *env[]);
+void		env_to_list(char **env);
 
 void		print_env(void);
 
@@ -178,7 +177,7 @@ int			heredoc(void);
 
 int			delimiter(t_minishell *shell);
 
-int			read_heredoc(t_minishell *minishell, char **delimiter, int *j, int i);
+int			read_heredoc(t_minishell *shell, char **delimiter, int *j, int i);
 
 int			heredoc_syntax(char **args);
 
