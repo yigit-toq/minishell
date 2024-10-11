@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 13:25:42 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/11 13:21:44 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/11 17:03:00 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	create_pipe(void)
 	return (SUCCESS);
 }
 
-int	close_fd(void)
+static int	close_fd(void)
 {
 	t_minishell	*minishell;
 	int			i;
@@ -59,6 +59,26 @@ int	close_fd(void)
 	return (SUCCESS);
 }
 
+static void	free_hrdc_fd(void)
+{
+	t_minishell	*minishell;
+	int			i;
+
+	i = 0;
+	minishell = get_minishell();
+	if (minishell->value.hrdc_count > 0 && minishell->value.hrdc_fd)
+	{
+		while (minishell->value.hrdc_fd[i] && i < minishell->value.hrdc_count)
+		{
+			if (minishell->value.hrdc_fd[i] != -1)
+				close(minishell->value.hrdc_fd[i]);
+			i++;
+		}
+	}
+	gfree(minishell->value.hrdc_fd);
+	reset_fd();
+}
+
 int	ft_pipe(char **cmd, t_parser *parser)
 {
 	t_minishell	*minishell;
@@ -70,7 +90,7 @@ int	ft_pipe(char **cmd, t_parser *parser)
 	minishell = get_minishell();
 	if (create_pipe())
 		return (FAILURE);
-	g_signal = 3;
+	minishell->value.signal = 3;
 	while (i < minishell->value.pipe_count + 1 && tmp)
 	{
 		minishell->pid[i] = fork();
@@ -82,6 +102,6 @@ int	ft_pipe(char **cmd, t_parser *parser)
 		i++;
 	}
 	if (minishell->value.hrdc_count > 0 && minishell->value.hrdc_fd)
-		gfree(minishell->value.hrdc_fd);
+		free_hrdc_fd();
 	return (close_fd());
 }

@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:43:25 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/11 13:15:19 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/11 16:41:14 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static void	handle_heredoc_dup(int i)
 			perror("dup2");
 			exit(EXIT_FAILURE);
 		}
-		close(minishell->value.hrdc_fd[i]);
 	}
 	else if (i != 0)
 	{
@@ -89,6 +88,12 @@ void	pipe_fork(char **cmd, t_parser *parser, int i)
 	t_minishell	*minishell;
 	int			j;
 
+	if (!ft_strcmp(cmd[i], "0"))
+	{
+		rl_clear_history();
+		clear_garbage();
+		exit(127);
+	}
 	minishell = get_minishell();
 	handle_pipe_dup(i);
 	if (check_redirect(parser->args))
@@ -96,7 +101,7 @@ void	pipe_fork(char **cmd, t_parser *parser, int i)
 		clear_garbage();
 		exit(FAILURE);
 	}
-	ft_all_lower(&cmd[i]);
+	ft_all_lower(cmd);
 	if (check_builtin(cmd, parser, &i))
 	{
 		j = minishell->value.exit_code;

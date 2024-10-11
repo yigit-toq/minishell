@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:18:53 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/09 15:21:34 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/11 13:48:35 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	reset_fd(void)
 		minishell->fd_hl.change = 0;
 		dup2(minishell->fd_hl.std_in, STD_INPUT);
 		dup2(minishell->fd_hl.std_out, STD_OUTPUT);
+		close(minishell->fd_hl.std_in);
+		close(minishell->fd_hl.std_out);
 	}
 }
 

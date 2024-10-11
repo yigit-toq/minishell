@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:32:47 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/10 18:06:57 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/11 16:25:49 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	create_fork(char **cmd, t_parser *parser)
 		minishell->path = find_path(cmd[0]);
 	else
 		minishell->path = cmd[0];
-	g_signal = 3;
+	minishell->value.signal = 3;
 	pid = fork();
 	if (pid < 0)
 	{
@@ -95,6 +95,6 @@ int	create_fork(char **cmd, t_parser *parser)
 	check_pid(minishell, parser, &pid);
 	if (minishell->value.sign)
 		gfree(minishell->path);
-	g_signal = 0;
+	minishell->value.signal = 0;
 	return (SUCCESS);
 }
