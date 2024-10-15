@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:26:37 by abakirca          #+#    #+#             */
-/*   Updated: 2024/10/09 15:17:28 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/15 12:57:48 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ void	export(t_minishell *minishell, char **args)
 	char	*key;
 	int		i;
 
-	minishell->value.exit_code = 0;
 	if (export_no_args(args, minishell))
 		return ;
 	i = 0;
