@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 13:25:42 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/11 17:03:00 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/15 13:18:04 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,10 @@ static int	close_fd(void)
 		minishell->value.exit_code = WEXITSTATUS(minishell->value.exit_code);
 		i++;
 	}
+	if (minishell->value.signal == 0)
+		minishell->value.exit_code = 130;
+	else if (minishell->value.signal == 4)
+		minishell->value.exit_code = 131;
 	gfree(minishell->pid);
 	gfree(minishell->value.pipe_fd);
 	return (SUCCESS);
