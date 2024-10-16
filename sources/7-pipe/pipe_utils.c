@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:43:25 by ytop              #+#    #+#             */
-/*   Updated: 2024/10/11 16:41:14 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/10/16 14:41:42 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,18 +88,18 @@ void	pipe_fork(char **cmd, t_parser *parser, int i)
 	t_minishell	*minishell;
 	int			j;
 
-	if (!ft_strcmp(cmd[i], "0"))
-	{
-		rl_clear_history();
-		clear_garbage();
-		exit(127);
-	}
 	minishell = get_minishell();
 	handle_pipe_dup(i);
 	if (check_redirect(parser->args))
 	{
 		clear_garbage();
 		exit(FAILURE);
+	}
+	if (!ft_strcmp(cmd[i], "0"))
+	{
+		rl_clear_history();
+		clear_garbage();
+		exit(127);
 	}
 	ft_all_lower(cmd);
 	if (check_builtin(cmd, parser, &i))
